@@ -137,7 +137,7 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 **Exit criteria:** ✅ DONE 2026-09-13: real question → hybrid retrieval (351 ms) → streamed grounded answer with 3 valid citations, 0 invalid. Timings: first_token 7.05 s (dominated by ~2k-token context ingestion — optimization target for Phase 4), total 9.3 s. Known polish item: model sometimes echoes the citation list ("[1] [4] [7]") as its first line — prompt tweak in Phase 2, not blocking.
 
 ### Phase 2 — Eval harness v1 (target: 3–4 sessions) ⭐ differentiator
-- [ ] Eval sets (see §6): answerable (100), unanswerable/refusal (50)
+- [~] Eval sets (see §6): answerable (100, seed 42, from qrels — `scripts/build_eval_sets.py`), unanswerable (50 authored, 18 domains — `data/eval/unanswerable.jsonl`). Adversarial (20) authored later.
 - [ ] Metrics, hand-rolled first:
   - [ ] Citation accuracy: fraction of citations that are relevant docs (vs qrels)
   - [ ] Faithfulness: claim-level check — extract claims, verify each against cited docs (LLM-as-judge with a rubric; judge = same local model, temp 0)
