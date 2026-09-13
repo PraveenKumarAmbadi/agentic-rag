@@ -1,0 +1,61 @@
+# Centralized configuration for the Agentic RAG research assistant.
+# Paths are relative to the repository root (run all scripts from there).
+
+data:
+  corpus_path: data/scifact/corpus.jsonl
+  queries_path: data/scifact/queries.jsonl
+  qrels_path: data/scifact/qrels/test.tsv
+
+elasticsearch:
+  host: localhost
+  port: 9200
+
+bm25:
+  index_name: scifact_bm25
+
+splade:
+  index_name: scifact_splade
+  model_name: naver/splade-cocondenser-ensembledistil
+  top_k: 256
+  batch_size: 32
+  max_seq_length: 512
+
+dense:
+  index_path: indexes/scifact_dense.faiss
+  ids_path: indexes/scifact_dense_ids.json
+  model_name: sentence-transformers/all-MiniLM-L6-v2
+  batch_size: 64
+  max_seq_length: 512
+  hnsw:
+    M: 16
+    ef_construction: 200
+
+fusion:
+  rrf_k: 60
+
+reranker:
+  model_name: BAAI/bge-reranker-base
+  max_seq_length: 512
+  batch_size: 16
+
+llm:
+  provider: ollama                # ollama | openai-compatible
+  base_url: http://localhost:11434
+  model: qwen2.5:7b-instruct
+  temperature: 0.1
+  max_tokens: 1024
+  # judge model for LLM-as-judge evals (kept separate so you can swap it)
+  judge_model: qwen2.5:7b-instruct
+  judge_temperature: 0.0
+
+agent:
+  max_iterations: 4               # max tool-call rounds per question
+  max_retries: 2                  # max self-critique retries
+  per_method_top_k: 100
+  top_k: 10                       # docs passed to the LLM after rerank
+
+eval:
+  answerable_path: data/eval/answerable.jsonl
+  unanswerable_path: data/eval/unanswerable.jsonl
+  adversarial_path: data/eval/adversarial.jsonl
+  results_dir: results/

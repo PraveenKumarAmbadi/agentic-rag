@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+
+# IDEs / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Environment / secrets
+.env
+.env.local
+
+# Data & generated artifacts (regenerate instead of committing)
+data/
+indexes/
+models/
+*.faiss
+*.log
+
+# Notebooks and notes
+*.ipynb
+Commands.txt
