@@ -187,6 +187,7 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
 | Risk | Mitigation |
 |---|---|
+| **System RAM OOM during eval runs** | Default WSL RAM (50% = 7.6 GB) is not enough for Ollama (7B ≈ 4.3 GB host RAM) + the torch eval process (~3 GB) — Linux OOM-killed Ollama twice (2026-09-13). **Eval procedure:** temporarily create `C:\Users\<user>\.wslconfig` with `[wsl2]` / `memory=12GB` / `swap=4GB` / `autoMemoryReclaim=gradual`, run `wsl --shutdown` from PowerShell, restart, run the eval, then delete the file and restart again. Serving the API alone works at default RAM. |
 | 8 GB VRAM can't fit LLM + encoders | 3–4B model; CPU-offload reranker during LLM calls; measure actual VRAM in Phase 0 and record in §8 |
 | Local 7B model is weak at strict citation format | Few-shot prompt; retry-on-parse-fail; lower temperature; if still bad, that itself is a documented finding |
 | LLM-as-judge is biased by same model | Cross-check a sample with RAGAS + a different judge model; keep judge rubric in repo |
@@ -203,18 +204,21 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 - [x] This planning doc created
 - [x] Phase 0 scaffold — server streams from local LLM; env: Ollama + qwen2.5:7b-instruct on RTX 5050, reusing `~/.venvs/rag-hybrid-retrieval` venv (all deps already present, nothing new installed)
 - [x] Phase 1 generation — retrieval-wired `/answer` with validated citations; first commit pushed to local repo
-- [ ] Phase 2 evals (baseline numbers)
+- [x] Phase 2 evals — runner built (`evaluation/evaluate_rag.py`), baseline captured:
+  false_refusal 0.69, citation_precision 0.3133, unanswerable refusal 1.0 (see §8)
 - [ ] Phase 3 agent loop
 - [ ] Phase 4 guardrails + cost
 - [ ] Phase 5 benchmark + README
 
 **Measured facts (fill as they're learned):**
 - VRAM, LLM only (7B Q4 loaded): 5447 MiB / 8192 MiB — ~2.7 GB headroom for SPLADE + BGE; if tight, CPU-offload reranker
-- VRAM with LLM + SPLADE + dense encoders loaded: TBD (Phase 1 stack boots without OOM)
-- First-token latency, LLM-only path: 163 ms
-- Phase 1 RAG path: retrieval 351 ms, first_token 7.05 s (context ingestion dominates), total 9.3 s
-- Baseline faithfulness (Phase 2): _TBD_
+- System RAM: WSL raised to 12 GB temporarily for eval runs (default 7.6 GB OOM-killed Ollama — see §7 for the raise/lower procedure; reverted after baseline was captured)
+- Phase 1 RAG path (single query): retrieval 351 ms, first_token 7.05 s cold, total 9.3 s
+- **BASELINE (Phase 1 pipeline, frozen eval sets, 2026-09-14, results/baseline_phase1_*.json):**
+  - Answerable (100): citation_precision **0.3133**, false_refusal_rate **0.69**, retrieval_hit_rate 0.87, invalid_citation_rate 0.0, p50 2.26 s, p95 3.38 s
+  - Unanswerable (50): refusal_correctness **1.0**, p50 2.03 s, p95 2.50 s
+  - Key failure transcript: "Rapamycin … triacylglycerols in fruit flies" — gold doc WAS in context, model still refused → generation-side failure, not retrieval
 - Agent faithfulness (Phase 3): _TBD_
 - p95 latency, uncached vs cached: _TBD_
 
-**Next action:** Phase 2 — author the eval sets (answerable 100 / unanswerable 50), build `evaluation/evaluate_rag.py`, capture baseline numbers BEFORE the agent loop.
+**Next action:** Phase 3 — agent loop targeting the baseline's failure mode: 69% false refusals while unanswerable refusal is already 1.0. Self-critique must lower false refusals WITHOUT dropping unanswerable refusal below baseline.

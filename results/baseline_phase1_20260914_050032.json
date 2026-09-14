@@ -1,0 +1,4859 @@
+{
+  "tag": "baseline_phase1",
+  "summary": {
+    "answerable": {
+      "n": 100,
+      "p50_total_ms": 2255.8,
+      "p95_total_ms": 3380.7,
+      "citation_precision": 0.3133,
+      "false_refusal_rate": 0.69,
+      "retrieval_hit_rate": 0.87,
+      "invalid_citation_rate": 0
+    },
+    "unanswerable": {
+      "n": 50,
+      "p50_total_ms": 2026.4,
+      "p95_total_ms": 2500.6,
+      "refusal_correctness": 1
+    }
+  },
+  "results": {
+    "answerable": [
+      {
+        "query_id": "1014",
+        "topic": "",
+        "question": "Rapamycin decreases the concentration of triacylglycerols in fruit flies.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "6277638"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "6277638"
+        ],
+        "retrieved_doc_ids": [
+          "6277638",
+          "1227277",
+          "17195001",
+          "4658268",
+          "4324278",
+          "10482574",
+          "2266471",
+          "14874811",
+          "116792",
+          "10790846"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the effect of rapamycin on triacylglycerol concentrations in fruit flies.",
+        "timings": {
+          "retrieval_ms": 434.0,
+          "first_token_ms": 13624.9,
+          "total_ms": 14193.9
+        }
+      },
+      {
+        "query_id": "1029",
+        "topic": "",
+        "question": "Reduced responsiveness to interleukin-2 in regulatory T cells is associated with greater resistance to autoimmune diseases such as Type 1 Diabetes.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "11899391",
+          "13923140",
+          "13940200"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "11899391",
+          "13923140",
+          "13940200"
+        ],
+        "retrieved_doc_ids": [
+          "11899391",
+          "13923140",
+          "2388819",
+          "7115651",
+          "13940200",
+          "23342845",
+          "22852120",
+          "36642096",
+          "1855679",
+          "24069089"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide direct evidence linking reduced responsiveness to interleukin-2 in regulatory T cells with greater resistance to autoimmune diseases such as Type 1 Diabetes. The documents discuss the role of IL-2 in Treg function and its association with Type 1 Diabetes, but do not establish a causal link between reduced IL-2 responsiveness and resistance to autoimmune diseases.",
+        "timings": {
+          "retrieval_ms": 403.6,
+          "first_token_ms": 1703.4,
+          "total_ms": 3187.7
+        }
+      },
+      {
+        "query_id": "1062",
+        "topic": "",
+        "question": "S-nitrosylated GAPDH physiologically transnitrosylates histone deacetylases.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "20381484"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "20381484"
+        ],
+        "retrieved_doc_ids": [
+          "20381484",
+          "25748308",
+          "2831620",
+          "502591",
+          "43156471",
+          "32985041",
+          "32638085",
+          "665817",
+          "2139357",
+          "22968257"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about S-nitrosylated GAPDH physiologically transnitrosylating histone deacetylases. Documents discuss S-nitrosylation of proteins, roles of GAPDH and HDACs, but there is no evidence of transnitrosylation between these specific proteins.",
+        "timings": {
+          "retrieval_ms": 118.5,
+          "first_token_ms": 1363.1,
+          "total_ms": 2682.3
+        }
+      },
+      {
+        "query_id": "1086",
+        "topic": "",
+        "question": "Sildenafil improves erectile function in men who experience sexual dysfunction as a result of the use of SSRI antidepressants.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "39281140"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "39281140"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "39281140"
+        ],
+        "retrieved_doc_ids": [
+          "39281140",
+          "3981244",
+          "6112053",
+          "6083952",
+          "33533307",
+          "8520041",
+          "13883546",
+          "14606752",
+          "24082820",
+          "5835149"
+        ],
+        "answer_text": "[1] This randomized controlled trial found that sildenafil citrate was effective in improving erectile function in men with sexual dysfunction associated with selective serotonin reuptake inhibitor (SSRI) antidepressant treatment [1].",
+        "timings": {
+          "retrieval_ms": 102.4,
+          "first_token_ms": 1313.2,
+          "total_ms": 2060.0
+        }
+      },
+      {
+        "query_id": "1088",
+        "topic": "",
+        "question": "Silencing of Bcl2 is important for the maintenance and progression of tumors.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "37549932"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "37549932"
+        ],
+        "retrieved_doc_ids": [
+          "14863011",
+          "3730196",
+          "37549932",
+          "3559136",
+          "11915280",
+          "5765455",
+          "3840043",
+          "33638477",
+          "4323425",
+          "18682109"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide direct evidence that silencing of Bcl2 is important for the maintenance and progression of tumors. Some documents discuss the role of BCL2 in various contexts, such as melanoma, leukemia, and lung cancer, but do not specifically address the impact of its silencing on tumor maintenance and progression.",
+        "timings": {
+          "retrieval_ms": 73.7,
+          "first_token_ms": 1316.0,
+          "total_ms": 2627.3
+        }
+      },
+      {
+        "query_id": "1089",
+        "topic": "",
+        "question": "Smc5/6 engagment drives the activation of SUMO E3 ligase Mms21 by ATP-dependent remolding.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "17628888"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "17628888"
+        ],
+        "retrieved_doc_ids": [
+          "17628888",
+          "7915836",
+          "23577014",
+          "143251",
+          "21948782",
+          "7645565",
+          "86231298",
+          "9732010",
+          "6784372",
+          "28809022"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on whether Smc5/6 engagement drives the activation of the SUMO E3 ligase Mms21 through ATP-dependent remodeling.",
+        "timings": {
+          "retrieval_ms": 132.9,
+          "first_token_ms": 1439.5,
+          "total_ms": 2190.7
+        }
+      },
+      {
+        "query_id": "1099",
+        "topic": "",
+        "question": "Statins decrease blood cholesterol.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "21557614"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "7662206"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "7662206"
+        ],
+        "retrieved_doc_ids": [
+          "21557614",
+          "7662206",
+          "24005548",
+          "7454794",
+          "22420524",
+          "5698494",
+          "1287809",
+          "1522336",
+          "9617381",
+          "33118292"
+        ],
+        "answer_text": "Statins decrease blood cholesterol [1].",
+        "timings": {
+          "retrieval_ms": 90.6,
+          "first_token_ms": 1282.4,
+          "total_ms": 1433.1
+        }
+      },
+      {
+        "query_id": "1100",
+        "topic": "",
+        "question": "Statins increase blood cholesterol.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "7662206"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "7662206"
+        ],
+        "retrieved_doc_ids": [
+          "21557614",
+          "7662206",
+          "24005548",
+          "22420524",
+          "1287809",
+          "7454794",
+          "5698494",
+          "40156901",
+          "1522336",
+          "4687948"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about statins increasing blood cholesterol.",
+        "timings": {
+          "retrieval_ms": 64.0,
+          "first_token_ms": 887.0,
+          "total_ms": 1263.5
+        }
+      },
+      {
+        "query_id": "1104",
+        "topic": "",
+        "question": "Stroke patients with prior use of direct oral anticoagulants have a lower risk of in-hospital mortality than stroke patients with prior use of warfarin.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "3898784"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "3898784"
+        ],
+        "retrieved_doc_ids": [
+          "3898784",
+          "4910408",
+          "6158879",
+          "16760369",
+          "11718220",
+          "20554003",
+          "32328114",
+          "16180601",
+          "9813098",
+          "37065914"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information comparing in-hospital mortality rates between stroke patients with prior use of direct oral anticoagulants and those with prior use of warfarin.",
+        "timings": {
+          "retrieval_ms": 91.1,
+          "first_token_ms": 1266.4,
+          "total_ms": 2041.5
+        }
+      },
+      {
+        "query_id": "1107",
+        "topic": "",
+        "question": "Subcutaneous fat depots undergo extensive browning processes after cold exposure.",
+        "refusal": true,
+        "cited_doc_ids": [
+          "20532591",
+          "29381091"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "20532591"
+        ],
+        "citation_precision": 0.5,
+        "gold_doc_ids_retrieved": [
+          "20532591"
+        ],
+        "retrieved_doc_ids": [
+          "20532591",
+          "29381091",
+          "14865329",
+          "26902591",
+          "32955023",
+          "4319174",
+          "970012",
+          "27686445",
+          "79447",
+          "13000926"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information about subcutaneous fat depots undergoing extensive browning processes after cold exposure. Documents [1] and [2] discuss browning in subcutaneous fat, but do not explicitly state that it undergoes extensive browning processes after cold exposure.",
+        "timings": {
+          "retrieval_ms": 75.7,
+          "first_token_ms": 1228.5,
+          "total_ms": 2382.0
+        }
+      },
+      {
+        "query_id": "1121",
+        "topic": "",
+        "question": "Synaptic activity enhances local release of brain derived neurotrophic factor from postsynaptic dendrites.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "4456756"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "4456756"
+        ],
+        "retrieved_doc_ids": [
+          "4456756",
+          "10009203",
+          "10790846",
+          "19571273",
+          "12932176",
+          "16398827",
+          "23076291",
+          "3825472",
+          "17123316",
+          "24881307"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the local release of BDNF from postsynaptic dendrites in response to synaptic activity.",
+        "timings": {
+          "retrieval_ms": 82.3,
+          "first_token_ms": 1282.0,
+          "total_ms": 1897.2
+        }
+      },
+      {
+        "query_id": "1130",
+        "topic": "",
+        "question": "T regulatory cells (tTregs) lacking \u03b1v\u03b28 are more adept at suppressing pathogenic T-cell responses during active inflammation.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "17997584"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "17997584"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "17997584"
+        ],
+        "retrieved_doc_ids": [
+          "17997584",
+          "14644164",
+          "7399084",
+          "6913227",
+          "20311968",
+          "19005293",
+          "36216395",
+          "4418070",
+          "1550937",
+          "10359591"
+        ],
+        "answer_text": "[1]",
+        "timings": {
+          "retrieval_ms": 96.6,
+          "first_token_ms": 1319.1,
+          "total_ms": 1375.4
+        }
+      },
+      {
+        "query_id": "1140",
+        "topic": "",
+        "question": "Taking 400mg of \u03b1-tocopheryl acetate helps to prevent prostate cancer.",
+        "refusal": true,
+        "cited_doc_ids": [
+          "12009265"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "12009265"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "12009265"
+        ],
+        "retrieved_doc_ids": [
+          "12009265",
+          "308862",
+          "25513319",
+          "8702697",
+          "36432234",
+          "24581365",
+          "18473550",
+          "27167110",
+          "22180793",
+          "6790197"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the effectiveness of \u03b1-tocopheryl acetate (a form of vitamin E) in preventing prostate cancer. Documents [1] discuss the effects of vitamins E and C on prostate cancer but do not provide specific results for \u03b1-tocopheryl acetate at 400mg dosage.",
+        "timings": {
+          "retrieval_ms": 85.3,
+          "first_token_ms": 1306.0,
+          "total_ms": 2698.1
+        }
+      },
+      {
+        "query_id": "1197",
+        "topic": "",
+        "question": "The availability of safe places to study is not effective at decreasing homelessness.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "25649714"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "25649714"
+        ],
+        "retrieved_doc_ids": [
+          "31019903",
+          "154243324",
+          "33135135",
+          "28806780",
+          "10749308",
+          "25649714",
+          "20334484",
+          "6129301",
+          "8780599",
+          "8593263"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information regarding the effectiveness of safe places to study in decreasing homelessness.",
+        "timings": {
+          "retrieval_ms": 113.4,
+          "first_token_ms": 1221.1,
+          "total_ms": 1695.4
+        }
+      },
+      {
+        "query_id": "1199",
+        "topic": "",
+        "question": "The benefits of colchicine were achieved with effective widespread use of secondary prevention strategies such as high-dose statins.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "16760369"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "7454794",
+          "21557614",
+          "5698494",
+          "40156901",
+          "4687948",
+          "35534019",
+          "1522336",
+          "2522977",
+          "1287809",
+          "22420524"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information about colchicine or its benefits in relation to statins or secondary prevention strategies.",
+        "timings": {
+          "retrieval_ms": 89.8,
+          "first_token_ms": 1239.8,
+          "total_ms": 1827.3
+        }
+      },
+      {
+        "query_id": "1202",
+        "topic": "",
+        "question": "The center of the granuloma in an immune cell induces a pro-inflammatory immune response.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "3475317"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "3475317"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "3475317"
+        ],
+        "retrieved_doc_ids": [
+          "3475317",
+          "34615397",
+          "21258863",
+          "24707550",
+          "44562221",
+          "9225850",
+          "16066726",
+          "4391121",
+          "3330111",
+          "1049501"
+        ],
+        "answer_text": "[1] The centers of granulomas have a pro-inflammatory environment characterized by the presence of antimicrobial peptides, reactive oxygen species and pro-inflammatory eicosanoids. [1]",
+        "timings": {
+          "retrieval_ms": 74.6,
+          "first_token_ms": 1358.7,
+          "total_ms": 2036.7
+        }
+      },
+      {
+        "query_id": "1204",
+        "topic": "",
+        "question": "The combination of H3K4me3 and H3K79me2 is found in quiescent hair follicle stem cells.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "31141365"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "31141365"
+        ],
+        "retrieved_doc_ids": [
+          "31141365",
+          "3669694",
+          "6455142",
+          "15907458",
+          "8548635",
+          "2701077",
+          "16660256",
+          "9675944",
+          "6826100",
+          "17702490"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the specific combination of H3K4me3 and H3K79me2 in quiescent hair follicle stem cells.",
+        "timings": {
+          "retrieval_ms": 85.1,
+          "first_token_ms": 1460.6,
+          "total_ms": 2232.3
+        }
+      },
+      {
+        "query_id": "1216",
+        "topic": "",
+        "question": "The extracellular domain of TMEM27 is cleaved in human beta cells.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "24142891"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "24142891"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "24142891"
+        ],
+        "retrieved_doc_ids": [
+          "24142891",
+          "38485364",
+          "31107919",
+          "19603353",
+          "20943272",
+          "8219248",
+          "19828689",
+          "31682248",
+          "17695748",
+          "6913227"
+        ],
+        "answer_text": "[1] The extracellular domain of Tmem27 (TMEM27) is cleaved and shed from the plasma membrane of beta cells [1].",
+        "timings": {
+          "retrieval_ms": 71.9,
+          "first_token_ms": 1402.9,
+          "total_ms": 2037.9
+        }
+      },
+      {
+        "query_id": "1225",
+        "topic": "",
+        "question": "The locus rs647161 is associated with colorectal carcinoma.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "9650982"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "9650982"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "9650982"
+        ],
+        "retrieved_doc_ids": [
+          "9650982",
+          "43334921",
+          "11861374",
+          "42731834",
+          "14315749",
+          "36399107",
+          "14729253",
+          "21181273",
+          "7165938",
+          "3590806"
+        ],
+        "answer_text": "The locus rs647161 (5q31.1) is associated with colorectal cancer [1]. This SNP was identified in a genome-wide association study in East Asians and replicated in a study conducted in individuals of European descent [1].",
+        "timings": {
+          "retrieval_ms": 76.8,
+          "first_token_ms": 1466.6,
+          "total_ms": 2440.5
+        }
+      },
+      {
+        "query_id": "124",
+        "topic": "",
+        "question": "Antiretroviral therapy reduces rates of tuberculosis across a broad range of CD4 strata.",
+        "refusal": true,
+        "cited_doc_ids": [
+          "4883040",
+          "32012666"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "4883040"
+        ],
+        "citation_precision": 0.5,
+        "gold_doc_ids_retrieved": [
+          "4883040"
+        ],
+        "retrieved_doc_ids": [
+          "4883040",
+          "7111021",
+          "31363207",
+          "21479231",
+          "14319754",
+          "13899137",
+          "32012666",
+          "17077004",
+          "1986482",
+          "21878751"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information on the impact of antiretroviral therapy (ART) across different CD4 strata on tuberculosis incidence. Documents [1] and [7] discuss the relationship between ART and tuberculosis but do not detail the effectiveness across various CD4 cell count levels.",
+        "timings": {
+          "retrieval_ms": 84.0,
+          "first_token_ms": 1405.2,
+          "total_ms": 2602.5
+        }
+      },
+      {
+        "query_id": "1241",
+        "topic": "",
+        "question": "The myocardial lineage develops from cardiac progenitors of mesodermal origin.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "4427392"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "6148876",
+          "2828460",
+          "32797183",
+          "14296612",
+          "39164524",
+          "2973910",
+          "14060030",
+          "22530842",
+          "3619372",
+          "4932668"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information about the origin of myocardial lineage cells. They discuss various cell types and their origins but do not explicitly state the origin of myocardial lineage cells.",
+        "timings": {
+          "retrieval_ms": 71.6,
+          "first_token_ms": 1264.3,
+          "total_ms": 2076.7
+        }
+      },
+      {
+        "query_id": "1262",
+        "topic": "",
+        "question": "The repair of Cas9-induced double strand breaks in human DNA is error-prone.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "44172171"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "44172171"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "44172171"
+        ],
+        "retrieved_doc_ids": [
+          "44172171",
+          "21561474",
+          "20420780",
+          "4401289",
+          "12552297",
+          "28904104",
+          "22937815",
+          "30122260",
+          "5765455",
+          "8577229"
+        ],
+        "answer_text": "[1] indicates that the repair of Cas9-induced double-strand breaks (DSBs) in human cells is error-prone. Both classical and microhomology-mediated end joining pathways contribute to the erroneous repair, with estimation of their individual rate constants showing that the balance between these two pathways changes over time. [1]",
+        "timings": {
+          "retrieval_ms": 86.1,
+          "first_token_ms": 1289.6,
+          "total_ms": 2475.0
+        }
+      },
+      {
+        "query_id": "1266",
+        "topic": "",
+        "question": "The risk of breast cancer among parous women increases with placental weight of pregnancies, and this association is strongest for premenopausal breast cancer.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "37480103"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "37480103"
+        ],
+        "retrieved_doc_ids": [
+          "13765757",
+          "37480103",
+          "13831842",
+          "27123743",
+          "25973484",
+          "17450673",
+          "16322674",
+          "32534305",
+          "22007333",
+          "16098747"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information on the association between placental weight and breast cancer risk among parous women, particularly focusing on premenopausal breast cancer.",
+        "timings": {
+          "retrieval_ms": 93.9,
+          "first_token_ms": 1335.0,
+          "total_ms": 2052.9
+        }
+      },
+      {
+        "query_id": "127",
+        "topic": "",
+        "question": "Arginine 90 in p150n is important for interaction with EB1.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "21598000"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "21598000"
+        ],
+        "retrieved_doc_ids": [
+          "21598000",
+          "35231675",
+          "38623601",
+          "293661",
+          "18126445",
+          "43048059",
+          "1320137",
+          "2727303",
+          "1546650",
+          "10423989"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the specific role of arginine 90 in p150n or its interaction with EB1.",
+        "timings": {
+          "retrieval_ms": 61.3,
+          "first_token_ms": 1350.7,
+          "total_ms": 2053.4
+        }
+      },
+      {
+        "query_id": "1270",
+        "topic": "",
+        "question": "The risk of male prisoners harming themselves is ten times that of female prisoners.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13900610"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "13900610"
+        ],
+        "retrieved_doc_ids": [
+          "13900610",
+          "14843502",
+          "20491205",
+          "34227917",
+          "9976969",
+          "43855756",
+          "52072815",
+          "70633421",
+          "25806385",
+          "25690564"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information comparing the self-harm rates between male and female prisoners.",
+        "timings": {
+          "retrieval_ms": 89.3,
+          "first_token_ms": 1392.1,
+          "total_ms": 1864.8
+        }
+      },
+      {
+        "query_id": "1273",
+        "topic": "",
+        "question": "The sliding activity of kinesin-8 protein Kip3 promotes bipolar spindle assembly.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "11041152"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "11041152"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "11041152"
+        ],
+        "retrieved_doc_ids": [
+          "11041152",
+          "1889358",
+          "24555417",
+          "6472746",
+          "1684489",
+          "21250322",
+          "30835854",
+          "493346",
+          "14205246",
+          "22405338"
+        ],
+        "answer_text": "The sliding activity of kinesin-8 protein Kip3 promotes bipolar spindle assembly [1]. This activity was identified through the identification of complementary Kip3 mutants that separate the sliding activity and microtubule-destabilizing activity. In conjunction with Cin8, a kinesin-5 family member, the sliding activity of Kip3 promotes spindle assembly and spindle length control.",
+        "timings": {
+          "retrieval_ms": 71.2,
+          "first_token_ms": 1433.1,
+          "total_ms": 2875.7
+        }
+      },
+      {
+        "query_id": "1274",
+        "topic": "",
+        "question": "The tip of the inner tube of the toxic type VI secretion system (T6SS) antibacterial effector in Escherichia coli (E. coli) carries toxic effector proteins.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "12428814",
+          "27731651",
+          "4406819"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "12428814",
+          "27731651",
+          "4406819"
+        ],
+        "retrieved_doc_ids": [
+          "4406819",
+          "27731651",
+          "7481159",
+          "12428814",
+          "7145763",
+          "22632303",
+          "23440856",
+          "6836086",
+          "26625002",
+          "1320137"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain specific information about the tip of the inner tube of the T6SS antibacterial effector in E. coli. Documents discuss the general structure and function of T6SS but do not provide details about the specific components of the inner tube in E. coli.",
+        "timings": {
+          "retrieval_ms": 93.1,
+          "first_token_ms": 1526.1,
+          "total_ms": 2702.3
+        }
+      },
+      {
+        "query_id": "1281",
+        "topic": "",
+        "question": "The ureABIEFGH gene cluster is induced by nickel (II) ion.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "4387784"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "29214508",
+          "36233757",
+          "25657127",
+          "38805486",
+          "37768883",
+          "23269537",
+          "21601459",
+          "15593561",
+          "22843616",
+          "10086360"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the induction of the ureABIEFGH gene cluster by nickel (II) ions.",
+        "timings": {
+          "retrieval_ms": 518.6,
+          "first_token_ms": 1981.5,
+          "total_ms": 2588.7
+        }
+      },
+      {
+        "query_id": "1282",
+        "topic": "",
+        "question": "Therapeutic use of the drug Dapsone to treat pyoderma gangrenous is based on anecdotal evidence.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "23649163"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "23649163"
+        ],
+        "retrieved_doc_ids": [
+          "23649163",
+          "44265107",
+          "22482820",
+          "25895285",
+          "24700152",
+          "21009874",
+          "3831884",
+          "27024392",
+          "19532163",
+          "5704562"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding the therapeutic use of Dapsone for treating pyoderma gangrenosum or any related conditions.",
+        "timings": {
+          "retrieval_ms": 60.1,
+          "first_token_ms": 1442.9,
+          "total_ms": 2117.2
+        }
+      },
+      {
+        "query_id": "1290",
+        "topic": "",
+        "question": "There is an inverse relationship between hip fractures and statin use.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "4687948"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "4687948"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "4687948"
+        ],
+        "retrieved_doc_ids": [
+          "4687948",
+          "16812091",
+          "40156901",
+          "7454794",
+          "2391552",
+          "22420524",
+          "5698494",
+          "1522336",
+          "9555784",
+          "11246427"
+        ],
+        "answer_text": "[1] The study found an inverse relationship between statin use and the risk of hip fractures in elderly patients. [1]",
+        "timings": {
+          "retrieval_ms": 108.9,
+          "first_token_ms": 1412.3,
+          "total_ms": 1890.9
+        }
+      },
+      {
+        "query_id": "13",
+        "topic": "",
+        "question": "5% of perinatal mortality is due to low birth weight.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "1606628"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "7662395",
+          "1263446",
+          "17450673",
+          "26611834",
+          "8842332",
+          "25182647",
+          "5487448",
+          "23557241",
+          "33257464",
+          "30786800"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the percentage of perinatal mortality due to low birth weight.",
+        "timings": {
+          "retrieval_ms": 55.3,
+          "first_token_ms": 1205.9,
+          "total_ms": 1708.2
+        }
+      },
+      {
+        "query_id": "132",
+        "topic": "",
+        "question": "Aspirin inhibits the production of PGE2.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "7975937"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "6945691",
+          "21181273",
+          "3866315",
+          "58006489",
+          "9159125",
+          "15648443",
+          "2443495",
+          "36838958",
+          "6407356",
+          "39903312"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide direct evidence that aspirin inhibits the production of PGE2. Some documents discuss the effects of aspirin on prostaglandin production, but they do not specifically address PGE2 inhibition.",
+        "timings": {
+          "retrieval_ms": 68.9,
+          "first_token_ms": 1347.4,
+          "total_ms": 2359.9
+        }
+      },
+      {
+        "query_id": "1320",
+        "topic": "",
+        "question": "Transplanted human glial progenitor cells are incapable of forming a neural network with host animals' neurons.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "16284655"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "16284655"
+        ],
+        "retrieved_doc_ids": [
+          "16284655",
+          "14192687",
+          "16375102",
+          "36637129",
+          "46193388",
+          "2437807",
+          "12742164",
+          "15833835",
+          "803312",
+          "16939583"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information regarding the capability of transplanted human glial progenitor cells to form a neural network with host animals' neurons.",
+        "timings": {
+          "retrieval_ms": 84.4,
+          "first_token_ms": 1181.5,
+          "total_ms": 1921.8
+        }
+      },
+      {
+        "query_id": "133",
+        "topic": "",
+        "question": "Assembly of invadopodia is triggered by focal generation of phosphatidylinositol-3,4-biphosphate and the activation of the nonreceptor tyrosine kinase Src.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "16280642",
+          "24294572"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "12640810",
+          "16280642",
+          "17934082",
+          "38485364",
+          "6969753"
+        ],
+        "citation_precision": 0.5,
+        "gold_doc_ids_retrieved": [
+          "12640810",
+          "16280642",
+          "17934082",
+          "6969753"
+        ],
+        "retrieved_doc_ids": [
+          "16280642",
+          "12640810",
+          "17934082",
+          "86694016",
+          "24294572",
+          "6969753",
+          "12785130",
+          "19752008",
+          "9507605",
+          "35660758"
+        ],
+        "answer_text": "The assembly of invadopodia is triggered by focal generation of phosphatidylinositol-3,4-biphosphate (PtdIns(3,4)P2) and the activation of the nonreceptor tyrosine kinase Src [1, 5].\n\nDocument [1] indicates that PtdIns(3,4)P2 accumulation is associated with podosome formation in Src-transformed NIH3T3 cells. Document [5] shows that PTEN, which regulates PtdIns(3,4)P2 signaling, is involved in invadopodia formation, suggesting a role for PtdIns(3,4)P2 in invadopodia assembly. The activation of Src is also linked to invadopodia formation, as indicated by the role of Src in podosome formation [1].",
+        "timings": {
+          "retrieval_ms": 62.3,
+          "first_token_ms": 1291.1,
+          "total_ms": 4447.6
+        }
+      },
+      {
+        "query_id": "1335",
+        "topic": "",
+        "question": "UCB T cells maintain high TCR diversity after transplantation.",
+        "refusal": true,
+        "cited_doc_ids": [
+          "27910499",
+          "27243019"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "27910499"
+        ],
+        "citation_precision": 0.5,
+        "gold_doc_ids_retrieved": [
+          "27910499"
+        ],
+        "retrieved_doc_ids": [
+          "27910499",
+          "27243019",
+          "20220731",
+          "25479072",
+          "19511011",
+          "24069089",
+          "6961811",
+          "24795767",
+          "13398997",
+          "43587663"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information about TCR diversity maintenance in UCB T cells after transplantation. Documents [1] and [2] discuss TCR diversity after allogeneic hematopoietic stem cell transplantation but do not specifically address UCB T cells.",
+        "timings": {
+          "retrieval_ms": 64.3,
+          "first_token_ms": 1280.3,
+          "total_ms": 2408.2
+        }
+      },
+      {
+        "query_id": "1362",
+        "topic": "",
+        "question": "Venules have a larger lumen diameter than arterioles.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "8290953"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "8290953"
+        ],
+        "retrieved_doc_ids": [
+          "79447",
+          "1122279",
+          "23513718",
+          "25175997",
+          "8290953",
+          "12549585",
+          "38369817",
+          "243694",
+          "6070278",
+          "4890578"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the lumen diameter comparisons between venules and arterioles.",
+        "timings": {
+          "retrieval_ms": 56.6,
+          "first_token_ms": 1293.6,
+          "total_ms": 1831.8
+        }
+      },
+      {
+        "query_id": "137",
+        "topic": "",
+        "question": "Asymptomatic visual impairment screening in elderly populations does not lead to improved vision.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "26016929"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "26016929"
+        ],
+        "retrieved_doc_ids": [
+          "26016929",
+          "457630",
+          "10893238",
+          "21914176",
+          "21274919",
+          "313394",
+          "1358909",
+          "19521501",
+          "1642727",
+          "10536636"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information specifically addressing the outcomes of asymptomatic visual impairment screening in elderly populations or whether such screening leads to improved vision.",
+        "timings": {
+          "retrieval_ms": 60.2,
+          "first_token_ms": 1187.0,
+          "total_ms": 1846.8
+        }
+      },
+      {
+        "query_id": "1370",
+        "topic": "",
+        "question": "Vitamin D deficiency is unrelated to birth weight.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "2425364"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "2425364"
+        ],
+        "retrieved_doc_ids": [
+          "21553394",
+          "30720103",
+          "2425364",
+          "23267371",
+          "9555784",
+          "22023404",
+          "3150030",
+          "13312471",
+          "36960449",
+          "22843838"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the relationship between vitamin D deficiency and birth weight.",
+        "timings": {
+          "retrieval_ms": 48.3,
+          "first_token_ms": 1236.0,
+          "total_ms": 1669.0
+        }
+      },
+      {
+        "query_id": "1385",
+        "topic": "",
+        "question": "cSMAC formation enhances weak ligand signalling.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "306006"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "306006"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "306006"
+        ],
+        "retrieved_doc_ids": [
+          "306006",
+          "9283422",
+          "2714623",
+          "24335068",
+          "20568364",
+          "22767022",
+          "18346333",
+          "14768471",
+          "40383969",
+          "994800"
+        ],
+        "answer_text": "[1] The formation of the central supramolecular activation cluster (cSMAC) can reduce the stimulatory capacity of weak peptide ligands, suggesting that cSMAC formation may not enhance weak ligand signaling [1]. This finding indicates a complex interplay between ligand strength and cSMAC formation in T cell activation.",
+        "timings": {
+          "retrieval_ms": 65.3,
+          "first_token_ms": 1245.4,
+          "total_ms": 2455.5
+        }
+      },
+      {
+        "query_id": "142",
+        "topic": "",
+        "question": "Autologous transplantation of mesenchymal stem cells causes a higher rate of opportunistic infections than induction therapy with anti-interleukin-2 receptor antibodies.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "10582939"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "10582939"
+        ],
+        "retrieved_doc_ids": [
+          "10582939",
+          "40164383",
+          "24795767",
+          "24101431",
+          "19511011",
+          "43587663",
+          "19510470",
+          "4416964",
+          "301866",
+          "9412420"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents provided do not contain any information comparing the rate of opportunistic infections between autologous transplantation of mesenchymal stem cells and induction therapy with anti-interleukin-2 receptor antibodies.",
+        "timings": {
+          "retrieval_ms": 86.9,
+          "first_token_ms": 1323.3,
+          "total_ms": 2197.4
+        }
+      },
+      {
+        "query_id": "143",
+        "topic": "",
+        "question": "Autologous transplantation of mesenchymal stem cells causes fewer opportunistic infections than induction therapy with anti-interleukin-2 receptor antibodies.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "10582939"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "10582939"
+        ],
+        "retrieved_doc_ids": [
+          "10582939",
+          "40164383",
+          "24101431",
+          "24795767",
+          "19510470",
+          "4416964",
+          "19511011",
+          "9412420",
+          "6544701",
+          "43587663"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information comparing autologous mesenchymal stem cell transplantation with anti-interleukin-2 receptor antibody induction therapy regarding opportunistic infections.",
+        "timings": {
+          "retrieval_ms": 85.6,
+          "first_token_ms": 1300.9,
+          "total_ms": 2051.0
+        }
+      },
+      {
+        "query_id": "185",
+        "topic": "",
+        "question": "Breast cancer development is determined exclusively by genetic factors.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "18340282"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "18340282"
+        ],
+        "retrieved_doc_ids": [
+          "18340282",
+          "21874312",
+          "3285322",
+          "23557241",
+          "2015126",
+          "22401720",
+          "5864770",
+          "17450673",
+          "27123743",
+          "13007205"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents discuss the influence of both genetic and environmental factors on breast cancer development, but do not state that it is determined exclusively by genetic factors.",
+        "timings": {
+          "retrieval_ms": 66.0,
+          "first_token_ms": 1407.8,
+          "total_ms": 2128.1
+        }
+      },
+      {
+        "query_id": "198",
+        "topic": "",
+        "question": "CCL19 is absent within dLNs.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "2177022"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "2177022"
+        ],
+        "retrieved_doc_ids": [
+          "13778710",
+          "2177022",
+          "15414628",
+          "40590358",
+          "17934603",
+          "29366489",
+          "29347970",
+          "8538916",
+          "42731834",
+          "30580263"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the presence or absence of CCL19 within dendritic lymph nodes (dLNs).",
+        "timings": {
+          "retrieval_ms": 73.9,
+          "first_token_ms": 1606.8,
+          "total_ms": 2201.9
+        }
+      },
+      {
+        "query_id": "208",
+        "topic": "",
+        "question": "CHEK2 is not associated with breast cancer.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13519661"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "13519661"
+        ],
+        "retrieved_doc_ids": [
+          "13519661",
+          "7821634",
+          "15721252",
+          "1171121",
+          "21439640",
+          "4886637",
+          "313403",
+          "24341590",
+          "20886584",
+          "22482820"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide a clear conclusion about whether CHEK2 is associated with breast cancer or not. Some documents discuss the role of CHEK2 in breast cancer, but the provided information is insufficient to make a definitive statement.",
+        "timings": {
+          "retrieval_ms": 56.7,
+          "first_token_ms": 1534.0,
+          "total_ms": 2505.5
+        }
+      },
+      {
+        "query_id": "213",
+        "topic": "",
+        "question": "CRP is not predictive of postoperative mortality following Coronary Artery Bypass Graft (CABG) surgery.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13625993"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "13625993"
+        ],
+        "retrieved_doc_ids": [
+          "27054878",
+          "20887554",
+          "750781",
+          "9846940",
+          "5884524",
+          "13625993",
+          "40156901",
+          "21048969",
+          "25028913",
+          "15925931"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain specific information about CRP levels and their predictive value for postoperative mortality following CABG surgery.",
+        "timings": {
+          "retrieval_ms": 83.7,
+          "first_token_ms": 1621.2,
+          "total_ms": 2207.3
+        }
+      },
+      {
+        "query_id": "217",
+        "topic": "",
+        "question": "CX3CR1 on the Th2 cells promotes T cell survival",
+        "refusal": false,
+        "cited_doc_ids": [
+          "21366394"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "21366394"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "21366394"
+        ],
+        "retrieved_doc_ids": [
+          "21366394",
+          "21363424",
+          "41877386",
+          "22210434",
+          "14311986",
+          "13798951",
+          "28006126",
+          "45414636",
+          "20388894",
+          "20311968"
+        ],
+        "answer_text": "[1] CX3CR1 on Th2 cells promotes T cell survival in the inflamed lungs [1].",
+        "timings": {
+          "retrieval_ms": 61.4,
+          "first_token_ms": 1692.2,
+          "total_ms": 2112.2
+        }
+      },
+      {
+        "query_id": "219",
+        "topic": "",
+        "question": "CX3CR1 on the Th2 cells suppresses airway inflammation.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "21366394"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "21366394"
+        ],
+        "retrieved_doc_ids": [
+          "21366394",
+          "20311968",
+          "1800734",
+          "40365566",
+          "883747",
+          "56486733",
+          "696006",
+          "2042250",
+          "26068103",
+          "7281161"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on whether CX3CR1 on Th2 cells suppresses airway inflammation. The first document discusses the role of CX3CR1 in promoting T(H)2 survival, but it does not directly state that CX3CR1 suppresses airway inflammation.",
+        "timings": {
+          "retrieval_ms": 55.1,
+          "first_token_ms": 2155.0,
+          "total_ms": 3380.7
+        }
+      },
+      {
+        "query_id": "230",
+        "topic": "",
+        "question": "Carriers of the alcohol aldehyde dehydrogenase deficiency mutation drink less that non-carries.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "3067015"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "3067015"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "3067015"
+        ],
+        "retrieved_doc_ids": [
+          "3067015",
+          "38028419",
+          "11457219",
+          "45638119",
+          "14663842",
+          "19487477",
+          "5849439",
+          "11951999",
+          "24144677",
+          "20280410"
+        ],
+        "answer_text": "[1] INSUFFICIENT_Evidence: The document does not provide information on the drinking habits of carriers of the ALDH2 deficiency mutation compared to non-carriers.",
+        "timings": {
+          "retrieval_ms": 88.9,
+          "first_token_ms": 2097.6,
+          "total_ms": 2725.8
+        }
+      },
+      {
+        "query_id": "239",
+        "topic": "",
+        "question": "Cellular aging closely links to an older appearance.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "14079881"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "516867",
+          "615047",
+          "22264117",
+          "3230557",
+          "1848452",
+          "7042304",
+          "19343151",
+          "9559146",
+          "40349336",
+          "9291668"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information linking cellular aging directly to an older appearance. While some documents discuss cellular aging and its effects, they do not explicitly connect these cellular changes to visible signs of aging such as skin appearance.",
+        "timings": {
+          "retrieval_ms": 86.5,
+          "first_token_ms": 1881.5,
+          "total_ms": 2803.8
+        }
+      },
+      {
+        "query_id": "295",
+        "topic": "",
+        "question": "Crosstalk between dendritic cells (DCs) and innate lymphoid cells (ILCs) is important in the regulation of intestinal homeostasis.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "20310709",
+          "24044977"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "20310709"
+        ],
+        "citation_precision": 0.5,
+        "gold_doc_ids_retrieved": [
+          "20310709"
+        ],
+        "retrieved_doc_ids": [
+          "20310709",
+          "29423324",
+          "1022115",
+          "24044977",
+          "22791348",
+          "883747",
+          "13231899",
+          "46926352",
+          "11020556",
+          "26702468"
+        ],
+        "answer_text": "[1] [4]\n\nDocument 1 indicates that TNF-\u03b1 produced by CD103(-)CD11b(+) dendritic cells synergizes with IL-23 to drive IL-17A production by ILCs, highlighting a layer of cellular crosstalk between dendritic cells and ILCs. Document 4 provides a general overview of the functions of innate lymphoid cells and dendritic cells, emphasizing their roles in immune responses and inflammation.",
+        "timings": {
+          "retrieval_ms": 102.7,
+          "first_token_ms": 2018.6,
+          "total_ms": 3671.8
+        }
+      },
+      {
+        "query_id": "298",
+        "topic": "",
+        "question": "Cytochrome c is released from the mitochondrial intermembrane space to cytosol during apoptosis.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "39381118",
+          "23887844",
+          "34439544"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "39381118"
+        ],
+        "citation_precision": 0.3333,
+        "gold_doc_ids_retrieved": [
+          "39381118"
+        ],
+        "retrieved_doc_ids": [
+          "39381118",
+          "23403754",
+          "23887844",
+          "25439264",
+          "8654183",
+          "10698739",
+          "35962023",
+          "34439544",
+          "15836115",
+          "7465900"
+        ],
+        "answer_text": "[1] At the gates of death. [3] Glucose Metabolism Inhibits Apoptosis in Neurons and Cancer Cells by Redox Inactivation of Cytochrome c. [8] Examining BCL-2 family function with large unilamellar vesicles.",
+        "timings": {
+          "retrieval_ms": 54.5,
+          "first_token_ms": 1824.3,
+          "total_ms": 2896.1
+        }
+      },
+      {
+        "query_id": "312",
+        "topic": "",
+        "question": "De novo assembly of sequence data has more specific contigs than unassembled sequence data.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "6173523"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "14464451",
+          "32770503",
+          "13123189",
+          "17447653",
+          "14185503",
+          "7059897",
+          "15478227",
+          "14275671",
+          "15966318",
+          "13618987"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information comparing the number of specific contigs in de novo assembled sequence data versus unassembled sequence data.",
+        "timings": {
+          "retrieval_ms": 75.8,
+          "first_token_ms": 1734.5,
+          "total_ms": 2314.6
+        }
+      },
+      {
+        "query_id": "324",
+        "topic": "",
+        "question": "Deleting Raptor reduces G-CSF levels.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "2014909"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "2014909"
+        ],
+        "retrieved_doc_ids": [
+          "22174015",
+          "4658268",
+          "2014909",
+          "24612804",
+          "10534299",
+          "8724666",
+          "5260382",
+          "14874811",
+          "29689140",
+          "23816832"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the relationship between Raptor deletion and G-CSF levels.",
+        "timings": {
+          "retrieval_ms": 94.7,
+          "first_token_ms": 1579.4,
+          "total_ms": 2038.7
+        }
+      },
+      {
+        "query_id": "354",
+        "topic": "",
+        "question": "Downregulation and mislocalization of Scribble prevents cell transformation and mammary tumorigenesis.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "8774475"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "8774475"
+        ],
+        "retrieved_doc_ids": [
+          "8774475",
+          "34103335",
+          "1241113",
+          "1866911",
+          "16086778",
+          "20183360",
+          "15832146",
+          "2014909",
+          "17648235",
+          "17844478"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on whether downregulation and mislocalization of Scribble prevents cell transformation and mammary tumorigenesis. The documents discuss the role of Scribble in promoting tumorigenesis when depleted or mislocalized, but do not address the prevention aspect.",
+        "timings": {
+          "retrieval_ms": 85.6,
+          "first_token_ms": 1553.8,
+          "total_ms": 2650.4
+        }
+      },
+      {
+        "query_id": "380",
+        "topic": "",
+        "question": "Enhanced early production of inflammatory chemokines improves viral control in the lung.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "19005293"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "19005293"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "19005293"
+        ],
+        "retrieved_doc_ids": [
+          "19005293",
+          "40365566",
+          "26068103",
+          "15425958",
+          "219475",
+          "12370881",
+          "12966719",
+          "12100963",
+          "67045088",
+          "3835423"
+        ],
+        "answer_text": "[1] Enhanced early production of inflammatory chemokines (IICs) improves viral control in the lung. Memory CD4+ T cells, particularly TH1 or TH17 polarized ones, enhance the production of multiple innate inflammatory cytokines and chemokines in the lung, leading to early control of virus during influenza infection [1].",
+        "timings": {
+          "retrieval_ms": 65.7,
+          "first_token_ms": 1427.1,
+          "total_ms": 2632.8
+        }
+      },
+      {
+        "query_id": "399",
+        "topic": "",
+        "question": "Exposure to fine particulate air pollution is relate to anxiety prevalence.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "791050"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "791050"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "791050"
+        ],
+        "retrieved_doc_ids": [
+          "791050",
+          "471921",
+          "42387637",
+          "21003930",
+          "32357890",
+          "7285256",
+          "21495419",
+          "2158500",
+          "44500794",
+          "13770184"
+        ],
+        "answer_text": "[1] The relation between past exposure to fine particulate air pollution and prevalent anxiety was studied in a cohort of 71,271 women. The study aimed to determine if higher past exposure to particulate air pollution is associated with prevalent high symptoms of anxiety [1].",
+        "timings": {
+          "retrieval_ms": 76.2,
+          "first_token_ms": 1276.2,
+          "total_ms": 2258.7
+        }
+      },
+      {
+        "query_id": "436",
+        "topic": "",
+        "question": "Free histones are degraded by a Rad53-dependent mechanism once DNA has been replicated.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "14637235"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "14637235"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "14637235"
+        ],
+        "retrieved_doc_ids": [
+          "14637235",
+          "12588500",
+          "8267678",
+          "8331432",
+          "38131471",
+          "13907427",
+          "29877890",
+          "13791206",
+          "406733",
+          "13790144"
+        ],
+        "answer_text": "[1] Histone levels are tightly regulated to prevent harmful effects such as genomic instability and hypersensitivity to DNA-damaging agents due to the accumulation of these highly basic proteins when DNA replication slows down or stops. In Saccharomyces cerevisiae, excess histones are rapidly degraded in a Rad53-dependent manner. [1]",
+        "timings": {
+          "retrieval_ms": 86.0,
+          "first_token_ms": 1354.9,
+          "total_ms": 2532.2
+        }
+      },
+      {
+        "query_id": "437",
+        "topic": "",
+        "question": "Functional consequences of genomic alterations due to Myelodysplastic syndrome (MDS) are poorly understood due to the lack of an animal model.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "18399038"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "5765455",
+          "2359152",
+          "39851630",
+          "5782614",
+          "24466904",
+          "8083310",
+          "5836",
+          "3391547",
+          "3863543",
+          "6000423"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not discuss animal models specifically for understanding the functional consequences of genomic alterations in MDS. Most documents focus on genetic mutations, cellular properties, or mouse models for leukemic progression, but not on the direct functional consequences in an animal model setting for MDS.",
+        "timings": {
+          "retrieval_ms": 96.2,
+          "first_token_ms": 1418.7,
+          "total_ms": 2507.1
+        }
+      },
+      {
+        "query_id": "440",
+        "topic": "",
+        "question": "Fz/PCP-dependent Pk localizes to the anterior membrane of notochord cells during zebrafish neuralation.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "4423559"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "4423559"
+        ],
+        "retrieved_doc_ids": [
+          "4423559",
+          "18575183",
+          "4932668",
+          "5395426",
+          "17049436",
+          "17017465",
+          "23804187",
+          "22178316",
+          "30152134",
+          "5944514"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about Fz/PCP-dependent Pk localization in notochord cells during zebrafish neuralation.",
+        "timings": {
+          "retrieval_ms": 73.6,
+          "first_token_ms": 1309.7,
+          "total_ms": 1963.1
+        }
+      },
+      {
+        "query_id": "478",
+        "topic": "",
+        "question": "Golli-deficient T-cells prefer to differentiate into an anergic phenotype in the adaptive immune response when there are increased levels of Ca2+ in the cytosol.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "14767844"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "14767844"
+        ],
+        "retrieved_doc_ids": [
+          "14767844",
+          "34854444",
+          "10562341",
+          "2506153",
+          "13798951",
+          "1605392",
+          "19005293",
+          "40096222",
+          "13398997",
+          "23460562"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about Golli-deficient T-cells differentiating into an anergic phenotype or the effects of increased cytosolic Ca2+ levels on T-cell differentiation.",
+        "timings": {
+          "retrieval_ms": 92.4,
+          "first_token_ms": 1291.2,
+          "total_ms": 2097.3
+        }
+      },
+      {
+        "query_id": "49",
+        "topic": "",
+        "question": "ADAR1 binds to Dicer to cleave pre-miRNA.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "5953485"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "5953485"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "5953485"
+        ],
+        "retrieved_doc_ids": [
+          "5953485",
+          "5702790",
+          "23913146",
+          "15590539",
+          "1333643",
+          "7029990",
+          "6913227",
+          "13964633",
+          "18467982",
+          "86602746"
+        ],
+        "answer_text": "[1] ADAR1 forms a complex with Dicer to promote microRNA processing and RNA-induced gene silencing [1]. This interaction enhances the rate of pre-miRNA cleavage by Dicer and aids in the loading of miRNA onto RNA-induced silencing complexes [1].",
+        "timings": {
+          "retrieval_ms": 65.6,
+          "first_token_ms": 1314.2,
+          "total_ms": 2329.9
+        }
+      },
+      {
+        "query_id": "491",
+        "topic": "",
+        "question": "HNF4A mutations can cause diabetes in mutant carriers by the age of 14 years",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "56893404"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "56893404"
+        ],
+        "retrieved_doc_ids": [
+          "56893404",
+          "1576955",
+          "14864285",
+          "13450938",
+          "24725136",
+          "857189",
+          "834336",
+          "24521894",
+          "19460822",
+          "43311750"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the age at which HNF4A mutations cause diabetes in mutant carriers.",
+        "timings": {
+          "retrieval_ms": 66.4,
+          "first_token_ms": 1362.4,
+          "total_ms": 1879.1
+        }
+      },
+      {
+        "query_id": "50",
+        "topic": "",
+        "question": "AIRE is expressed in some skin tumors.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "12580014"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "12580014"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "12580014"
+        ],
+        "retrieved_doc_ids": [
+          "12580014",
+          "39559521",
+          "25738896",
+          "18488986",
+          "4561402",
+          "13989491",
+          "19736671",
+          "29785642",
+          "17844478",
+          "42279414"
+        ],
+        "answer_text": "[1] The expression of AIRE (autoimmune regulator) is inducibly upregulated in human and mouse tumor keratinocytes, dependent on the intermediate filament protein keratin 17 (K17) [1].",
+        "timings": {
+          "retrieval_ms": 65.5,
+          "first_token_ms": 1282.6,
+          "total_ms": 2088.2
+        }
+      },
+      {
+        "query_id": "501",
+        "topic": "",
+        "question": "Headaches are not correlated with cognitive impairment.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "17930286"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "17930286"
+        ],
+        "retrieved_doc_ids": [
+          "17930286",
+          "24865781",
+          "6191684",
+          "21274919",
+          "7965928",
+          "24285403",
+          "24510595",
+          "37583120",
+          "14606752",
+          "20471181"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain direct evidence to support or refute the claim that headaches are not correlated with cognitive impairment. Some documents discuss the effects of specific treatments on headaches and cognitive function, but none directly address the correlation between headaches and cognitive impairment.",
+        "timings": {
+          "retrieval_ms": 81.7,
+          "first_token_ms": 1285.8,
+          "total_ms": 2255.8
+        }
+      },
+      {
+        "query_id": "502",
+        "topic": "",
+        "question": "Healthcare delivery efficiency in crowded delivery centers is impaired by improving structural, logistical, and interpersonal elements.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13071728"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "70516463",
+          "24318630",
+          "10854174",
+          "143796742",
+          "38180456",
+          "11748341",
+          "27712433",
+          "20187433",
+          "25098790",
+          "20491205"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide specific information on how improving structural, logistical, and interpersonal elements affects healthcare delivery efficiency in crowded delivery centers.",
+        "timings": {
+          "retrieval_ms": 83.3,
+          "first_token_ms": 1175.3,
+          "total_ms": 1733.9
+        }
+      },
+      {
+        "query_id": "51",
+        "topic": "",
+        "question": "ALDH1 expression is associated with better breast cancer outcomes.",
+        "refusal": true,
+        "cited_doc_ids": [
+          "45638119"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "45638119"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "45638119"
+        ],
+        "retrieved_doc_ids": [
+          "45638119",
+          "8963413",
+          "15721252",
+          "21439640",
+          "7821634",
+          "32001951",
+          "29366489",
+          "13007205",
+          "17648235",
+          "9394119"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the association between ALDH1 expression and breast cancer outcomes. Document [1] discusses ALDH1 in the context of breast cancer stem cells and tumor heterogeneity but does not mention clinical outcomes.",
+        "timings": {
+          "retrieval_ms": 79.7,
+          "first_token_ms": 1425.0,
+          "total_ms": 2340.5
+        }
+      },
+      {
+        "query_id": "513",
+        "topic": "",
+        "question": "High cardiopulmonary fitness causes increased mortality rate.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13230773"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "13230773"
+        ],
+        "retrieved_doc_ids": [
+          "12770738",
+          "13230773",
+          "35495268",
+          "4463588",
+          "6525844",
+          "24443043",
+          "24918110",
+          "11630388",
+          "14021596",
+          "33533307"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information suggesting that high cardiopulmonary fitness causes an increased mortality rate. Most of the documents discuss the benefits of fitness or its relation to various health outcomes, but none indicate a negative correlation between high fitness and mortality.",
+        "timings": {
+          "retrieval_ms": 96.6,
+          "first_token_ms": 1468.0,
+          "total_ms": 2445.1
+        }
+      },
+      {
+        "query_id": "517",
+        "topic": "",
+        "question": "High levels of copeptin decrease risk of diabetes.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "15663829"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "19658917",
+          "23577867",
+          "11481946",
+          "30915421",
+          "27449472",
+          "31890716",
+          "34054472",
+          "30981192",
+          "17656445",
+          "8708082"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: There is no information provided about the relationship between copeptin levels and diabetes risk in the given documents.",
+        "timings": {
+          "retrieval_ms": 87.5,
+          "first_token_ms": 1255.5,
+          "total_ms": 1733.7
+        }
+      },
+      {
+        "query_id": "525",
+        "topic": "",
+        "question": "Histone demethylase recruitment and a transient decrease in histone methylation is necessary for ligand-dependent induction of transcription by nuclear receptors.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13639330"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "13639330"
+        ],
+        "retrieved_doc_ids": [
+          "13639330",
+          "2151983",
+          "6455142",
+          "4547102",
+          "29788648",
+          "4387494",
+          "8548635",
+          "5409905",
+          "15803282",
+          "18841257"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information directly addressing the necessity of histone demethylase recruitment or a transient decrease in histone methylation for ligand-dependent induction of transcription by nuclear receptors.",
+        "timings": {
+          "retrieval_ms": 83.0,
+          "first_token_ms": 1383.0,
+          "total_ms": 2151.7
+        }
+      },
+      {
+        "query_id": "527",
+        "topic": "",
+        "question": "Homozygous deletion of murine Sbds gene from osterix-expressing mesenchymal stem and progenitor cells (MPCs) prevents oxidative stress.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "3863543"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "3863543"
+        ],
+        "retrieved_doc_ids": [
+          "1617327",
+          "3863543",
+          "9412420",
+          "7506409",
+          "18489989",
+          "21645205",
+          "4366738",
+          "27279525",
+          "3464191",
+          "54561384"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the specific effects of homozygous deletion of the Sbds gene in osterix-expressing mesenchymal stem and progenitor cells (MPCs) or their impact on oxidative stress.",
+        "timings": {
+          "retrieval_ms": 93.5,
+          "first_token_ms": 1677.5,
+          "total_ms": 2739.1
+        }
+      },
+      {
+        "query_id": "539",
+        "topic": "",
+        "question": "Hypoglycemia increases the risk of dementia.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "13282296"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13282296"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "13282296"
+        ],
+        "retrieved_doc_ids": [
+          "13282296",
+          "6309659",
+          "41264017",
+          "13933299",
+          "11953232",
+          "21472388",
+          "27076725",
+          "37583120",
+          "5402581",
+          "11886686"
+        ],
+        "answer_text": "[1] Hypoglycemic episodes severe enough to require hospitalization are associated with an increased risk of dementia in older patients with type 2 diabetes [1].",
+        "timings": {
+          "retrieval_ms": 88.5,
+          "first_token_ms": 1503.5,
+          "total_ms": 2127.5
+        }
+      },
+      {
+        "query_id": "54",
+        "topic": "",
+        "question": "AMP-activated protein kinase (AMPK) activation increases inflammation-related fibrosis in the lungs.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "49556906"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "49556906"
+        ],
+        "retrieved_doc_ids": [
+          "3973445",
+          "1590744",
+          "49556906",
+          "9752604",
+          "24721866",
+          "38533515",
+          "19313533",
+          "3419709",
+          "9899292",
+          "5172048"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about AMPK activation increasing inflammation-related fibrosis in the lungs. Documents discuss AMPK's role in reducing fibrosis [3, 1], but there is no evidence supporting an increase in fibrosis due to AMPK activation.",
+        "timings": {
+          "retrieval_ms": 99.1,
+          "first_token_ms": 1314.6,
+          "total_ms": 2422.0
+        }
+      },
+      {
+        "query_id": "544",
+        "topic": "",
+        "question": "IFIT1 restricts viral replication by sequestrating mis-capped viral RNAs.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "24221369"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "24221369"
+        ],
+        "retrieved_doc_ids": [
+          "10559501",
+          "11784947",
+          "1970884",
+          "5137019",
+          "24221369",
+          "44366096",
+          "6820680",
+          "37727521",
+          "9021186",
+          "3493623"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information about IFIT1 or its role in restricting viral replication through sequestration of mis-capped viral RNAs.",
+        "timings": {
+          "retrieval_ms": 99.3,
+          "first_token_ms": 1512.8,
+          "total_ms": 2202.7
+        }
+      },
+      {
+        "query_id": "549",
+        "topic": "",
+        "question": "IRG1 has antiviral effects against neurotropic viruses.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "9433958"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "9433958"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "9433958"
+        ],
+        "retrieved_doc_ids": [
+          "9433958",
+          "7820043",
+          "26731863",
+          "30437264",
+          "3107733",
+          "4347374",
+          "10559501",
+          "3493623",
+          "5137019",
+          "3308636"
+        ],
+        "answer_text": "[1] The document indicates that IRF-stimulated genes (ISGs) such as Ifi27, Irg1, and Rsad2 mediate antiviral effects against different types of neurons. Specifically, Irg1 is mentioned as one of the ISGs that confer antiviral effects against viral infection in neurons [1].",
+        "timings": {
+          "retrieval_ms": 94.8,
+          "first_token_ms": 1345.0,
+          "total_ms": 2651.0
+        }
+      },
+      {
+        "query_id": "551",
+        "topic": "",
+        "question": "ITAM phosphorylation prevents the transfer of the T cell receptor (TCR) signal from the echo-domain to the cytoplasmic tail of the T cell receptor (TCR).",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "33499189"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "33499189"
+        ],
+        "retrieved_doc_ids": [
+          "8903143",
+          "33499189",
+          "5914739",
+          "34905328",
+          "2714623",
+          "2825380",
+          "6961811",
+          "13868795",
+          "25479072",
+          "18758057"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about ITAM phosphorylation preventing the transfer of the TCR signal from the echo-domain to the cytoplasmic tail of the TCR.",
+        "timings": {
+          "retrieval_ms": 114.6,
+          "first_token_ms": 1459.2,
+          "total_ms": 2254.7
+        }
+      },
+      {
+        "query_id": "613",
+        "topic": "",
+        "question": "Increased microtubule acetylation repairs LRRK2 Roc-COR domain mutation induced locomotor deficits.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "9638032"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "9638032"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "9638032"
+        ],
+        "retrieved_doc_ids": [
+          "9638032",
+          "16056410",
+          "21598000",
+          "33911859",
+          "20054396",
+          "11983390",
+          "36830715",
+          "6492658",
+          "1371440",
+          "11200685"
+        ],
+        "answer_text": "[1] Increasing microtubule acetylation using deacetylase inhibitors or the tubulin acetylase \u03b1TAT1 prevents association of mutant LRRK2 with deacetylated microtubules, rescuing axonal transport and locomotor deficits caused by LRRK2 Roc-COR domain mutations [1].",
+        "timings": {
+          "retrieval_ms": 119.8,
+          "first_token_ms": 1747.1,
+          "total_ms": 3049.1
+        }
+      },
+      {
+        "query_id": "619",
+        "topic": "",
+        "question": "Increased vessel density along with a reduction in fibrosis decreases the efficacy of chemotherapy treatments.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "20888849",
+          "2565138"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "20888849"
+        ],
+        "retrieved_doc_ids": [
+          "20888849",
+          "1171121",
+          "6334188",
+          "25175997",
+          "21258863",
+          "9929089",
+          "20127522",
+          "195680777",
+          "25589047",
+          "24974080"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the relationship between increased vessel density, reduction in fibrosis, and chemotherapy efficacy.",
+        "timings": {
+          "retrieval_ms": 126.6,
+          "first_token_ms": 1602.9,
+          "total_ms": 2160.0
+        }
+      },
+      {
+        "query_id": "628",
+        "topic": "",
+        "question": "Infection of human T-cell lymphotropic virus type 1 is most frequent in individuals of African origin.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "24512064"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "24512064"
+        ],
+        "retrieved_doc_ids": [
+          "29134911",
+          "24512064",
+          "22705234",
+          "8300657",
+          "20996244",
+          "5476778",
+          "21274496",
+          "5398179",
+          "10450300",
+          "798152"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the frequency of HTLV-1 infection in individuals of African origin.",
+        "timings": {
+          "retrieval_ms": 83.7,
+          "first_token_ms": 1502.7,
+          "total_ms": 2056.2
+        }
+      },
+      {
+        "query_id": "637",
+        "topic": "",
+        "question": "Input from  mental and physical health care professionals is effective at decreasing homelessness.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "25649714"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "25649714"
+        ],
+        "retrieved_doc_ids": [
+          "31019903",
+          "25649714",
+          "20491205",
+          "24318630",
+          "154243324",
+          "6129301",
+          "33135135",
+          "73473433",
+          "31612088",
+          "35022568"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the effectiveness of input from mental and physical health care professionals in decreasing homelessness. Documents discuss the health issues faced by homeless individuals and families, but do not address interventions or the impact of professional input on homelessness rates.",
+        "timings": {
+          "retrieval_ms": 82.4,
+          "first_token_ms": 1271.8,
+          "total_ms": 2293.9
+        }
+      },
+      {
+        "query_id": "649",
+        "topic": "",
+        "question": "Integrating classroom-based collaborative learning with Web-based collaborative learning leads to subpar class performance",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "12789595"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "12789595"
+        ],
+        "retrieved_doc_ids": [
+          "12789595",
+          "24159217",
+          "15041758",
+          "7034001",
+          "50670403",
+          "11253758",
+          "13205096",
+          "9278263",
+          "3202143",
+          "11256632"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding the integration of classroom-based collaborative learning with Web-based collaborative learning, nor do they discuss class performance outcomes related to such an integration.",
+        "timings": {
+          "retrieval_ms": 97.9,
+          "first_token_ms": 1168.3,
+          "total_ms": 1926.2
+        }
+      },
+      {
+        "query_id": "693",
+        "topic": "",
+        "question": "Leuko-reduced blood reduces infectious complications in red blood cell transfusion.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "24088502"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "24088502"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "24088502"
+        ],
+        "retrieved_doc_ids": [
+          "24088502",
+          "3698758",
+          "27243019",
+          "8137081",
+          "623486",
+          "4417177",
+          "23203102",
+          "11349166",
+          "26474812",
+          "25985964"
+        ],
+        "answer_text": "[1] The effect of leukoreduction on reducing postoperative mortality and infection is unclear, but the study suggests that a national universal prestorage leukoreduction program for blood transfusions might have beneficial clinical outcomes [1].",
+        "timings": {
+          "retrieval_ms": 71.8,
+          "first_token_ms": 1493.5,
+          "total_ms": 2310.5
+        }
+      },
+      {
+        "query_id": "716",
+        "topic": "",
+        "question": "Low expression of miR7a exerts a biological function in testis.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "18421962"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "9159495",
+          "37438296",
+          "12440953",
+          "19358586",
+          "10024681",
+          "13290521",
+          "21909315",
+          "17544977",
+          "13964633",
+          "45143088"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information specifically related to the biological function of low miR-7a expression in the testis.",
+        "timings": {
+          "retrieval_ms": 86.2,
+          "first_token_ms": 1585.1,
+          "total_ms": 2209.9
+        }
+      },
+      {
+        "query_id": "718",
+        "topic": "",
+        "question": "Low nucleosome occupancy correlates with low methylation levels across species.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "17587795"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "17587795"
+        ],
+        "retrieved_doc_ids": [
+          "17587795",
+          "175735",
+          "18895793",
+          "7808055",
+          "18694784",
+          "4679264",
+          "22038539",
+          "4305576",
+          "4392608",
+          "9291668"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain direct evidence or information about the correlation between low nucleosome occupancy and low methylation levels across species.",
+        "timings": {
+          "retrieval_ms": 76.3,
+          "first_token_ms": 1491.4,
+          "total_ms": 2090.6
+        }
+      },
+      {
+        "query_id": "721",
+        "topic": "",
+        "question": "Lupus-prone mice infected with curliproducing bacteria have higher autoantibody titers compared to controls.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "1834762"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "1834762"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "1834762"
+        ],
+        "retrieved_doc_ids": [
+          "1834762",
+          "12670680",
+          "5448119",
+          "1049501",
+          "14938990",
+          "10559501",
+          "28015516",
+          "13106686",
+          "7433668",
+          "28149602"
+        ],
+        "answer_text": "[1]\n\nThe effect was significant [1].",
+        "timings": {
+          "retrieval_ms": 95.1,
+          "first_token_ms": 1714.6,
+          "total_ms": 1919.9
+        }
+      },
+      {
+        "query_id": "728",
+        "topic": "",
+        "question": "Ly6C hi monocytes have a lower inflammatory capacity than Ly6C lo monocytes.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "36444198",
+          "7521113"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "36444198",
+          "7521113"
+        ],
+        "retrieved_doc_ids": [
+          "22406695",
+          "36444198",
+          "7521113",
+          "14492339",
+          "7948486",
+          "22621251",
+          "17934603",
+          "7489663",
+          "12370881",
+          "34016987"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide a direct comparison of the inflammatory capacities between Ly6C hi and Ly6C lo monocytes to support the statement.",
+        "timings": {
+          "retrieval_ms": 70.4,
+          "first_token_ms": 1629.0,
+          "total_ms": 2268.6
+        }
+      },
+      {
+        "query_id": "768",
+        "topic": "",
+        "question": "Mercaptopurine is anabolized into the inactive methylmercaptopurine by thiopurine methyltrasnferase (TPMT).",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "6421792"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "6421792"
+        ],
+        "retrieved_doc_ids": [
+          "19497526",
+          "1373287",
+          "6421792",
+          "32975424",
+          "12622860",
+          "23195302",
+          "12217662",
+          "13777138",
+          "3230361",
+          "27373088"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the anabolism of mercaptopurine into methylmercaptopurine by TPMT.",
+        "timings": {
+          "retrieval_ms": 101.3,
+          "first_token_ms": 2171.5,
+          "total_ms": 2792.7
+        }
+      },
+      {
+        "query_id": "808",
+        "topic": "",
+        "question": "Most termination events in Okazaki fragments are sequence specific.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "36606083"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "36606083"
+        ],
+        "retrieved_doc_ids": [
+          "36606083",
+          "152245",
+          "24307695",
+          "25462689",
+          "41403996",
+          "7260461",
+          "31514338",
+          "36713289",
+          "23664875",
+          "25787749"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the sequence specificity of Okazaki fragment termination events.",
+        "timings": {
+          "retrieval_ms": 102.0,
+          "first_token_ms": 1709.1,
+          "total_ms": 2156.1
+        }
+      },
+      {
+        "query_id": "823",
+        "topic": "",
+        "question": "N348I mutations cause resistance to zidovudine (AZT).",
+        "refusal": true,
+        "cited_doc_ids": [
+          "15319019",
+          "2319305"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "15319019"
+        ],
+        "citation_precision": 0.5,
+        "gold_doc_ids_retrieved": [
+          "15319019"
+        ],
+        "retrieved_doc_ids": [
+          "15319019",
+          "2319305",
+          "6426919",
+          "6421792",
+          "641786",
+          "2272614",
+          "14241418",
+          "43311750",
+          "9505402",
+          "39443128"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide direct evidence linking N348I mutations to zidovudine (AZT) resistance. Documents [1] and [2] discuss the N348I mutation in the context of nevirapine resistance and RNase H activity, but do not mention zidovudine.",
+        "timings": {
+          "retrieval_ms": 98.4,
+          "first_token_ms": 1375.1,
+          "total_ms": 2660.7
+        }
+      },
+      {
+        "query_id": "831",
+        "topic": "",
+        "question": "NF2 (Merlin) prevents phosphorylation and subsequent cytoplasmic sequestration of YAP in Drosophila.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "1897324"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "12737132",
+          "52873726",
+          "735130",
+          "8417211",
+          "11535539",
+          "4324278",
+          "29863668",
+          "29467201",
+          "34445160",
+          "9638032"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the role of NF2 (Merlin) in preventing phosphorylation and cytoplasmic sequestration of YAP in Drosophila.",
+        "timings": {
+          "retrieval_ms": 102.9,
+          "first_token_ms": 1704.7,
+          "total_ms": 2600.5
+        }
+      },
+      {
+        "query_id": "852",
+        "topic": "",
+        "question": "Non-invasive ventilation use should be decreased if there is inadequate response to conventional treatment.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "13843341"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "13843341"
+        ],
+        "retrieved_doc_ids": [
+          "474325",
+          "13843341",
+          "8190282",
+          "34208005",
+          "14361849",
+          "40867854",
+          "26611094",
+          "25612629",
+          "38735355",
+          "25098790"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information on the criteria for decreasing non-invasive ventilation use based on inadequate response to conventional treatment.",
+        "timings": {
+          "retrieval_ms": 1450.6,
+          "first_token_ms": 2711.4,
+          "total_ms": 3361.5
+        }
+      },
+      {
+        "query_id": "859",
+        "topic": "",
+        "question": "Normal expression of RUNX1 has tumor-promoting effects.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "1982286"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "1982286"
+        ],
+        "retrieved_doc_ids": [
+          "22049489",
+          "1982286",
+          "12315072",
+          "9076196",
+          "33638477",
+          "3559136",
+          "5774746",
+          "9648896",
+          "11968641",
+          "13007205"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on whether normal expression of RUNX1 has tumor-promoting effects. Most documents discuss RUNX1 in the context of tumor suppression or its role in hematopoiesis and development, but do not address its effects in the context of tumor promotion.",
+        "timings": {
+          "retrieval_ms": 75.3,
+          "first_token_ms": 1433.9,
+          "total_ms": 2600.7
+        }
+      },
+      {
+        "query_id": "880",
+        "topic": "",
+        "question": "Occupancy of ribosomes by IncRNAs mirror 5 0-UTRs",
+        "refusal": false,
+        "cited_doc_ids": [
+          "8426046"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "8426046"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "8426046"
+        ],
+        "retrieved_doc_ids": [
+          "8426046",
+          "18467982",
+          "20725212",
+          "40721190",
+          "15893330",
+          "22896970",
+          "8126244",
+          "13552682",
+          "7487927",
+          "20018321"
+        ],
+        "answer_text": "[1] Occupancy of ribosomes by IncRNAs (intergenic non-coding RNAs) mirrors the occupancy seen in 5' UTRs (untranslated regions), suggesting that these metrics are not sufficient to distinguish coding from non-coding transcripts. [1]",
+        "timings": {
+          "retrieval_ms": 114.6,
+          "first_token_ms": 1622.7,
+          "total_ms": 2626.4
+        }
+      },
+      {
+        "query_id": "882",
+        "topic": "",
+        "question": "Omnivores produce less trimethylamine N-oxide from dietary I-carnitine than vegetarians.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "14803797"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "14803797"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "14803797"
+        ],
+        "retrieved_doc_ids": [
+          "14803797",
+          "12709184",
+          "6327940",
+          "6793674",
+          "44624045",
+          "33684572",
+          "29148743",
+          "168265642",
+          "23100962",
+          "23245050"
+        ],
+        "answer_text": "[1]",
+        "timings": {
+          "retrieval_ms": 93.0,
+          "first_token_ms": 1441.9,
+          "total_ms": 1499.8
+        }
+      },
+      {
+        "query_id": "887",
+        "topic": "",
+        "question": "Only a minority of cells survive development after differentiation into stress-resistant spores.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "18855191"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "2140513",
+          "3173489",
+          "7506409",
+          "16630060",
+          "9641846",
+          "20524091",
+          "4979184",
+          "22517564",
+          "13242763",
+          "44562221"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the survival rate of cells after differentiating into stress-resistant spores.",
+        "timings": {
+          "retrieval_ms": 173.2,
+          "first_token_ms": 1795.3,
+          "total_ms": 2323.6
+        }
+      },
+      {
+        "query_id": "922",
+        "topic": "",
+        "question": "Patients in stable partnerships have a faster progression from HIV to AIDS.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "17077004"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "17077004"
+        ],
+        "retrieved_doc_ids": [
+          "17077004",
+          "11230569",
+          "22227889",
+          "46353045",
+          "31562330",
+          "374902",
+          "23531592",
+          "37444589",
+          "1986482",
+          "1259359"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information on the progression rate from HIV to AIDS for patients in stable partnerships.",
+        "timings": {
+          "retrieval_ms": 101.1,
+          "first_token_ms": 1340.3,
+          "total_ms": 1831.0
+        }
+      },
+      {
+        "query_id": "94",
+        "topic": "",
+        "question": "Albendazole is used to treat lymphatic filariasis.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "1215116"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "1215116"
+        ],
+        "retrieved_doc_ids": [
+          "1215116",
+          "41294031",
+          "5402581",
+          "11441172",
+          "17327939",
+          "39424916",
+          "25388309",
+          "10703001",
+          "20610557",
+          "6503185"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about albendazole or its use in treating lymphatic filariasis.",
+        "timings": {
+          "retrieval_ms": 116.2,
+          "first_token_ms": 1778.4,
+          "total_ms": 2322.0
+        }
+      },
+      {
+        "query_id": "956",
+        "topic": "",
+        "question": "Pleiotropic coupling of GLP-1R to intracellular effectors promotes distinct profiles of cellular signaling.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "3610282",
+          "21754541"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "12956194"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "12956194"
+        ],
+        "retrieved_doc_ids": [
+          "12956194",
+          "3127341",
+          "3610282",
+          "21754541",
+          "6061927",
+          "31107919",
+          "30303335",
+          "32587939",
+          "44935041",
+          "21557614"
+        ],
+        "answer_text": "[3] describes the structure of the GLP-1 receptor in complex with a G protein-biased peptide, indicating that the extracellular surface plays a role in receptor activation. [4] highlights key interactions by conserved polar amino acids that modulate activation and biased signaling in the GLP-1 receptor. These documents provide insights into the molecular mechanisms of GLP-1R activation but do not directly address the pleiotropic coupling of GLP-1R to intracellular effectors or distinct signaling profiles. Therefore, INSUFFICIENT_EVIDENCE: the documents do not provide specific information on how GLP-1R coupling to intracellular effectors promotes distinct signaling profiles.",
+        "timings": {
+          "retrieval_ms": 108.1,
+          "first_token_ms": 1479.2,
+          "total_ms": 4022.9
+        }
+      },
+      {
+        "query_id": "960",
+        "topic": "",
+        "question": "Polymeal nutrition reduces cardiovascular mortality.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "8780599"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "8780599"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "8780599"
+        ],
+        "retrieved_doc_ids": [
+          "8780599",
+          "30981192",
+          "35495268",
+          "25355575",
+          "202259",
+          "43128141",
+          "5698494",
+          "6793674",
+          "10209731",
+          "12709184"
+        ],
+        "answer_text": "[1] The Polymeal, combining wine, fish, dark chocolate, fruits, vegetables, garlic, and almonds, would reduce cardiovascular disease events by 76% [1].",
+        "timings": {
+          "retrieval_ms": 91.5,
+          "first_token_ms": 2264.6,
+          "total_ms": 3006.5
+        }
+      },
+      {
+        "query_id": "967",
+        "topic": "",
+        "question": "Pretreatment with the Arp2/3 inhibitor CK-666 affects lamelliopodia formation.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "8997410"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "2119889",
+          "8997410"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "2119889",
+          "8997410"
+        ],
+        "retrieved_doc_ids": [
+          "2119889",
+          "8997410",
+          "22767022",
+          "86694016",
+          "12631697",
+          "36345185",
+          "12640810",
+          "35660758",
+          "19752008",
+          "25089501"
+        ],
+        "answer_text": "[2] Pretreatment with the Arp2/3 complex inhibitor CK666 dramatically altered lamellipodial actin architecture, slowed centripetal flow, and drove a lamellipodial-to-filopodial shape change in suspended cells [2].",
+        "timings": {
+          "retrieval_ms": 102.1,
+          "first_token_ms": 1743.7,
+          "total_ms": 2744.3
+        }
+      },
+      {
+        "query_id": "971",
+        "topic": "",
+        "question": "Primary cervical cancer screening with HPV detection has higher longitudinal sensitivity than conventional cytology to detect cervical intraepithelial neoplasia grade 2.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "9764256"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "27873158",
+          "28617573",
+          "46695481",
+          "9764256"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "27873158",
+          "28617573",
+          "46695481",
+          "9764256"
+        ],
+        "retrieved_doc_ids": [
+          "27446873",
+          "6561200",
+          "27873158",
+          "9764256",
+          "28617573",
+          "46695481",
+          "19140422",
+          "23136735",
+          "16980892",
+          "829646"
+        ],
+        "answer_text": "[4] The final results of the POBASCAM randomised controlled trial indicate that HPV DNA testing in the first screen decreases detection of cervical intraepithelial neoplasia (CIN) grade 3 or worse, CIN grade 2 or worse, and cervical cancer in the second screening [4]. This suggests that primary cervical cancer screening with HPV detection has higher longitudinal sensitivity to detect cervical intraepithelial neoplasia grade 2 or worse.",
+        "timings": {
+          "retrieval_ms": 84.9,
+          "first_token_ms": 2008.1,
+          "total_ms": 3782.2
+        }
+      }
+    ],
+    "unanswerable": [
+      {
+        "query_id": "",
+        "topic": "astronomy",
+        "question": "Does the presence of liquid water on Enceladus require tidal heating from Saturn?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "24335068",
+          "94365950",
+          "97566194",
+          "29518440",
+          "20761364",
+          "19658917",
+          "45364685",
+          "96222213",
+          "109946221",
+          "18750453"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to Enceladus or its liquid water conditions.",
+        "timings": {
+          "retrieval_ms": 81.1,
+          "first_token_ms": 1913.0,
+          "total_ms": 2464.1
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "physics",
+        "question": "Can quantum entanglement be used to achieve faster-than-light communication?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "18568804",
+          "11172205",
+          "7036529",
+          "9730755",
+          "8386609",
+          "18207615",
+          "21377587",
+          "4320111",
+          "14083283",
+          "4928282"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to quantum entanglement or faster-than-light communication.",
+        "timings": {
+          "retrieval_ms": 97.9,
+          "first_token_ms": 1873.0,
+          "total_ms": 2415.0
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "astronomy",
+        "question": "Is the Hubble tension explained by the existence of a local void?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "16057926",
+          "32194449",
+          "9507605",
+          "2988714",
+          "12800122",
+          "2251426",
+          "3752408",
+          "18264714",
+          "1371440",
+          "17805221"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the Hubble tension or local voids.",
+        "timings": {
+          "retrieval_ms": 131.0,
+          "first_token_ms": 1320.5,
+          "total_ms": 1807.3
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "physics",
+        "question": "Does dark matter interact with itself through a fifth force?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "10991183",
+          "3727986",
+          "2060137",
+          "649951",
+          "9507605",
+          "5172048",
+          "1922901",
+          "16390264",
+          "3155374",
+          "15830352"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to dark matter, fifth force, or interactions between dark matter particles.",
+        "timings": {
+          "retrieval_ms": 107.2,
+          "first_token_ms": 1275.6,
+          "total_ms": 1801.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "materials",
+        "question": "Can room-temperature superconductivity be achieved in hydride compounds under high pressure?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "20101846",
+          "121581019",
+          "59453688",
+          "95764370",
+          "712320",
+          "6157837",
+          "11071351",
+          "18568804",
+          "29657303",
+          "12206390"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to room-temperature superconductivity in hydride compounds under high pressure.",
+        "timings": {
+          "retrieval_ms": 86.9,
+          "first_token_ms": 1291.6,
+          "total_ms": 1840.1
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "materials",
+        "question": "What determines the power conversion efficiency limit of perovskite solar cells?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "9730755",
+          "121001457",
+          "59453688",
+          "25853741",
+          "6280907",
+          "19204979",
+          "5409905",
+          "9796495",
+          "19855358",
+          "25516011"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to perovskite solar cells or their power conversion efficiency limits.",
+        "timings": {
+          "retrieval_ms": 85.5,
+          "first_token_ms": 1215.3,
+          "total_ms": 1726.8
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "materials",
+        "question": "Does graphene exhibit intrinsic magnetism at room temperature?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "21456232",
+          "23331269",
+          "16090672",
+          "59453688",
+          "121581019",
+          "12667988",
+          "20101846",
+          "43385013",
+          "20524091",
+          "2460304"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding graphene's magnetic properties at room temperature.",
+        "timings": {
+          "retrieval_ms": 296.6,
+          "first_token_ms": 1807.5,
+          "total_ms": 2216.7
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "computer-science",
+        "question": "Does increasing the number of transformer attention heads monotonically improve language model reasoning?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "42330403",
+          "83707680",
+          "11943989",
+          "33257464",
+          "10190462",
+          "10624000",
+          "15678772",
+          "9973014",
+          "23036207",
+          "17422777"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to transformer attention heads or language model reasoning.",
+        "timings": {
+          "retrieval_ms": 94.7,
+          "first_token_ms": 1307.4,
+          "total_ms": 1741.5
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "computer-science",
+        "question": "Can adversarial training fully eliminate shortcut learning in convolutional neural networks?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "108886332",
+          "4462155",
+          "25597580",
+          "11992632",
+          "38794814",
+          "16284655",
+          "17877537",
+          "6079486",
+          "6036535",
+          "23052989"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to adversarial training or shortcut learning in convolutional neural networks.",
+        "timings": {
+          "retrieval_ms": 93.1,
+          "first_token_ms": 1223.8,
+          "total_ms": 1719.2
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "computer-science",
+        "question": "What is the primary cause of mode collapse in generative adversarial networks?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "27840664",
+          "14332945",
+          "469066",
+          "24097933",
+          "5254741",
+          "33912020",
+          "2988714",
+          "28904104",
+          "3173489",
+          "12866641"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information related to generative adversarial networks or mode collapse.",
+        "timings": {
+          "retrieval_ms": 90.9,
+          "first_token_ms": 1597.4,
+          "total_ms": 2026.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "computer-science",
+        "question": "Is a quantum computer required to factor RSA-2048 integers in practice?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "18568804",
+          "19165076",
+          "1630949",
+          "60206680",
+          "11172205",
+          "27466734",
+          "22997657",
+          "26751583",
+          "8327914",
+          "15194125"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information related to quantum computers or RSA integer factorization.",
+        "timings": {
+          "retrieval_ms": 86.8,
+          "first_token_ms": 1611.5,
+          "total_ms": 2034.9
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "computer-science",
+        "question": "Does reinforcement learning from human feedback reduce hallucinations in large language models?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "16284655",
+          "38794814",
+          "4695046",
+          "4385779",
+          "10991183",
+          "7898952",
+          "3095620",
+          "11943989",
+          "8610932",
+          "25499612"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to reinforcement learning from human feedback or its effect on hallucinations in large language models.",
+        "timings": {
+          "retrieval_ms": 73.4,
+          "first_token_ms": 1580.6,
+          "total_ms": 2164.0
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "chemistry",
+        "question": "Does catalytic conversion of CO2 to methanol require copper-zinc-oxide catalysts?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "35768199",
+          "20101846",
+          "3105781",
+          "25827024",
+          "327319",
+          "35828148",
+          "41915616",
+          "25742205",
+          "7230315",
+          "41024260"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding the use of copper-zinc-oxide catalysts for the conversion of CO2 to methanol.",
+        "timings": {
+          "retrieval_ms": 120.6,
+          "first_token_ms": 1661.5,
+          "total_ms": 2286.8
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "chemistry",
+        "question": "What mechanism explains the color oscillations in the Belousov-Zhabotinsky reaction?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "10846815",
+          "14719322",
+          "13780287",
+          "8734695",
+          "9696379",
+          "18333304",
+          "41329220",
+          "79336156",
+          "14240343",
+          "23331269"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the Belousov-Zhabotinsky reaction or color oscillations in it.",
+        "timings": {
+          "retrieval_ms": 75.3,
+          "first_token_ms": 1965.7,
+          "total_ms": 2500.6
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "chemistry",
+        "question": "Can mixed plastic waste be depolymerized back into virgin-grade monomers at industrial scale?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "109946221",
+          "94365950",
+          "4939312",
+          "32975424",
+          "95102458",
+          "10300888",
+          "13223957",
+          "38712515",
+          "623486",
+          "6106004"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the depolymerization of mixed plastic waste into virgin-grade monomers at an industrial scale.",
+        "timings": {
+          "retrieval_ms": 102.2,
+          "first_token_ms": 1821.7,
+          "total_ms": 2495.2
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "climate",
+        "question": "Does a slowdown of the Atlantic meridional overturning circulation increase European heatwave frequency?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "13882658",
+          "38794814",
+          "16252863",
+          "23400191",
+          "35271381",
+          "27408104",
+          "30226988",
+          "3093512",
+          "28441310",
+          "34103335"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding the Atlantic meridional overturning circulation or its impact on European heatwave frequency.",
+        "timings": {
+          "retrieval_ms": 84.7,
+          "first_token_ms": 1640.4,
+          "total_ms": 2213.2
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "earth-science",
+        "question": "Was the Permian-Triassic extinction caused primarily by volcanic CO2 emissions or by ocean anoxia?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "7438803",
+          "19571273",
+          "4700428",
+          "13380011",
+          "17173492",
+          "1243475",
+          "13882658",
+          "23122306",
+          "8892905",
+          "13135544"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the Permian-Triassic extinction event, volcanic CO2 emissions, or ocean anoxia.",
+        "timings": {
+          "retrieval_ms": 91.0,
+          "first_token_ms": 1630.5,
+          "total_ms": 2232.2
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "climate",
+        "question": "Is soil carbon sequestration sufficient to offset current industrial CO2 emissions?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "7438803",
+          "11936877",
+          "13613916",
+          "42387637",
+          "17539488",
+          "35768199",
+          "24923605",
+          "21003930",
+          "4324278",
+          "34760396"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information related to soil carbon sequestration or industrial CO2 emissions.",
+        "timings": {
+          "retrieval_ms": 71.1,
+          "first_token_ms": 1588.3,
+          "total_ms": 2057.9
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "climate",
+        "question": "Does cloud seeding measurably increase precipitation in arid regions?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "33955641",
+          "14149065",
+          "33904789",
+          "6722522",
+          "13882658",
+          "14475235",
+          "86704258",
+          "97566194",
+          "8373753",
+          "11936877"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to cloud seeding or its effects on precipitation in arid regions.",
+        "timings": {
+          "retrieval_ms": 103.5,
+          "first_token_ms": 1393.6,
+          "total_ms": 1893.6
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "physics",
+        "question": "Can muon-catalyzed fusion ever become net energy positive?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "10494012",
+          "8551160",
+          "37608303",
+          "6082738",
+          "26561572",
+          "22186938",
+          "11661377",
+          "29641682",
+          "20646904",
+          "36089763"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to muon-catalyzed fusion or its potential to become net energy positive.",
+        "timings": {
+          "retrieval_ms": 95.9,
+          "first_token_ms": 1298.1,
+          "total_ms": 1858.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "physics",
+        "question": "Does the anomalous magnetic moment of the muon indicate physics beyond the Standard Model?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "19685306",
+          "18027063",
+          "4983",
+          "87758",
+          "13768432",
+          "11884867",
+          "22914228",
+          "39390206",
+          "1472815",
+          "6070278"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the anomalous magnetic moment of the muon or physics beyond the Standard Model.",
+        "timings": {
+          "retrieval_ms": 6399.1,
+          "first_token_ms": 7776.6,
+          "total_ms": 8338.7
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "mathematics",
+        "question": "Can the Riemann hypothesis be proven using quasi-crystal structures?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "23342686",
+          "25483562",
+          "3981729",
+          "25657127",
+          "41087952",
+          "31387717",
+          "46816158",
+          "3829232",
+          "44947611",
+          "27900414"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the Riemann hypothesis or quasi-crystal structures.",
+        "timings": {
+          "retrieval_ms": 177.2,
+          "first_token_ms": 1757.0,
+          "total_ms": 2238.9
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "engineering",
+        "question": "Can hydrogen fuel cells realistically power long-haul commercial aviation?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "4423203",
+          "35768199",
+          "18678095",
+          "21932297",
+          "20672596",
+          "26297042",
+          "36653415",
+          "31141365",
+          "43890638",
+          "33884866"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information relevant to the feasibility of hydrogen fuel cells for powering long-haul commercial aviation.",
+        "timings": {
+          "retrieval_ms": 90.3,
+          "first_token_ms": 1348.1,
+          "total_ms": 1858.1
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "engineering",
+        "question": "Do parts produced by metal additive manufacturing have isotropic mechanical properties?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "17388232",
+          "11862753",
+          "32532238",
+          "39728826",
+          "4423203",
+          "26047921",
+          "16669757",
+          "22995164",
+          "1922901",
+          "20101846"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the mechanical properties of parts produced by metal additive manufacturing processes.",
+        "timings": {
+          "retrieval_ms": 87.3,
+          "first_token_ms": 1340.1,
+          "total_ms": 1848.6
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "engineering",
+        "question": "What fundamentally limits the energy density of lithium-sulfur batteries?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "26907074",
+          "31884697",
+          "5704562",
+          "8247597",
+          "7438803",
+          "9796495",
+          "59453688",
+          "13944805",
+          "38533515",
+          "2593298"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the energy density limitations of lithium-sulfur batteries.",
+        "timings": {
+          "retrieval_ms": 90.8,
+          "first_token_ms": 1219.8,
+          "total_ms": 1696.0
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "planetary-science",
+        "question": "Was Venus once habitable with surface liquid water oceans?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "97566194",
+          "94365950",
+          "18750453",
+          "29518440",
+          "109946221",
+          "2097256",
+          "38037690",
+          "15551129",
+          "3825472",
+          "24335068"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information about Venus's past habitability or the presence of liquid water oceans on its surface.",
+        "timings": {
+          "retrieval_ms": 73.1,
+          "first_token_ms": 1451.2,
+          "total_ms": 1991.7
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "earth-science",
+        "question": "Does hydraulic fracturing induce earthquakes larger than magnitude 5?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "13496853",
+          "19005293",
+          "21644993",
+          "45820464",
+          "23573229",
+          "27264454",
+          "39462488",
+          "18747744",
+          "23100220",
+          "22281684"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to hydraulic fracturing or its relation to inducing earthquakes of magnitude 5 or larger.",
+        "timings": {
+          "retrieval_ms": 75.5,
+          "first_token_ms": 1380.6,
+          "total_ms": 1946.5
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "ecology",
+        "question": "Do neonicotinoid pesticides cause colony collapse disorder in honeybees?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "12209494",
+          "24097933",
+          "15237660",
+          "28904104",
+          "33912020",
+          "30741007",
+          "9110810",
+          "2988714",
+          "8447873",
+          "4999387"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to neonicotinoid pesticides or their effects on honeybees.",
+        "timings": {
+          "retrieval_ms": 128.9,
+          "first_token_ms": 1338.8,
+          "total_ms": 1922.8
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "ecology",
+        "question": "Can coral reefs adapt genetically to ocean acidification fast enough to survive?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "17050065",
+          "4583180",
+          "85693958",
+          "596817",
+          "109946221",
+          "4423203",
+          "13135544",
+          "6599693",
+          "30658796",
+          "14874811"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about coral reefs, ocean acidification, or genetic adaptation rates relevant to the question.",
+        "timings": {
+          "retrieval_ms": 75.3,
+          "first_token_ms": 1279.5,
+          "total_ms": 1808.0
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "archaeology",
+        "question": "Did the Late Bronze Age collapse result from a combination of drought and invasions?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "24097933",
+          "31154082",
+          "27840664",
+          "2988714",
+          "19961177",
+          "13277118",
+          "33912020",
+          "1412089",
+          "12899460",
+          "12866641"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the Late Bronze Age collapse, drought, or invasions.",
+        "timings": {
+          "retrieval_ms": 95.7,
+          "first_token_ms": 1480.9,
+          "total_ms": 1982.8
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "archaeology",
+        "question": "Was the Antikythera mechanism used to predict astronomical positions?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "14275671",
+          "7260461",
+          "14180217",
+          "175735",
+          "1259280",
+          "8250852",
+          "3801693",
+          "2890952",
+          "20942644",
+          "14819804"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information about the Antikythera mechanism or its use in predicting astronomical positions.",
+        "timings": {
+          "retrieval_ms": 85.9,
+          "first_token_ms": 1200.6,
+          "total_ms": 1744.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "agriculture",
+        "question": "Does vertical farming reduce energy use per calorie compared to conventional field farming?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "23369842",
+          "168265642",
+          "5687200",
+          "4463811",
+          "71341302",
+          "2028532",
+          "13338820",
+          "9796495",
+          "25050364",
+          "97566194"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding energy use in vertical farming or comparisons between vertical farming and conventional field farming.",
+        "timings": {
+          "retrieval_ms": 80.7,
+          "first_token_ms": 1332.8,
+          "total_ms": 1870.1
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "agriculture",
+        "question": "Can insect-derived protein fully replace soybean meal in aquaculture feed?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "29735200",
+          "1320137",
+          "11862753",
+          "24922825",
+          "11742219",
+          "28230867",
+          "20083834",
+          "6327940",
+          "21219071",
+          "20428155"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the use of insect-derived proteins in aquaculture feed or their potential as a replacement for soybean meal.",
+        "timings": {
+          "retrieval_ms": 103.9,
+          "first_token_ms": 1605.5,
+          "total_ms": 2272.9
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "economics",
+        "question": "Do carbon taxes measurably reduce national emissions without carbon leakage?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "7438803",
+          "42387637",
+          "21003930",
+          "13613916",
+          "16422880",
+          "4414481",
+          "36653415",
+          "35768199",
+          "10071552",
+          "9199796"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to carbon taxes, national emissions, or carbon leakage.",
+        "timings": {
+          "retrieval_ms": 194.4,
+          "first_token_ms": 1746.5,
+          "total_ms": 2244.3
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "economics",
+        "question": "Does unconditional cash transfer reduce labor supply in recipient households?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "21203899",
+          "36211049",
+          "7034001",
+          "10071552",
+          "10854174",
+          "42278130",
+          "45581752",
+          "22621251",
+          "40500723",
+          "41774099"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to unconditional cash transfer programs or their impact on labor supply in recipient households.",
+        "timings": {
+          "retrieval_ms": 100.2,
+          "first_token_ms": 1304.0,
+          "total_ms": 1890.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "space-technology",
+        "question": "Can ion thrusters provide sufficient thrust for crewed Mars missions?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "30041895",
+          "26047921",
+          "28436879",
+          "1275505",
+          "8246090",
+          "84884645",
+          "2344892",
+          "13025574",
+          "18678095",
+          "17402386"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to ion thrusters or their application in crewed Mars missions.",
+        "timings": {
+          "retrieval_ms": 88.0,
+          "first_token_ms": 1346.8,
+          "total_ms": 1906.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "space-technology",
+        "question": "Does the Kessler syndrome make low Earth orbit commercially unusable?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "27449472",
+          "20288322",
+          "16701509",
+          "46764350",
+          "10574949",
+          "16217855",
+          "3462075",
+          "13025574",
+          "19970015",
+          "22544171"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to Kessler syndrome or its impact on low Earth orbit.",
+        "timings": {
+          "retrieval_ms": 95.2,
+          "first_token_ms": 1758.1,
+          "total_ms": 2283.7
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "nuclear",
+        "question": "Can thorium molten-salt reactors breed uranium-233 in a sustained fuel cycle?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "30303335",
+          "7492420",
+          "14479433",
+          "23698769",
+          "40608679",
+          "20028729",
+          "25670099",
+          "8477699",
+          "31141365",
+          "36653415"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to thorium molten-salt reactors or the breeding of uranium-233.",
+        "timings": {
+          "retrieval_ms": 83.0,
+          "first_token_ms": 1562.5,
+          "total_ms": 2233.5
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "nuclear",
+        "question": "Does vitrification prevent nuclear waste from leaching into groundwater for 10,000 years?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "97566194",
+          "109946221",
+          "7438803",
+          "3883485",
+          "14700857",
+          "4452659",
+          "24541180",
+          "16120395",
+          "20028729",
+          "13639330"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information about vitrification methods or their effectiveness in preventing nuclear waste from leaching into groundwater for 10,000 years.",
+        "timings": {
+          "retrieval_ms": 75.8,
+          "first_token_ms": 1672.0,
+          "total_ms": 2486.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "physics",
+        "question": "What is the theoretical efficiency limit of thermoelectric generators near room temperature?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "121581019",
+          "59453688",
+          "20101846",
+          "6766459",
+          "4810810",
+          "12667988",
+          "4319174",
+          "94365950",
+          "6993046",
+          "129199129"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information about the theoretical efficiency limit of thermoelectric generators near room temperature.",
+        "timings": {
+          "retrieval_ms": 74.6,
+          "first_token_ms": 1596.1,
+          "total_ms": 2109.2
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "engineering",
+        "question": "Can acoustic levitation manipulate millimeter-scale objects in industrial processes?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "6985854",
+          "10608397",
+          "23331269",
+          "18379855",
+          "95102458",
+          "31715818",
+          "14437255",
+          "94365950",
+          "73136607",
+          "32712381"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to acoustic levitation or its application in industrial processes for manipulating millimeter-scale objects.",
+        "timings": {
+          "retrieval_ms": 90.1,
+          "first_token_ms": 1314.7,
+          "total_ms": 2160.8
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "astronomy",
+        "question": "Does the Yarkovsky effect significantly alter the orbits of near-Earth asteroids?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "24707550",
+          "15561961",
+          "20977638",
+          "12994780",
+          "9334631",
+          "3943235",
+          "34445160",
+          "1554348",
+          "46765242",
+          "20611846"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to the Yarkovsky effect or its impact on the orbits of near-Earth asteroids.",
+        "timings": {
+          "retrieval_ms": 89.5,
+          "first_token_ms": 1427.2,
+          "total_ms": 2034.0
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "biophysics",
+        "question": "Is long-lasting quantum coherence possible in warm biological systems?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "21257564",
+          "11172205",
+          "10624000",
+          "6599693",
+          "7421677",
+          "12440953",
+          "8386609",
+          "10790846",
+          "13135544",
+          "991137"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to quantum coherence in warm biological systems.",
+        "timings": {
+          "retrieval_ms": 66.1,
+          "first_token_ms": 1397.7,
+          "total_ms": 1822.9
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "environment",
+        "question": "Can desalination brine be discharged without harming marine benthic ecosystems?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "104143831",
+          "4939312",
+          "94365950",
+          "97566194",
+          "20428155",
+          "16626846",
+          "109946221",
+          "17173492",
+          "7438803",
+          "25062868"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain specific information on the impact of desalination brine discharge on marine benthic ecosystems. Documents discuss methods for brine reuse and treatment but do not provide details on the environmental impacts of direct discharge.",
+        "timings": {
+          "retrieval_ms": 89.4,
+          "first_token_ms": 1815.9,
+          "total_ms": 2861.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "climate",
+        "question": "Does stratospheric aerosol injection reduce global mean temperature without damaging the ozone layer?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "6766459",
+          "129199129",
+          "35768199",
+          "25308734",
+          "33872649",
+          "13882658",
+          "24700152",
+          "4810810",
+          "6625693",
+          "13000926"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information about stratospheric aerosol injection or its effects on global mean temperature or the ozone layer.",
+        "timings": {
+          "retrieval_ms": 91.5,
+          "first_token_ms": 1507.6,
+          "total_ms": 2963.6
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "physics",
+        "question": "Can neutrino detectors be used to monitor nuclear reactors remotely?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "13916951",
+          "20028729",
+          "14700857",
+          "17049436",
+          "6251620",
+          "96222213",
+          "8025177",
+          "16427454",
+          "24552097",
+          "40667066"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to neutrino detectors or their use in monitoring nuclear reactors remotely.",
+        "timings": {
+          "retrieval_ms": 122.2,
+          "first_token_ms": 1377.4,
+          "total_ms": 1967.7
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "earth-science",
+        "question": "Does space weather posing geomagnetic storm risk justify hardening all power grids?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "13882658",
+          "4810810",
+          "13025574",
+          "10072941",
+          "17000834",
+          "6962472",
+          "2097256",
+          "12839939",
+          "13870943",
+          "19974105"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain information related to space weather, geomagnetic storms, or the justification for hardening power grids.",
+        "timings": {
+          "retrieval_ms": 116.2,
+          "first_token_ms": 1329.9,
+          "total_ms": 1915.4
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "materials",
+        "question": "Can biodegradable plastics match the mechanical durability of PET in packaging?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "17388232",
+          "1922901",
+          "32532238",
+          "1156322",
+          "5956016",
+          "8494570",
+          "58050905",
+          "25732836",
+          "5567223",
+          "37912677"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to biodegradable plastics or their mechanical durability compared to PET in packaging.",
+        "timings": {
+          "retrieval_ms": 94.0,
+          "first_token_ms": 1264.8,
+          "total_ms": 1836.6
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "environment",
+        "question": "Does commercial air travel produce more CO2 per passenger-kilometer than electric vehicles?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "791050",
+          "21003930",
+          "11026600",
+          "41161366",
+          "471921",
+          "24443043",
+          "2891825",
+          "4435369",
+          "6333347",
+          "26990001"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information regarding CO2 emissions from commercial air travel compared to electric vehicles.",
+        "timings": {
+          "retrieval_ms": 106.7,
+          "first_token_ms": 1935.1,
+          "total_ms": 2471.7
+        }
+      },
+      {
+        "query_id": "",
+        "topic": "materials",
+        "question": "Can solid-state electrolytes eliminate thermal runaway in lithium-ion batteries?",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [],
+        "retrieved_doc_ids": [
+          "26907074",
+          "31884697",
+          "5704562",
+          "4340358",
+          "33634749",
+          "94365950",
+          "4939312",
+          "20101846",
+          "26231129",
+          "12667988"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided documents do not contain any information related to solid-state electrolytes or their effects on thermal runaway in lithium-ion batteries.",
+        "timings": {
+          "retrieval_ms": 761.7,
+          "first_token_ms": 1779.1,
+          "total_ms": 2361.4
+        }
+      }
+    ]
+  }
+}

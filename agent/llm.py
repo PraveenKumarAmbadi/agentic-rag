@@ -4,6 +4,7 @@ Streaming chat over Ollama's NDJSON `/api/chat` endpoint. Kept dependency-light
 (httpx only) and hand-rolled so every wire detail is visible and testable.
 """
 
+import asyncio
 import json
 from collections.abc import AsyncIterator
 
@@ -51,9 +52,14 @@ class LLMClient:
             return False
 
     async def stream_chat(
-        self, messages: list[dict[str, str]]
+        self, messages: list[dict[str, str]], max_retries: int = 2
     ) -> AsyncIterator[str]:
-        """Yield assistant content chunks for the given chat messages."""
+        """Yield assistant content chunks for the given chat messages.
+
+        Retries transient connection failures (e.g. Ollama restarting) up to
+        max_retries times — but only before the first token is yielded; a
+        mid-stream failure always raises, since retrying would duplicate text.
+        """
         payload = {
             "model": self.model,
             "messages": messages,
@@ -63,30 +69,37 @@ class LLMClient:
                 "num_predict": self.max_tokens,
             },
         }
-        try:
-            async with self._client.stream(
-                "POST", f"{self.base_url}/api/chat", json=payload
-            ) as resp:
-                if resp.status_code != 200:
-                    body = await resp.aread()
-                    raise OllamaError(
-                        f"Ollama returned {resp.status_code}: {body.decode()[:200]}"
-                    )
-                async for line in resp.aiter_lines():
-                    if not line.strip():
-                        continue
-                    event = json.loads(line)
-                    if "error" in event:
-                        raise OllamaError(event["error"])
-                    delta = event.get("message", {}).get("content", "")
-                    if delta:
-                        yield delta
-                    if event.get("done"):
-                        return
-        except httpx.HTTPError as exc:
-            raise OllamaError(
-                f"Cannot reach Ollama at {self.base_url}. Is it running? ({exc})"
-            ) from exc
+        last_error: Exception | None = None
+        for attempt in range(max_retries + 1):
+            try:
+                async with self._client.stream(
+                    "POST", f"{self.base_url}/api/chat", json=payload
+                ) as resp:
+                    if resp.status_code != 200:
+                        body = await resp.aread()
+                        raise OllamaError(
+                            f"Ollama returned {resp.status_code}: {body.decode()[:200]}"
+                        )
+                    async for line in resp.aiter_lines():
+                        if not line.strip():
+                            continue
+                        event = json.loads(line)
+                        if "error" in event:
+                            raise OllamaError(event["error"])
+                        delta = event.get("message", {}).get("content", "")
+                        if delta:
+                            yield delta
+                        if event.get("done"):
+                            return
+                return
+            except (httpx.HTTPError, OllamaError) as exc:
+                last_error = exc
+                if attempt < max_retries:
+                    await asyncio.sleep(2 * (attempt + 1))
+        raise OllamaError(
+            f"Cannot reach Ollama at {self.base_url} after "
+            f"{max_retries + 1} attempts: {last_error}"
+        ) from last_error
 
     async def close(self) -> None:
         await self._client.aclose()
