@@ -49,8 +49,10 @@ llm:
   judge_temperature: 0.0
 
 agent:
+  mode: agent                   # baseline | agent — pipeline used by serving + eval default
   max_iterations: 4               # max tool-call rounds per question
   max_retries: 2                  # max self-critique retries
+  rerank: false                   # BGE rerank inside the search tool (false = baseline retrieval parity; A/B in a later phase)
   per_method_top_k: 100
   top_k: 10                       # docs passed to the LLM after rerank
 

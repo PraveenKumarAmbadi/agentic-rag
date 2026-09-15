@@ -13,6 +13,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+from agent.agent import AgentPipeline
 from agent.llm import LLMClient, OllamaError
 from agent.pipeline import RagPipeline
 from configs.loader import load_config
@@ -67,8 +68,14 @@ async def lifespan(app: FastAPI):
     app.state.cfg = cfg
     app.state.logger = logger
     app.state.llm = LLMClient.from_config(cfg)
-    app.state.pipeline = RagPipeline(logger=logger, llm=app.state.llm, **stack)
-    logger.info("Agentic RAG API started (llm=%s)", cfg["llm"]["model"])
+    mode = cfg["agent"].get("mode", "baseline")
+    pipeline_cls = AgentPipeline if mode == "agent" else RagPipeline
+    app.state.pipeline = pipeline_cls(logger=logger, llm=app.state.llm, **stack)
+    logger.info(
+        "Agentic RAG API started (llm=%s, pipeline=%s)",
+        cfg["llm"]["model"],
+        mode,
+    )
     yield
     await app.state.llm.close()
 

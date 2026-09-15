@@ -77,7 +77,8 @@ class RagPipeline:
 
         results, retrieval_ms = await self.retrieve(question, trace_id, ctx)
         doc_ids = [r.doc_id for r in results]
-        messages = build_messages(question, results)
+        context_chars = self.cfg["agent"].get("context_chars", 800)
+        messages = build_messages(question, results, context_chars)
 
         first_token_ms = None
         chunks: list[str] = []

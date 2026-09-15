@@ -51,6 +51,53 @@ class LLMClient:
         except httpx.HTTPError:
             return False
 
+    async def chat(
+        self,
+        messages: list[dict[str, str]],
+        temperature: float | None = None,
+        max_tokens: int | None = None,
+        max_retries: int = 2,
+    ) -> str:
+        """Non-streaming chat completion — agent control turns + judge calls.
+
+        Args:
+            temperature: Override self.temperature for this call (judge calls
+                want 0.0).
+            max_tokens: Override self.max_tokens for this call (control turns
+                emit one small JSON object, not a full answer).
+        """
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "stream": False,
+            "options": {
+                "temperature": self.temperature if temperature is None else temperature,
+                "num_predict": self.max_tokens if max_tokens is None else max_tokens,
+            },
+        }
+        last_error: Exception | None = None
+        for attempt in range(max_retries + 1):
+            try:
+                resp = await self._client.post(
+                    f"{self.base_url}/api/chat", json=payload
+                )
+                if resp.status_code != 200:
+                    raise OllamaError(
+                        f"Ollama returned {resp.status_code}: {resp.text[:200]}"
+                    )
+                data = resp.json()
+                if "error" in data:
+                    raise OllamaError(data["error"])
+                return data.get("message", {}).get("content", "")
+            except (httpx.HTTPError, OllamaError) as exc:
+                last_error = exc
+                if attempt < max_retries:
+                    await asyncio.sleep(2 * (attempt + 1))
+        raise OllamaError(
+            f"Cannot reach Ollama at {self.base_url} after "
+            f"{max_retries + 1} attempts: {last_error}"
+        ) from last_error
+
     async def stream_chat(
         self, messages: list[dict[str, str]], max_retries: int = 2
     ) -> AsyncIterator[str]:

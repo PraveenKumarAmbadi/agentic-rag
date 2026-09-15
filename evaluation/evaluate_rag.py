@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-"""RAG eval runner — replays eval sets through the shared RagPipeline.
+"""RAG eval runner — replays eval sets through the shared pipeline.
 
 Metrics (per set):
   answerable    citation_precision (|cited ∩ gold| / |cited|, 0 if no
                 citations), retrieval_hit_rate (any gold doc in context),
                 false_refusal_rate, invalid_citation_rate, latency percentiles
   unanswerable  refusal_correctness (did it use the escape hatch), latency
+  agent mode    + iterations/llm_calls means, rescue-override rate,
+                critique pass rate, hedge rate
 
 Results are written to results/<tag>_<timestamp>.json including per-question
 records for error analysis. IMPORTANT: stop the API server before running —
 both processes cannot hold the LLM in 8 GB VRAM at once.
 
 Usage::
-    python -m evaluation.evaluate_rag --tag baseline_phase1
+    python -m evaluation.evaluate_rag --mode baseline --tag baseline_phase1
+    python -m evaluation.evaluate_rag --mode agent --tag agent_phase3
 """
 
 import argparse
@@ -22,6 +25,7 @@ import statistics
 from datetime import datetime, timezone
 from pathlib import Path
 
+from agent.agent import AgentPipeline
 from agent.llm import LLMClient
 from agent.pipeline import RagPipeline
 from configs.loader import load_config
@@ -44,7 +48,7 @@ def percentile(values: list[float], p: float) -> float:
     return round(sorted(values)[int(len(values) * p / 100) - 1 if p < 100 else -1], 1)
 
 
-async def eval_set(pipe: RagPipeline, records: list[dict]) -> list[dict]:
+async def eval_set(pipe, records: list[dict]) -> list[dict]:
     rows = []
     for i, rec in enumerate(records, start=1):
         done = None
@@ -72,6 +76,7 @@ async def eval_set(pipe: RagPipeline, records: list[dict]) -> list[dict]:
                 "retrieved_doc_ids": done["retrieved_doc_ids"],
                 "answer_text": done["text"],
                 "timings": done["timings"],
+                "agent": done.get("agent"),
             }
         )
         if i % 10 == 0:
@@ -103,6 +108,27 @@ def summarize(rows: list[dict], has_gold: bool) -> dict:
         s["refusal_correctness"] = round(
             statistics.mean(r["refusal"] for r in rows), 4
         )
+    if rows and rows[0].get("agent"):
+        ags = [r["agent"] for r in rows]
+        s["agent_iterations_mean"] = round(
+            statistics.mean(a["iterations"] for a in ags), 2
+        )
+        s["llm_calls_mean"] = round(
+            statistics.mean(a["llm_calls"] for a in ags), 2
+        )
+        s["rescue_override_rate"] = round(
+            statistics.mean(
+                bool(a["rescue"] and a["rescue"]["overridden"]) for a in ags
+            ),
+            4,
+        )
+        s["critique_pass_rate"] = round(
+            statistics.mean(
+                bool(a["critique"] and a["critique"]["supported"]) for a in ags
+            ),
+            4,
+        )
+        s["hedge_rate"] = round(statistics.mean(a["hedged"] for a in ags), 4)
     return s
 
 
@@ -125,7 +151,8 @@ async def main_async(args) -> None:
     await loop.run_in_executor(None, lambda: splade_encoder.encode_query("warmup"))
     es = get_es_client()
     llm = LLMClient.from_config(cfg)
-    pipe = RagPipeline(
+    pipe_cls = AgentPipeline if args.mode == "agent" else RagPipeline
+    pipe = pipe_cls(
         cfg=cfg,
         es=es,
         corpus=corpus,
@@ -153,10 +180,14 @@ async def main_async(args) -> None:
     out_path = Path(cfg["eval"]["results_dir"]) / f"{args.tag}_{stamp}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
-        json.dump({"tag": args.tag, "summary": summary, "results": results}, f, indent=2)
+        json.dump(
+            {"tag": args.tag, "mode": args.mode, "summary": summary, "results": results},
+            f,
+            indent=2,
+        )
 
     print("\n" + "=" * 60)
-    print(f"BASELINE EVAL — {args.tag}")
+    print(f"EVAL — {args.tag} (mode={args.mode})")
     print("=" * 60)
     for set_name, s in summary.items():
         print(f"\n  {set_name.upper()}:")
@@ -170,6 +201,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--sets", default="answerable,unanswerable")
     parser.add_argument("--limit", type=int, default=0, help="0 = full sets")
-    parser.add_argument("--tag", default="baseline")
+    parser.add_argument(
+        "--mode",
+        default=None,
+        choices=["baseline", "agent"],
+        help="pipeline to evaluate (default: cfg agent.mode)",
+    )
+    parser.add_argument("--tag", default=None)
     args = parser.parse_args()
+    if args.mode is None:
+        cfg_for_mode = load_config()
+        args.mode = cfg_for_mode["agent"].get("mode", "baseline")
+    if args.tag is None:
+        args.tag = args.mode
     asyncio.run(main_async(args))

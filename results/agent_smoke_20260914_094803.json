@@ -1,0 +1,187 @@
+{
+  "tag": "agent_smoke",
+  "mode": "agent",
+  "summary": {
+    "answerable": {
+      "n": 3,
+      "p50_total_ms": 5146.8,
+      "p95_total_ms": 11237.4,
+      "citation_precision": 0.3333,
+      "false_refusal_rate": 0.6667,
+      "retrieval_hit_rate": 1,
+      "invalid_citation_rate": 0,
+      "agent_iterations_mean": 1.33,
+      "llm_calls_mean": 5.33,
+      "rescue_override_rate": 1,
+      "critique_pass_rate": 0,
+      "hedge_rate": 0.3333
+    }
+  },
+  "results": {
+    "answerable": [
+      {
+        "query_id": "1014",
+        "topic": "",
+        "question": "Rapamycin decreases the concentration of triacylglycerols in fruit flies.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "6277638"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "6277638"
+        ],
+        "retrieved_doc_ids": [
+          "6277638",
+          "1227277",
+          "4658268",
+          "17195001",
+          "10790846",
+          "116792",
+          "2266471",
+          "6690087",
+          "14874811",
+          "4324278"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The document does not mention the effect of rapamycin on triacylglycerol concentrations in fruit flies.",
+        "timings": {
+          "retrieval_ms": 638.4,
+          "first_token_ms": 12032.7,
+          "total_ms": 12544.4
+        },
+        "agent": {
+          "iterations": 2,
+          "actions": [
+            {
+              "iteration": 1,
+              "tool": "hybrid_search",
+              "args": {
+                "query": "Rapamycin decreases triacylglycerols in Drosophila"
+              }
+            }
+          ],
+          "decide_parse_errors": 1,
+          "rescue": {
+            "trigger": "generate",
+            "reason": "The provided documents do not contain information about rapamycin's effect on triacylglycerol concentrations in fruit flies.",
+            "overridden": true,
+            "relevant_doc": 1,
+            "justification": "Document 1 discusses the effects of rapamycin on the fruit fly Drosophila melanogaster, which is relevant to the question."
+          },
+          "critique": null,
+          "hedged": false,
+          "llm_calls": 5
+        }
+      },
+      {
+        "query_id": "1029",
+        "topic": "",
+        "question": "Reduced responsiveness to interleukin-2 in regulatory T cells is associated with greater resistance to autoimmune diseases such as Type 1 Diabetes.",
+        "refusal": false,
+        "cited_doc_ids": [
+          "13923140"
+        ],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "11899391",
+          "13923140",
+          "13940200"
+        ],
+        "citation_precision": 1.0,
+        "gold_doc_ids_retrieved": [
+          "11899391",
+          "13923140",
+          "13940200"
+        ],
+        "retrieved_doc_ids": [
+          "11899391",
+          "13923140",
+          "2388819",
+          "7115651",
+          "13940200",
+          "23342845",
+          "22852120",
+          "36642096",
+          "1855679",
+          "24069089"
+        ],
+        "answer_text": "Note: parts of this answer may not be fully supported by the retrieved documents.\n\nReduced responsiveness to interleukin-2 in regulatory T cells is associated with greater resistance to autoimmune diseases such as Type 1 Diabetes [2].\n\nDocument [2] states that reduced IL-2 production correlates with reduced function of CD4+ CD25+ regulatory T cells, which is linked to autoimmune dysregulation. This suggests that diminished responsiveness to IL-2 in regulatory T cells is associated with increased susceptibility to autoimmune diseases, including Type 1 Diabetes.",
+        "timings": {
+          "retrieval_ms": 126.1,
+          "first_token_ms": 8442.8,
+          "total_ms": 11237.4
+        },
+        "agent": {
+          "iterations": 1,
+          "actions": [],
+          "decide_parse_errors": 1,
+          "rescue": {
+            "trigger": "generate",
+            "reason": "The documents do not provide information on whether reduced responsiveness to interleukin-2 in regulatory T cells is associated with greater resistance to autoimmune diseases such as Type 1 Diabetes. The documents discuss the role of IL2RA variations and IL-2 in regulatory T cell function and autoimmune diseases, but do not directly link reduced IL-2 responsiveness to increased resistance to Type 1 Diabetes.",
+            "overridden": true,
+            "relevant_doc": 1,
+            "justification": "Document 1 discusses the association between a Type 1 diabetes-associated IL2RA variation and diminished IL-2 signaling, which is relevant to the question."
+          },
+          "critique": {
+            "supported": false,
+            "unsupported_claims": [
+              "Reduced responsiveness to interleukin-2 in regulatory T cells is associated with greater resistance to autoimmune diseases such as Type 1 Diabetes."
+            ]
+          },
+          "hedged": true,
+          "llm_calls": 7
+        }
+      },
+      {
+        "query_id": "1062",
+        "topic": "",
+        "question": "S-nitrosylated GAPDH physiologically transnitrosylates histone deacetylases.",
+        "refusal": true,
+        "cited_doc_ids": [],
+        "invalid_citations": [],
+        "gold_doc_ids": [
+          "20381484"
+        ],
+        "citation_precision": 0.0,
+        "gold_doc_ids_retrieved": [
+          "20381484"
+        ],
+        "retrieved_doc_ids": [
+          "20381484",
+          "25748308",
+          "2831620",
+          "502591",
+          "43156471",
+          "32985041",
+          "32638085",
+          "665817",
+          "2139357",
+          "22968257"
+        ],
+        "answer_text": "INSUFFICIENT_EVIDENCE: The provided document does not explicitly mention GAPDH physiologically transnitrosylating histone deacetylases.",
+        "timings": {
+          "retrieval_ms": 92.0,
+          "first_token_ms": 4553.8,
+          "total_ms": 5146.8
+        },
+        "agent": {
+          "iterations": 1,
+          "actions": [],
+          "decide_parse_errors": 1,
+          "rescue": {
+            "trigger": "generate",
+            "reason": "The provided documents do not contain information about S-nitrosylated GAPDH physiologically transnitrosylating histone deacetylases.",
+            "overridden": true,
+            "relevant_doc": 1,
+            "justification": "Document 1 discusses S-nitrosylation of GAPDH and its interaction with histone deacetylases, which is relevant to the question."
+          },
+          "critique": null,
+          "hedged": false,
+          "llm_calls": 4
+        }
+      }
+    ]
+  }
+}
