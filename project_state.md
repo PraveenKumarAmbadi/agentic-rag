@@ -217,7 +217,8 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 - **BASELINE (Phase 1 pipeline, frozen eval sets, 2026-09-14, results/baseline_phase1_*.json):**
   - Answerable (100): citation_precision **0.3133**, false_refusal_rate **0.69**, retrieval_hit_rate 0.87, invalid_citation_rate 0.0, p50 2.26 s, p95 3.38 s
   - Unanswerable (50): refusal_correctness **1.0**, p50 2.03 s, p95 2.50 s
-  - Key failure transcript: "Rapamycin … triacylglycerols in fruit flies" — gold doc WAS in context, model still refused → generation-side failure, not retrieval
+  - - Key failure transcript: "Rapamycin … triacylglycerols in fruit flies" — gold doc WAS in context, model still refused → generation-side failure, not retrieval
+  - BASELINE AUDIT (harness verified): 0.69 is REAL, no eval bug — refusal flag matches answer text 100/100; 31 answered + 69 refused; 31 + 56 = 87 = hit rate. Decomposition: 56/100 generation-side (gold in context; conditional refusal 56/87 = 0.64), 13/100 retrieval-side (gold never retrieved; refused 13/13). Truncation exonerated as primary driver: gold docs > 800 chars in 53/56 refused vs 28/31 answered (medians 1282 vs 1141 chars) — no discrimination. Phase 3 targets: rescue converts the 56, re-search covers the 13, unanswerable refusal must stay 1.0.
 - Agent faithfulness (Phase 3): _TBD_
 - p95 latency, uncached vs cached: _TBD_
 

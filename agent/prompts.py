@@ -35,10 +35,11 @@ short description of what is missing. Do not guess.
 
 CONTEXT_HEADER = "Documents:"
 
-# Default per-doc truncation. The Phase 1 value of 800 chars kept only ~10%
-# of SciFact abstracts intact — the measured false-refusal rate was driven
-# partly by evidence being truncated out of the prompt. Config
-# `agent.context_chars` overrides this for both pipelines.
+# Default per-doc truncation: ~800 chars vs a median gold abstract of
+# ~1200. Truncation does NOT discriminate refusals from answers (gold docs
+# exceeded it in 53/56 refused vs 28/31 answered) — the baseline
+# over-refusal is model caution under the strict prompt, not missing
+# evidence. Config `agent.context_chars` overrides this for both pipelines.
 DEFAULT_CONTEXT_CHARS = 800
 
 # How much of each document the decide/rescue turns see (full text is only
@@ -258,3 +259,7 @@ def build_refusal_text(reason: str, docs: list, limit: int = 3) -> str:
         f"INSUFFICIENT_EVIDENCE: {reason}. The closest documents retrieved "
         f"were: {found}. None supports an answer to the question."
     )
+    
+    
+    
+
