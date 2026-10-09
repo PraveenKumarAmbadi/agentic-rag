@@ -1,16 +1,23 @@
-# Pinned to versions verified working in the Project 1 environment (Python 3.12, WSL2).
-# torch installed separately with CUDA index (see README, Phase 5):
-#   pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cu130
+# Exact pins, resolvable as a set (verified with `pip install --dry-run`).
+# Python 3.12, WSL2, RTX 5050 / CUDA 13.0. Install into a DEDICATED venv:
+# the shared ~/.venvs/rag-hybrid-retrieval has transformers 5.17 forced in by
+# other projects, which violates sentence-transformers 4.1's <5.0 requirement
+# and cannot be reproduced by pip. Upgrade deliberately and re-run the evals:
+# model/tokenizer library changes can move the numbers.
+#
+# torch must be the CUDA 13.0 build (Blackwell GPUs need it); the extra index
+# and the +cu130 local version make a plain `pip install -r requirements.txt`
+# resolve to that build instead of the default PyPI wheel.
+--extra-index-url https://download.pytorch.org/whl/cu130
 
-pyyaml==6.0.3
-elasticsearch==8.15.1
-huggingface_hub==0.36.2        # transformers 4.52 requires <1.0
-numpy
-fastapi==0.141.1
-uvicorn==0.52.4
-httpx                          # Ollama REST client (streaming)
-torch==2.13.0
-transformers==4.52.0
-accelerate==1.7.0
-sentence-transformers==4.1.0
+# API, LLM client, config, ES client
+-r requirements-core.txt
+
+# Retrieval / models
+torch==2.13.0+cu130
+numpy==2.5.2
 faiss-cpu==1.11.0
+transformers==4.52.4
+huggingface_hub==0.36.2
+sentence-transformers==4.1.0
+accelerate==1.7.0

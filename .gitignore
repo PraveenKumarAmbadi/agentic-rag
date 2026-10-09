@@ -26,3 +26,6 @@ models/
 # Notebooks and notes
 *.ipynb
 Commands.txt
+
+# Eval checkpoints (kept on crash; removed when a run completes)
+*.partial.jsonl

@@ -19,25 +19,6 @@ from configs.loader import load_config
 
 logger = logging.getLogger(__name__)
 
-def setup_logging(level: int = logging.INFO) -> None:
-    """Configure logging: your code talks, libraries stay quiet."""
-    # 1. Root handler — controls the output format
-    logging.basicConfig(
-        level=level,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-        datefmt="%H:%M:%S",
-    )
-
-    # 2. Quiet down chatty third-party loggers
-    noisy_loggers = [
-        "elastic_transport",   # ES HTTP request logs
-        "elasticsearch",       # Older ES client logs
-        "urllib3",             # HTTP connection pool logs
-        "requests",            # If you use requests elsewhere
-    ]
-    for name in noisy_loggers:
-        logging.getLogger(name).setLevel(logging.WARNING)
-
 # ---------------------------------------------------------------------------
 # Read defaults from config (fail fast if config is malformed)
 # ---------------------------------------------------------------------------
@@ -272,7 +253,9 @@ def encode_query(
 # Smoke test when run directly
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    setup_logging(logging.INFO)
+    from tracing import configure_logging
+
+    configure_logging(json_format=False)
     vec = encode_query("neural networks for protein folding")
     print(f"\nNon-zero tokens: {len(vec)}")
     print("Top 5 weights:")

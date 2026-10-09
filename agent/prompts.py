@@ -17,6 +17,7 @@ The context block is built by `build_context()`; document numbering in every
 prompt is 1-based and maps to `doc_ids[i-1]`.
 """
 
+from agent.citations import REFUSAL_MARKER
 from agent.tools import render_tool_docs
 
 SYSTEM_PROMPT = """\
@@ -28,8 +29,8 @@ Rules:
 came from, in square brackets, e.g. the effect was significant [2].
 2. Cite the minimum set of documents needed; cite by document number only.
 3. If the documents do not contain enough information to answer, reply \
-with exactly one line starting with: INSUFFICIENT_EVIDENCE: followed by a \
-short description of what is missing. Do not guess.
+with exactly:
+INSUFFICIENT_EVIDENCE: <short description of what is missing>
 4. Be concise: at most 150 words.
 """
 
@@ -250,16 +251,16 @@ def build_refusal_text(reason: str, docs: list, limit: int = 3) -> str:
     and names the closest retrieved documents so the user sees what the
     corpus did contain.
     """
+    reason = " ".join((reason or "no supporting documents were found").split())
+    reason = reason.rstrip(" .")
+    if not docs:
+        return f"{REFUSAL_MARKER}: {reason}. No documents were retrieved."
     found = "; ".join(
         f"[{i}] {(d.title or '').strip() or d.doc_id}"
         for i, d in enumerate(docs[:limit], start=1)
     )
-    reason = " ".join((reason or "no supporting documents were found").split())
     return (
-        f"INSUFFICIENT_EVIDENCE: {reason}. The closest documents retrieved "
+        f"{REFUSAL_MARKER}: {reason}. The closest documents retrieved "
         f"were: {found}. None supports an answer to the question."
     )
-    
-    
-    
 

@@ -4,12 +4,16 @@ Encodes the query with the same sentence-transformers model used at index time,
 then searches the FAISS index and returns SearchResult objects.
 """
 
-import numpy as np
+from __future__ import annotations
 
-from indexing.dense_encoder import DenseEncoder
-from indexing.faiss_indexer import FaissIndex
-from ingestion.loaders import Document
+from typing import TYPE_CHECKING
+
 from retrieval.types import SearchResult
+
+if TYPE_CHECKING:  # annotations only: keep torch/faiss out of import time
+    from indexing.dense_encoder import DenseEncoder
+    from indexing.faiss_indexer import FaissIndex
+    from ingestion.loaders import Document
 
 
 def search_dense(
@@ -43,6 +47,8 @@ def search_dense(
 
     # Phase 1: Encode query
     if encoder is None:
+        from indexing.dense_encoder import DenseEncoder
+
         encoder = DenseEncoder()
     query_vector = encoder.encode_query(query_text)
     query_batch = query_vector.reshape(1, -1)

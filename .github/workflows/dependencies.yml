@@ -1,0 +1,33 @@
+name: dependencies
+
+# Resolving the full ML stack downloads torch metadata (~2-3 min), so this
+# only runs when the pins change.
+on:
+  push:
+    paths: ["requirements*.txt", ".github/workflows/dependencies.yml"]
+  pull_request:
+    paths: ["requirements*.txt", ".github/workflows/dependencies.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check requirements.txt resolves as a set
+        # Fails on conflicting pins and on yanked versions (resolution only, no install).
+        shell: bash  # implies -o pipefail, so pip's exit code survives the tee
+        run: |
+          pip install --upgrade pip
+          pip install --dry-run -r requirements.txt 2>&1 | tee resolve.log
+          if grep -q "yanked version" resolve.log; then
+            echo "::error::requirements.txt pins a yanked release"; exit 1
+          fi

@@ -1,5 +1,8 @@
 # Centralized configuration for the Agentic RAG research assistant.
 # Paths are relative to the repository root (run all scripts from there).
+# Every key is validated against configs/schema.py at startup; unknown keys
+# are rejected. Deployment overrides: ES_HOST, ES_PORT, LLM_BASE_URL,
+# LLM_MODEL, AGENTIC_RAG_CONFIG (alternate file).
 
 data:
   corpus_path: data/scifact/corpus.jsonl
@@ -38,8 +41,12 @@ reranker:
   max_seq_length: 512
   batch_size: 16
 
+resilience:
+  breaker_failure_threshold: 3    # consecutive failures before a retriever is skipped
+  breaker_cooldown_s: 30          # how long it is skipped before one trial call
+
 llm:
-  provider: ollama                # ollama | openai-compatible
+  provider: ollama                # only ollama is implemented; others fail validation
   base_url: http://localhost:11434
   model: qwen2.5:7b-instruct
   temperature: 0.1
@@ -47,14 +54,33 @@ llm:
   # judge model for LLM-as-judge evals (kept separate so you can swap it)
   judge_model: qwen2.5:7b-instruct
   judge_temperature: 0.0
+  num_ctx: 4096                   # prompts beyond this are truncated by Ollama — a warning is logged
+  keep_alive_s: 360
+  connect_timeout_s: 5
+  read_timeout_s: 60              # longest silent gap per call, prompt prefill included
+  max_attempts: 3
 
 agent:
-  mode: agent                   # baseline | agent — pipeline used by serving + eval default
+  mode: agent                     # baseline | agent — pipeline used by serving + eval default
   max_iterations: 4               # max tool-call rounds per question
-  max_retries: 2                  # max self-critique retries
-  rerank: false                   # BGE rerank inside the search tool (false = baseline retrieval parity; A/B in a later phase)
+  max_retries: 2                  # max critique-driven regenerations
+  rerank: false                   # BGE rerank inside the search tool (false = baseline retrieval parity)
+  rerank_candidates: 50
   per_method_top_k: 100
-  top_k: 10                       # docs passed to the LLM after rerank
+  top_k: 10                       # docs passed to the LLM
+  context_chars: 800              # per-doc truncation in the answer/critique prompts
+  request_timeout_s: 90           # soft budget: optional steps stop once spent
+
+serving:
+  host: 127.0.0.1                 # localhost only; put a TLS reverse proxy in front before exposing
+  port: 8001
+  auth_enabled: true              # requires AGENTIC_RAG_API_KEYS; set false only for local experiments
+  max_concurrent: 1               # one GPU, one Ollama model slot — see CLAUDE.md
+  max_queue: 8                    # requests allowed to wait for a slot; beyond this -> 503
+  queue_timeout_s: 30
+  hard_timeout_s: 180             # absolute per-request ceiling
+  max_question_chars: 2000
+  llm_health_ttl_s: 5
 
 eval:
   answerable_path: data/eval/answerable.jsonl

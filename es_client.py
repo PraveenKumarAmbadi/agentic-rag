@@ -1,32 +1,32 @@
 """Elasticsearch client factory — single source of truth for ES connections."""
 
 from elasticsearch import Elasticsearch
+
 from configs.loader import load_config
-import os
 
-def get_es_client() -> Elasticsearch:
-    """Return a connected Elasticsearch client using values from config.yaml.
 
-    Returns:
-        Elasticsearch client instance.
+def get_es_client(cfg: dict | None = None) -> Elasticsearch:
+    """Return a connected Elasticsearch client.
+
+    Args:
+        cfg: Validated app config; loaded from config.yaml when omitted.
+            ES_HOST / ES_PORT overrides are applied by the config loader.
 
     Raises:
         ConnectionError: if Elasticsearch is not reachable.
     """
+    cfg = cfg or load_config()
+    host = cfg["elasticsearch"]["host"]
+    port = cfg["elasticsearch"]["port"]
+    client = Elasticsearch(f"http://{host}:{port}")
 
-    config = load_config()
-        
-    host = os.getenv("ES_HOST", config["elasticsearch"]["host"])
-    port = os.getenv("ES_PORT", str(config["elasticsearch"]["port"]))
-    es_URL  = f"http://{host}:{port}"
-    client  = Elasticsearch(es_URL)
-    
     if not client.ping():
         raise ConnectionError(
             f"Elasticsearch at http://{host}:{port} is not reachable. "
-            "Is the container running? Try: docker compose up -d"
+            "Start Elasticsearch, or point ES_HOST / ES_PORT at it."
         )
-    return client 
+    return client
+
 
 if __name__ == "__main__":
     client = get_es_client()
