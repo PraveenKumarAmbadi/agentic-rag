@@ -1,0 +1,100 @@
+{"query_id": "1014", "question": "Rapamycin decreases the concentration of triacylglycerols in fruit flies.", "gold_doc_ids": ["6277638"], "set": "answerable"}
+{"query_id": "1029", "question": "Reduced responsiveness to interleukin-2 in regulatory T cells is associated with greater resistance to autoimmune diseases such as Type 1 Diabetes.", "gold_doc_ids": ["11899391", "13923140", "13940200"], "set": "answerable"}
+{"query_id": "1062", "question": "S-nitrosylated GAPDH physiologically transnitrosylates histone deacetylases.", "gold_doc_ids": ["20381484"], "set": "answerable"}
+{"query_id": "1086", "question": "Sildenafil improves erectile function in men who experience sexual dysfunction as a result of the use of SSRI antidepressants.", "gold_doc_ids": ["39281140"], "set": "answerable"}
+{"query_id": "1088", "question": "Silencing of Bcl2 is important for the maintenance and progression of tumors.", "gold_doc_ids": ["37549932"], "set": "answerable"}
+{"query_id": "1089", "question": "Smc5/6 engagment drives the activation of SUMO E3 ligase Mms21 by ATP-dependent remolding.", "gold_doc_ids": ["17628888"], "set": "answerable"}
+{"query_id": "1099", "question": "Statins decrease blood cholesterol.", "gold_doc_ids": ["7662206"], "set": "answerable"}
+{"query_id": "1100", "question": "Statins increase blood cholesterol.", "gold_doc_ids": ["7662206"], "set": "answerable"}
+{"query_id": "1104", "question": "Stroke patients with prior use of direct oral anticoagulants have a lower risk of in-hospital mortality than stroke patients with prior use of warfarin.", "gold_doc_ids": ["3898784"], "set": "answerable"}
+{"query_id": "1107", "question": "Subcutaneous fat depots undergo extensive browning processes after cold exposure.", "gold_doc_ids": ["20532591"], "set": "answerable"}
+{"query_id": "1121", "question": "Synaptic activity enhances local release of brain derived neurotrophic factor from postsynaptic dendrites.", "gold_doc_ids": ["4456756"], "set": "answerable"}
+{"query_id": "1130", "question": "T regulatory cells (tTregs) lacking \u03b1v\u03b28 are more adept at suppressing pathogenic T-cell responses during active inflammation.", "gold_doc_ids": ["17997584"], "set": "answerable"}
+{"query_id": "1140", "question": "Taking 400mg of \u03b1-tocopheryl acetate helps to prevent prostate cancer.", "gold_doc_ids": ["12009265"], "set": "answerable"}
+{"query_id": "1197", "question": "The availability of safe places to study is not effective at decreasing homelessness.", "gold_doc_ids": ["25649714"], "set": "answerable"}
+{"query_id": "1199", "question": "The benefits of colchicine were achieved with effective widespread use of secondary prevention strategies such as high-dose statins.", "gold_doc_ids": ["16760369"], "set": "answerable"}
+{"query_id": "1202", "question": "The center of the granuloma in an immune cell induces a pro-inflammatory immune response.", "gold_doc_ids": ["3475317"], "set": "answerable"}
+{"query_id": "1204", "question": "The combination of H3K4me3 and H3K79me2 is found in quiescent hair follicle stem cells.", "gold_doc_ids": ["31141365"], "set": "answerable"}
+{"query_id": "1216", "question": "The extracellular domain of TMEM27 is cleaved in human beta cells.", "gold_doc_ids": ["24142891"], "set": "answerable"}
+{"query_id": "1225", "question": "The locus rs647161 is associated with colorectal carcinoma.", "gold_doc_ids": ["9650982"], "set": "answerable"}
+{"query_id": "124", "question": "Antiretroviral therapy reduces rates of tuberculosis across a broad range of CD4 strata.", "gold_doc_ids": ["4883040"], "set": "answerable"}
+{"query_id": "1241", "question": "The myocardial lineage develops from cardiac progenitors of mesodermal origin.", "gold_doc_ids": ["4427392"], "set": "answerable"}
+{"query_id": "1262", "question": "The repair of Cas9-induced double strand breaks in human DNA is error-prone.", "gold_doc_ids": ["44172171"], "set": "answerable"}
+{"query_id": "1266", "question": "The risk of breast cancer among parous women increases with placental weight of pregnancies, and this association is strongest for premenopausal breast cancer.", "gold_doc_ids": ["37480103"], "set": "answerable"}
+{"query_id": "127", "question": "Arginine 90 in p150n is important for interaction with EB1.", "gold_doc_ids": ["21598000"], "set": "answerable"}
+{"query_id": "1270", "question": "The risk of male prisoners harming themselves is ten times that of female prisoners.", "gold_doc_ids": ["13900610"], "set": "answerable"}
+{"query_id": "1273", "question": "The sliding activity of kinesin-8 protein Kip3 promotes bipolar spindle assembly.", "gold_doc_ids": ["11041152"], "set": "answerable"}
+{"query_id": "1274", "question": "The tip of the inner tube of the toxic type VI secretion system (T6SS) antibacterial effector in Escherichia coli (E. coli) carries toxic effector proteins.", "gold_doc_ids": ["12428814", "27731651", "4406819"], "set": "answerable"}
+{"query_id": "1281", "question": "The ureABIEFGH gene cluster is induced by nickel (II) ion.", "gold_doc_ids": ["4387784"], "set": "answerable"}
+{"query_id": "1282", "question": "Therapeutic use of the drug Dapsone to treat pyoderma gangrenous is based on anecdotal evidence.", "gold_doc_ids": ["23649163"], "set": "answerable"}
+{"query_id": "1290", "question": "There is an inverse relationship between hip fractures and statin use.", "gold_doc_ids": ["4687948"], "set": "answerable"}
+{"query_id": "13", "question": "5% of perinatal mortality is due to low birth weight.", "gold_doc_ids": ["1606628"], "set": "answerable"}
+{"query_id": "132", "question": "Aspirin inhibits the production of PGE2.", "gold_doc_ids": ["7975937"], "set": "answerable"}
+{"query_id": "1320", "question": "Transplanted human glial progenitor cells are incapable of forming a neural network with host animals' neurons.", "gold_doc_ids": ["16284655"], "set": "answerable"}
+{"query_id": "133", "question": "Assembly of invadopodia is triggered by focal generation of phosphatidylinositol-3,4-biphosphate and the activation of the nonreceptor tyrosine kinase Src.", "gold_doc_ids": ["12640810", "16280642", "17934082", "38485364", "6969753"], "set": "answerable"}
+{"query_id": "1335", "question": "UCB T cells maintain high TCR diversity after transplantation.", "gold_doc_ids": ["27910499"], "set": "answerable"}
+{"query_id": "1362", "question": "Venules have a larger lumen diameter than arterioles.", "gold_doc_ids": ["8290953"], "set": "answerable"}
+{"query_id": "137", "question": "Asymptomatic visual impairment screening in elderly populations does not lead to improved vision.", "gold_doc_ids": ["26016929"], "set": "answerable"}
+{"query_id": "1370", "question": "Vitamin D deficiency is unrelated to birth weight.", "gold_doc_ids": ["2425364"], "set": "answerable"}
+{"query_id": "1385", "question": "cSMAC formation enhances weak ligand signalling.", "gold_doc_ids": ["306006"], "set": "answerable"}
+{"query_id": "142", "question": "Autologous transplantation of mesenchymal stem cells causes a higher rate of opportunistic infections than induction therapy with anti-interleukin-2 receptor antibodies.", "gold_doc_ids": ["10582939"], "set": "answerable"}
+{"query_id": "143", "question": "Autologous transplantation of mesenchymal stem cells causes fewer opportunistic infections than induction therapy with anti-interleukin-2 receptor antibodies.", "gold_doc_ids": ["10582939"], "set": "answerable"}
+{"query_id": "185", "question": "Breast cancer development is determined exclusively by genetic factors.", "gold_doc_ids": ["18340282"], "set": "answerable"}
+{"query_id": "198", "question": "CCL19 is absent within dLNs.", "gold_doc_ids": ["2177022"], "set": "answerable"}
+{"query_id": "208", "question": "CHEK2 is not associated with breast cancer.", "gold_doc_ids": ["13519661"], "set": "answerable"}
+{"query_id": "213", "question": "CRP is not predictive of postoperative mortality following Coronary Artery Bypass Graft (CABG) surgery.", "gold_doc_ids": ["13625993"], "set": "answerable"}
+{"query_id": "217", "question": "CX3CR1 on the Th2 cells promotes T cell survival", "gold_doc_ids": ["21366394"], "set": "answerable"}
+{"query_id": "219", "question": "CX3CR1 on the Th2 cells suppresses airway inflammation.", "gold_doc_ids": ["21366394"], "set": "answerable"}
+{"query_id": "230", "question": "Carriers of the alcohol aldehyde dehydrogenase deficiency mutation drink less that non-carries.", "gold_doc_ids": ["3067015"], "set": "answerable"}
+{"query_id": "239", "question": "Cellular aging closely links to an older appearance.", "gold_doc_ids": ["14079881"], "set": "answerable"}
+{"query_id": "295", "question": "Crosstalk between dendritic cells (DCs) and innate lymphoid cells (ILCs) is important in the regulation of intestinal homeostasis.", "gold_doc_ids": ["20310709"], "set": "answerable"}
+{"query_id": "298", "question": "Cytochrome c is released from the mitochondrial intermembrane space to cytosol during apoptosis.", "gold_doc_ids": ["39381118"], "set": "answerable"}
+{"query_id": "312", "question": "De novo assembly of sequence data has more specific contigs than unassembled sequence data.", "gold_doc_ids": ["6173523"], "set": "answerable"}
+{"query_id": "324", "question": "Deleting Raptor reduces G-CSF levels.", "gold_doc_ids": ["2014909"], "set": "answerable"}
+{"query_id": "354", "question": "Downregulation and mislocalization of Scribble prevents cell transformation and mammary tumorigenesis.", "gold_doc_ids": ["8774475"], "set": "answerable"}
+{"query_id": "380", "question": "Enhanced early production of inflammatory chemokines improves viral control in the lung.", "gold_doc_ids": ["19005293"], "set": "answerable"}
+{"query_id": "399", "question": "Exposure to fine particulate air pollution is relate to anxiety prevalence.", "gold_doc_ids": ["791050"], "set": "answerable"}
+{"query_id": "436", "question": "Free histones are degraded by a Rad53-dependent mechanism once DNA has been replicated.", "gold_doc_ids": ["14637235"], "set": "answerable"}
+{"query_id": "437", "question": "Functional consequences of genomic alterations due to Myelodysplastic syndrome (MDS) are poorly understood due to the lack of an animal model.", "gold_doc_ids": ["18399038"], "set": "answerable"}
+{"query_id": "440", "question": "Fz/PCP-dependent Pk localizes to the anterior membrane of notochord cells during zebrafish neuralation.", "gold_doc_ids": ["4423559"], "set": "answerable"}
+{"query_id": "478", "question": "Golli-deficient T-cells prefer to differentiate into an anergic phenotype in the adaptive immune response when there are increased levels of Ca2+ in the cytosol.", "gold_doc_ids": ["14767844"], "set": "answerable"}
+{"query_id": "49", "question": "ADAR1 binds to Dicer to cleave pre-miRNA.", "gold_doc_ids": ["5953485"], "set": "answerable"}
+{"query_id": "491", "question": "HNF4A mutations can cause diabetes in mutant carriers by the age of 14 years", "gold_doc_ids": ["56893404"], "set": "answerable"}
+{"query_id": "50", "question": "AIRE is expressed in some skin tumors.", "gold_doc_ids": ["12580014"], "set": "answerable"}
+{"query_id": "501", "question": "Headaches are not correlated with cognitive impairment.", "gold_doc_ids": ["17930286"], "set": "answerable"}
+{"query_id": "502", "question": "Healthcare delivery efficiency in crowded delivery centers is impaired by improving structural, logistical, and interpersonal elements.", "gold_doc_ids": ["13071728"], "set": "answerable"}
+{"query_id": "51", "question": "ALDH1 expression is associated with better breast cancer outcomes.", "gold_doc_ids": ["45638119"], "set": "answerable"}
+{"query_id": "513", "question": "High cardiopulmonary fitness causes increased mortality rate.", "gold_doc_ids": ["13230773"], "set": "answerable"}
+{"query_id": "517", "question": "High levels of copeptin decrease risk of diabetes.", "gold_doc_ids": ["15663829"], "set": "answerable"}
+{"query_id": "525", "question": "Histone demethylase recruitment and a transient decrease in histone methylation is necessary for ligand-dependent induction of transcription by nuclear receptors.", "gold_doc_ids": ["13639330"], "set": "answerable"}
+{"query_id": "527", "question": "Homozygous deletion of murine Sbds gene from osterix-expressing mesenchymal stem and progenitor cells (MPCs) prevents oxidative stress.", "gold_doc_ids": ["3863543"], "set": "answerable"}
+{"query_id": "539", "question": "Hypoglycemia increases the risk of dementia.", "gold_doc_ids": ["13282296"], "set": "answerable"}
+{"query_id": "54", "question": "AMP-activated protein kinase (AMPK) activation increases inflammation-related fibrosis in the lungs.", "gold_doc_ids": ["49556906"], "set": "answerable"}
+{"query_id": "544", "question": "IFIT1 restricts viral replication by sequestrating mis-capped viral RNAs.", "gold_doc_ids": ["24221369"], "set": "answerable"}
+{"query_id": "549", "question": "IRG1 has antiviral effects against neurotropic viruses.", "gold_doc_ids": ["9433958"], "set": "answerable"}
+{"query_id": "551", "question": "ITAM phosphorylation prevents the transfer of the T cell receptor (TCR) signal from the echo-domain to the cytoplasmic tail of the T cell receptor (TCR).", "gold_doc_ids": ["33499189"], "set": "answerable"}
+{"query_id": "613", "question": "Increased microtubule acetylation repairs LRRK2 Roc-COR domain mutation induced locomotor deficits.", "gold_doc_ids": ["9638032"], "set": "answerable"}
+{"query_id": "619", "question": "Increased vessel density along with a reduction in fibrosis decreases the efficacy of chemotherapy treatments.", "gold_doc_ids": ["20888849", "2565138"], "set": "answerable"}
+{"query_id": "628", "question": "Infection of human T-cell lymphotropic virus type 1 is most frequent in individuals of African origin.", "gold_doc_ids": ["24512064"], "set": "answerable"}
+{"query_id": "637", "question": "Input from  mental and physical health care professionals is effective at decreasing homelessness.", "gold_doc_ids": ["25649714"], "set": "answerable"}
+{"query_id": "649", "question": "Integrating classroom-based collaborative learning with Web-based collaborative learning leads to subpar class performance", "gold_doc_ids": ["12789595"], "set": "answerable"}
+{"query_id": "693", "question": "Leuko-reduced blood reduces infectious complications in red blood cell transfusion.", "gold_doc_ids": ["24088502"], "set": "answerable"}
+{"query_id": "716", "question": "Low expression of miR7a exerts a biological function in testis.", "gold_doc_ids": ["18421962"], "set": "answerable"}
+{"query_id": "718", "question": "Low nucleosome occupancy correlates with low methylation levels across species.", "gold_doc_ids": ["17587795"], "set": "answerable"}
+{"query_id": "721", "question": "Lupus-prone mice infected with curliproducing bacteria have higher autoantibody titers compared to controls.", "gold_doc_ids": ["1834762"], "set": "answerable"}
+{"query_id": "728", "question": "Ly6C hi monocytes have a lower inflammatory capacity than Ly6C lo monocytes.", "gold_doc_ids": ["36444198", "7521113"], "set": "answerable"}
+{"query_id": "768", "question": "Mercaptopurine is anabolized into the inactive methylmercaptopurine by thiopurine methyltrasnferase (TPMT).", "gold_doc_ids": ["6421792"], "set": "answerable"}
+{"query_id": "808", "question": "Most termination events in Okazaki fragments are sequence specific.", "gold_doc_ids": ["36606083"], "set": "answerable"}
+{"query_id": "823", "question": "N348I mutations cause resistance to zidovudine (AZT).", "gold_doc_ids": ["15319019"], "set": "answerable"}
+{"query_id": "831", "question": "NF2 (Merlin) prevents phosphorylation and subsequent cytoplasmic sequestration of YAP in Drosophila.", "gold_doc_ids": ["1897324"], "set": "answerable"}
+{"query_id": "852", "question": "Non-invasive ventilation use should be decreased if there is inadequate response to conventional treatment.", "gold_doc_ids": ["13843341"], "set": "answerable"}
+{"query_id": "859", "question": "Normal expression of RUNX1 has tumor-promoting effects.", "gold_doc_ids": ["1982286"], "set": "answerable"}
+{"query_id": "880", "question": "Occupancy of ribosomes by IncRNAs mirror 5 0-UTRs", "gold_doc_ids": ["8426046"], "set": "answerable"}
+{"query_id": "882", "question": "Omnivores produce less trimethylamine N-oxide from dietary I-carnitine than vegetarians.", "gold_doc_ids": ["14803797"], "set": "answerable"}
+{"query_id": "887", "question": "Only a minority of cells survive development after differentiation into stress-resistant spores.", "gold_doc_ids": ["18855191"], "set": "answerable"}
+{"query_id": "922", "question": "Patients in stable partnerships have a faster progression from HIV to AIDS.", "gold_doc_ids": ["17077004"], "set": "answerable"}
+{"query_id": "94", "question": "Albendazole is used to treat lymphatic filariasis.", "gold_doc_ids": ["1215116"], "set": "answerable"}
+{"query_id": "956", "question": "Pleiotropic coupling of GLP-1R to intracellular effectors promotes distinct profiles of cellular signaling.", "gold_doc_ids": ["12956194"], "set": "answerable"}
+{"query_id": "960", "question": "Polymeal nutrition reduces cardiovascular mortality.", "gold_doc_ids": ["8780599"], "set": "answerable"}
+{"query_id": "967", "question": "Pretreatment with the Arp2/3 inhibitor CK-666 affects lamelliopodia formation.", "gold_doc_ids": ["2119889", "8997410"], "set": "answerable"}
+{"query_id": "971", "question": "Primary cervical cancer screening with HPV detection has higher longitudinal sensitivity than conventional cytology to detect cervical intraepithelial neoplasia grade 2.", "gold_doc_ids": ["27873158", "28617573", "46695481", "9764256"], "set": "answerable"}

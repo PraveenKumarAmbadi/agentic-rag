@@ -1,0 +1,50 @@
+{"question": "Does the presence of liquid water on Enceladus require tidal heating from Saturn?", "gold_doc_ids": [], "set": "unanswerable", "topic": "astronomy"}
+{"question": "Can quantum entanglement be used to achieve faster-than-light communication?", "gold_doc_ids": [], "set": "unanswerable", "topic": "physics"}
+{"question": "Is the Hubble tension explained by the existence of a local void?", "gold_doc_ids": [], "set": "unanswerable", "topic": "astronomy"}
+{"question": "Does dark matter interact with itself through a fifth force?", "gold_doc_ids": [], "set": "unanswerable", "topic": "physics"}
+{"question": "Can room-temperature superconductivity be achieved in hydride compounds under high pressure?", "gold_doc_ids": [], "set": "unanswerable", "topic": "materials"}
+{"question": "What determines the power conversion efficiency limit of perovskite solar cells?", "gold_doc_ids": [], "set": "unanswerable", "topic": "materials"}
+{"question": "Does graphene exhibit intrinsic magnetism at room temperature?", "gold_doc_ids": [], "set": "unanswerable", "topic": "materials"}
+{"question": "Does increasing the number of transformer attention heads monotonically improve language model reasoning?", "gold_doc_ids": [], "set": "unanswerable", "topic": "computer-science"}
+{"question": "Can adversarial training fully eliminate shortcut learning in convolutional neural networks?", "gold_doc_ids": [], "set": "unanswerable", "topic": "computer-science"}
+{"question": "What is the primary cause of mode collapse in generative adversarial networks?", "gold_doc_ids": [], "set": "unanswerable", "topic": "computer-science"}
+{"question": "Is a quantum computer required to factor RSA-2048 integers in practice?", "gold_doc_ids": [], "set": "unanswerable", "topic": "computer-science"}
+{"question": "Does reinforcement learning from human feedback reduce hallucinations in large language models?", "gold_doc_ids": [], "set": "unanswerable", "topic": "computer-science"}
+{"question": "Does catalytic conversion of CO2 to methanol require copper-zinc-oxide catalysts?", "gold_doc_ids": [], "set": "unanswerable", "topic": "chemistry"}
+{"question": "What mechanism explains the color oscillations in the Belousov-Zhabotinsky reaction?", "gold_doc_ids": [], "set": "unanswerable", "topic": "chemistry"}
+{"question": "Can mixed plastic waste be depolymerized back into virgin-grade monomers at industrial scale?", "gold_doc_ids": [], "set": "unanswerable", "topic": "chemistry"}
+{"question": "Does a slowdown of the Atlantic meridional overturning circulation increase European heatwave frequency?", "gold_doc_ids": [], "set": "unanswerable", "topic": "climate"}
+{"question": "Was the Permian-Triassic extinction caused primarily by volcanic CO2 emissions or by ocean anoxia?", "gold_doc_ids": [], "set": "unanswerable", "topic": "earth-science"}
+{"question": "Is soil carbon sequestration sufficient to offset current industrial CO2 emissions?", "gold_doc_ids": [], "set": "unanswerable", "topic": "climate"}
+{"question": "Does cloud seeding measurably increase precipitation in arid regions?", "gold_doc_ids": [], "set": "unanswerable", "topic": "climate"}
+{"question": "Can muon-catalyzed fusion ever become net energy positive?", "gold_doc_ids": [], "set": "unanswerable", "topic": "physics"}
+{"question": "Does the anomalous magnetic moment of the muon indicate physics beyond the Standard Model?", "gold_doc_ids": [], "set": "unanswerable", "topic": "physics"}
+{"question": "Can the Riemann hypothesis be proven using quasi-crystal structures?", "gold_doc_ids": [], "set": "unanswerable", "topic": "mathematics"}
+{"question": "Can hydrogen fuel cells realistically power long-haul commercial aviation?", "gold_doc_ids": [], "set": "unanswerable", "topic": "engineering"}
+{"question": "Do parts produced by metal additive manufacturing have isotropic mechanical properties?", "gold_doc_ids": [], "set": "unanswerable", "topic": "engineering"}
+{"question": "What fundamentally limits the energy density of lithium-sulfur batteries?", "gold_doc_ids": [], "set": "unanswerable", "topic": "engineering"}
+{"question": "Was Venus once habitable with surface liquid water oceans?", "gold_doc_ids": [], "set": "unanswerable", "topic": "planetary-science"}
+{"question": "Does hydraulic fracturing induce earthquakes larger than magnitude 5?", "gold_doc_ids": [], "set": "unanswerable", "topic": "earth-science"}
+{"question": "Do neonicotinoid pesticides cause colony collapse disorder in honeybees?", "gold_doc_ids": [], "set": "unanswerable", "topic": "ecology"}
+{"question": "Can coral reefs adapt genetically to ocean acidification fast enough to survive?", "gold_doc_ids": [], "set": "unanswerable", "topic": "ecology"}
+{"question": "Did the Late Bronze Age collapse result from a combination of drought and invasions?", "gold_doc_ids": [], "set": "unanswerable", "topic": "archaeology"}
+{"question": "Was the Antikythera mechanism used to predict astronomical positions?", "gold_doc_ids": [], "set": "unanswerable", "topic": "archaeology"}
+{"question": "Does vertical farming reduce energy use per calorie compared to conventional field farming?", "gold_doc_ids": [], "set": "unanswerable", "topic": "agriculture"}
+{"question": "Can insect-derived protein fully replace soybean meal in aquaculture feed?", "gold_doc_ids": [], "set": "unanswerable", "topic": "agriculture"}
+{"question": "Do carbon taxes measurably reduce national emissions without carbon leakage?", "gold_doc_ids": [], "set": "unanswerable", "topic": "economics"}
+{"question": "Does unconditional cash transfer reduce labor supply in recipient households?", "gold_doc_ids": [], "set": "unanswerable", "topic": "economics"}
+{"question": "Can ion thrusters provide sufficient thrust for crewed Mars missions?", "gold_doc_ids": [], "set": "unanswerable", "topic": "space-technology"}
+{"question": "Does the Kessler syndrome make low Earth orbit commercially unusable?", "gold_doc_ids": [], "set": "unanswerable", "topic": "space-technology"}
+{"question": "Can thorium molten-salt reactors breed uranium-233 in a sustained fuel cycle?", "gold_doc_ids": [], "set": "unanswerable", "topic": "nuclear"}
+{"question": "Does vitrification prevent nuclear waste from leaching into groundwater for 10,000 years?", "gold_doc_ids": [], "set": "unanswerable", "topic": "nuclear"}
+{"question": "What is the theoretical efficiency limit of thermoelectric generators near room temperature?", "gold_doc_ids": [], "set": "unanswerable", "topic": "physics"}
+{"question": "Can acoustic levitation manipulate millimeter-scale objects in industrial processes?", "gold_doc_ids": [], "set": "unanswerable", "topic": "engineering"}
+{"question": "Does the Yarkovsky effect significantly alter the orbits of near-Earth asteroids?", "gold_doc_ids": [], "set": "unanswerable", "topic": "astronomy"}
+{"question": "Is long-lasting quantum coherence possible in warm biological systems?", "gold_doc_ids": [], "set": "unanswerable", "topic": "biophysics"}
+{"question": "Can desalination brine be discharged without harming marine benthic ecosystems?", "gold_doc_ids": [], "set": "unanswerable", "topic": "environment"}
+{"question": "Does stratospheric aerosol injection reduce global mean temperature without damaging the ozone layer?", "gold_doc_ids": [], "set": "unanswerable", "topic": "climate"}
+{"question": "Can neutrino detectors be used to monitor nuclear reactors remotely?", "gold_doc_ids": [], "set": "unanswerable", "topic": "physics"}
+{"question": "Does space weather posing geomagnetic storm risk justify hardening all power grids?", "gold_doc_ids": [], "set": "unanswerable", "topic": "earth-science"}
+{"question": "Can biodegradable plastics match the mechanical durability of PET in packaging?", "gold_doc_ids": [], "set": "unanswerable", "topic": "materials"}
+{"question": "Does commercial air travel produce more CO2 per passenger-kilometer than electric vehicles?", "gold_doc_ids": [], "set": "unanswerable", "topic": "environment"}
+{"question": "Can solid-state electrolytes eliminate thermal runaway in lithium-ion batteries?", "gold_doc_ids": [], "set": "unanswerable", "topic": "materials"}

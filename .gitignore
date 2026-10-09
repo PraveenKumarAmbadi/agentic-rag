@@ -16,8 +16,10 @@ venv/
 .env
 .env.local
 
-# Data & generated artifacts (regenerate instead of committing)
-data/
+# Data & generated artifacts (regenerate instead of committing).
+# Exception: data/eval/ holds the frozen, partly hand-authored eval sets.
+data/*
+!data/eval/
 indexes/
 models/
 *.faiss
@@ -29,3 +31,6 @@ Commands.txt
 
 # Eval checkpoints (kept on crash; removed when a run completes)
 *.partial.jsonl
+
+# Local environment (copy .env.example -> .env)
+!.env.example
