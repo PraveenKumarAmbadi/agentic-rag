@@ -275,6 +275,21 @@ class AgentPipeline(RagPipeline):
             ag["decide_no_json"] += 1
         return action
 
+    @staticmethod
+    def _picked_doc_ids(numbers: list[int], docs: list) -> list[str] | None:
+        """Map the controller's 1-based document numbers to doc ids.
+
+        Out-of-range numbers are dropped and duplicates collapsed. Returns
+        None when the controller named no document.
+        """
+        if not numbers:
+            return None
+        picked: list[str] = []
+        for n in numbers:
+            if 1 <= n <= len(docs) and docs[n - 1].doc_id not in picked:
+                picked.append(docs[n - 1].doc_id)
+        return picked
+
     async def _rescue(
         self, question: str, docs: list, reason: str, trigger: str, run: RunState, ag: dict
     ) -> dict:
@@ -425,10 +440,18 @@ class AgentPipeline(RagPipeline):
                 # generation — the safest default given the measured
                 # over-refusal failure mode.
                 break
-            ag["actions"].append({"iteration": iteration, "tool": action.tool, "args": action.args})
+            record = {"iteration": iteration, "tool": action.tool, "args": action.args}
+            ag["actions"].append(record)
             yield {"type": "step", "step": "decide", "tool": action.tool}
 
             if action.tool == "answer":
+                # Recorded for analysis only (does the controller pick the
+                # gold doc, or the near-miss?). Deliberately not fed to
+                # generation as a hint: steering the writer toward a doc is
+                # exactly what makes near-miss evidence turn into an answer.
+                picked = self._picked_doc_ids(action.args.get("documents", []), docs)
+                if picked is not None:
+                    record["doc_ids"] = picked
                 break
 
             if action.tool == "hybrid_search":

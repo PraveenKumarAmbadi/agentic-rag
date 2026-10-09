@@ -15,8 +15,8 @@ import unittest
 from agent.agent import AgentPipeline, RefusalGate
 from agent.llm import Completion, OllamaError, StreamEnd, StreamInterrupted, Token
 from agent.pipeline import RagPipeline, Retrieval, RetrievalUnavailable
-from agent.prompts import HEDGE_PREFIX, build_refusal_text
-from agent.tools import Action, ToolCallError, extract_json, parse_action
+from agent.prompts import HEDGE_PREFIX, build_answer_messages, build_refusal_text
+from agent.tools import Action, ToolCallError, extract_json, parse_action, render_tool_docs
 from configs.loader import validate_config
 from retrieval.types import FusedResult
 
@@ -180,6 +180,22 @@ class TestTools(unittest.TestCase):
         self.assertEqual(action.tool, "answer")
         self.assertEqual(action.args, {})
 
+    def test_answer_with_documents_as_qwen_emits_it(self):
+        # Verbatim decide output from qwen2.5:7b-instruct; it used to be
+        # rejected as "unknown params for answer: ['documents']".
+        action = parse_action('{"tool": "answer", "args": {"documents": [1, 5, 9]}}')
+        self.assertEqual(action, Action(tool="answer", args={"documents": [1, 5, 9]}))
+
+    def test_array_items_are_type_checked(self):
+        for args in ('{"documents": 1}', '{"documents": ["1"]}',
+                     '{"documents": [true]}', '{"documents": [1.5]}'):
+            with self.subTest(args=args):
+                with self.assertRaises(ToolCallError):
+                    parse_action('{"tool": "answer", "args": %s}' % args)
+
+    def test_tool_docs_render_array_params(self):
+        self.assertIn("answer(documents (array of integers, optional))", render_tool_docs())
+
     def test_extract_json_nested_and_prose(self):
         obj = extract_json('sure! {"a": {"b": [1, 2]}} thanks')
         self.assertEqual(obj, {"a": {"b": [1, 2]}})
@@ -232,6 +248,17 @@ class TestAgentLoop(unittest.TestCase):
         self.assertEqual(types[0], "step")
         self.assertIn("delta", types)
         self.assertEqual(types[-1], "done")
+
+    def test_answer_records_picked_docs_without_hinting_generation(self):
+        llm = FakeLLM(decide=['{"tool": "answer", "args": {"documents": [2, 2, 7, 1]}}'])
+        done = run_pipe(make_pipe(llm))[-1]
+        self.assertEqual(done["agent"]["decide_parse_errors"], 0)
+        action = done["agent"]["actions"][0]
+        self.assertEqual(action["tool"], "answer")
+        self.assertEqual(action["doc_ids"], ["doc2", "doc1"])  # 7 is out of range
+        answer_prompt = next(m for key, m in llm.calls if key == "answer")
+        self.assertEqual(answer_prompt, build_answer_messages("What is X?", make_docs(),
+                                                              context_chars=make_cfg()["agent"]["context_chars"]))
 
     def test_search_reformulation(self):
         llm = FakeLLM(

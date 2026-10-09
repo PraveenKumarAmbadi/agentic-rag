@@ -44,9 +44,19 @@ TOOL_SPECS: list[dict] = [
         "description": (
             "Answer the question from the currently retrieved documents. "
             "Prefer this whenever ANY retrieved document plausibly bears on "
-            "the question, even partially or for one aspect."
+            "the question, even partially or for one aspect. Optionally list "
+            "the numbers of the documents the answer rests on."
         ),
-        "params": {},
+        # qwen2.5 volunteers this on almost every answer decision; with no
+        # declared param, every answer decision was rejected as invalid.
+        "params": {
+            "documents": {
+                "type": "array",
+                "items": "integer",
+                "required": False,
+                "description": "Numbers of the documents the answer rests on.",
+            },
+        },
     },
     {
         "name": "insufficient_evidence",
@@ -69,7 +79,14 @@ TOOL_SPECS: list[dict] = [
 
 TOOL_NAMES = [spec["name"] for spec in TOOL_SPECS]
 
-_PY_TYPES = {"string": str, "boolean": bool, "integer": int}
+_PY_TYPES = {"string": str, "boolean": bool, "integer": int, "array": list}
+
+
+def _is_type(value, type_name: str) -> bool:
+    # bool is a subclass of int in Python; JSON true is not an integer.
+    if type_name == "integer" and isinstance(value, bool):
+        return False
+    return isinstance(value, _PY_TYPES[type_name])
 
 
 @dataclass(frozen=True)
@@ -121,9 +138,13 @@ def validate_action(obj: dict) -> Action:
                 raise ToolCallError(f"missing required param {name!r} for {tool}")
             continue
         value = args[name]
-        if not isinstance(value, _PY_TYPES[pspec["type"]]):
+        if not _is_type(value, pspec["type"]):
             raise ToolCallError(
                 f"param {name!r} of {tool} must be a {pspec['type']}"
+            )
+        if pspec["type"] == "array" and not all(_is_type(v, pspec["items"]) for v in value):
+            raise ToolCallError(
+                f"param {name!r} of {tool} must be an array of {pspec['items']}s"
             )
         if isinstance(value, str) and not value.strip():
             raise ToolCallError(f"param {name!r} of {tool} must be non-empty")
@@ -145,6 +166,12 @@ def parse_action(text: str) -> Action | None:
     return validate_action(obj)
 
 
+def _type_label(pspec: dict) -> str:
+    if pspec["type"] == "array":
+        return f"array of {pspec['items']}s"
+    return pspec["type"]
+
+
 def render_tool_docs() -> str:
     """Render the tool vocabulary for the decide-turn system prompt."""
     lines = [
@@ -153,7 +180,7 @@ def render_tool_docs() -> str:
     ]
     for spec in TOOL_SPECS:
         params = ", ".join(
-            f'{name} ({pspec["type"]}, {"required" if pspec["required"] else "optional"})'
+            f'{name} ({_type_label(pspec)}, {"required" if pspec["required"] else "optional"})'
             for name, pspec in spec["params"].items()
         )
         sig = f"{spec['name']}({params})" if params else spec["name"] + "()"
