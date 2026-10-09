@@ -187,7 +187,7 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
 | Risk | Mitigation |
 |---|---|
-| **System RAM OOM during eval runs** | **Root cause found 2026-10-09:** Ollama ≥0.34 runs `llama-server`, which keeps a host-RAM *prompt cache* (default limit 8192 MiB, ~120 MiB per ~2k-token prompt). Eval prompts rarely share prefixes, so the cache only grows: it reached 44 prompts / 5.2 GiB and the kernel OOM-killed `llama-server` 130 questions into `baseline_v3`. The model itself needs little host RAM (weights on GPU, 292 MiB host buffer), so the earlier "7B ≈ 4.3 GB host RAM" explanation was the cache. **Fix:** `LLAMA_ARG_CACHE_RAM=0` in Ollama's environment (systemd override locally; set in `docker-compose.yml` for the bundled Ollama). The variable reaching the runner was checked (`prompt cache is disabled` in the log). Not yet verified: that a full eval then completes at default WSL RAM. **Fallback if it still OOMs:** temporarily create `C:\Users\<user>\.wslconfig` with `[wsl2]` / `memory=12GB` / `swap=4GB` / `autoMemoryReclaim=gradual`, run `wsl --shutdown` from PowerShell, restart, run the eval, then delete the file and restart again. Serving the API alone works at default RAM. |
+| **System RAM OOM during eval runs** | **Root cause found 2026-10-09:** Ollama ≥0.34 runs `llama-server`, which keeps a host-RAM *prompt cache* (default limit 8192 MiB, ~120 MiB per ~2k-token prompt). Eval prompts rarely share prefixes, so the cache only grows: it reached 44 prompts / 5.2 GiB and the kernel OOM-killed `llama-server` 130 questions into `baseline_v3`. The model itself needs little host RAM (weights on GPU, 292 MiB host buffer), so the earlier "7B ≈ 4.3 GB host RAM" explanation was the cache. **Fix:** `LLAMA_ARG_CACHE_RAM=0` in Ollama's environment (systemd override locally; set in `docker-compose.yml` for the bundled Ollama). The variable reaching the runner was checked (`prompt cache is disabled` in the log). Verified: `baseline_v3` (193 questions) then completed at the default WSL RAM. **Fallback if it still OOMs:** temporarily create `C:\Users\<user>\.wslconfig` with `[wsl2]` / `memory=12GB` / `swap=4GB` / `autoMemoryReclaim=gradual`, run `wsl --shutdown` from PowerShell, restart, run the eval, then delete the file and restart again. Serving the API alone works at default RAM. |
 | 8 GB VRAM can't fit LLM + encoders | 3–4B model; CPU-offload reranker during LLM calls; measure actual VRAM in Phase 0 and record in §8 |
 | Local 7B model is weak at strict citation format | Few-shot prompt; retry-on-parse-fail; lower temperature; if still bad, that itself is a documented finding |
 | LLM-as-judge is biased by same model | Cross-check a sample with RAGAS + a different judge model; keep judge rubric in repo |
@@ -198,7 +198,7 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
 ## 8. Current Status
 
-**Last updated:** 2026-09-13 (Phase 0 complete)
+**Last updated:** 2026-10-09 (baseline v3 re-captured after the production pass)
 
 - [x] Project 1 complete, pushed, smoke-tested end-to-end
 - [x] This planning doc created
@@ -212,13 +212,19 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
 **Measured facts (fill as they're learned):**
 - VRAM, LLM only (7B Q4 loaded): 5447 MiB / 8192 MiB — ~2.7 GB headroom for SPLADE + BGE; if tight, CPU-offload reranker
-- System RAM: WSL raised to 12 GB temporarily for eval runs (default 7.6 GB OOM-killed Ollama — see §7 for the raise/lower procedure; reverted after baseline was captured). 2026-10-09: the OOMs came from Ollama's host-RAM prompt cache, not the model. Disable it with `LLAMA_ARG_CACHE_RAM=0` (§7).
+- System RAM: WSL raised to 12 GB temporarily for eval runs (default 7.6 GB OOM-killed Ollama — see §7 for the raise/lower procedure; reverted after baseline was captured). 2026-10-09: the OOMs came from Ollama's host-RAM prompt cache, not the model. Disable it with `LLAMA_ARG_CACHE_RAM=0` (§7). With it disabled, `baseline_v3` (193 questions) completed at the default 7.6 GB with no errors.
 - Phase 1 RAG path (single query): retrieval 351 ms, first_token 7.05 s cold, total 9.3 s
 - **BASELINE (Phase 1 pipeline, frozen eval sets, 2026-09-14, results/baseline_phase1_*.json):**
   - Answerable (100): citation_precision **0.3133**, false_refusal_rate **0.69**, retrieval_hit_rate 0.87, invalid_citation_rate 0.0, p50 2.26 s, p95 3.38 s
   - Unanswerable (50): refusal_correctness **1.0**, p50 2.03 s, p95 2.50 s
   - - Key failure transcript: "Rapamycin … triacylglycerols in fruit flies" — gold doc WAS in context, model still refused → generation-side failure, not retrieval
   - BASELINE AUDIT (harness verified): 0.69 is REAL, no eval bug — refusal flag matches answer text 100/100; 31 answered + 69 refused; 31 + 56 = 87 = hit rate. Decomposition: 56/100 generation-side (gold in context; conditional refusal 56/87 = 0.64), 13/100 retrieval-side (gold never retrieved; refused 13/13). Truncation exonerated as primary driver: gold docs > 800 chars in 53/56 refused vs 28/31 answered (medians 1282 vs 1141 chars) — no discrimination. Phase 3 targets: rescue converts the 56, re-search covers the 13, unanswerable refusal must stay 1.0.
+- **BASELINE v3 (2026-10-09, eval sets v3, production-pass scoring, results/baseline_v3_20261009_160603.json)**: the comparison point for the agent. Do not compare against `baseline_phase1`, which used v1 sets and the old scoring.
+  - Answerable (100): citation_precision **0.286**, false_refusal_rate **0.67**, retrieval_hit_rate 0.87, invalid_citation_rate 0, p50 1.80 s, p95 2.88 s. Of the 67 false refusals, 55 had a gold doc in context (generation-side). Precision among the 33 answered is 0.867.
+  - Unanswerable (50): refusal_correctness **1.0**, p50 1.47 s
+  - Adversarial (43): refusal_correctness **0.791**, near_miss_retrieved_rate 1.0, cited_near_miss_rate **0.209** (9 fooled). By trap: species 3/8, disease 2/3, outcome 2/9, organ 1/1, population 1/10, all others 0. a29 is borderline: it answers first, then appends INSUFFICIENT_EVIDENCE. The refusal detector is prefix-based, so it counts as fooled. Fooled items were re-checked against the corpus and the labels hold; e.g. a38 says "prostate" but the doc is mammary-only. Several are unfaithful claims, not misreadings.
+  - Paired (real claim vs its trap twin): answered real & refused trap 15, answered both 5, refused both 19, refused real & answered trap 4. Most of the 0.79 comes from the baseline refusing almost everything. When the baseline answers the real claim, it refuses the twin in 15/20 cases (0.75), which is its real discrimination.
+  - Agent bar: lower 0.67 without letting adversarial refusal fall clearly below 0.79 or cited_near_miss rise clearly above 0.21 (±~15 pts is noise at n=43). Unanswerable must stay 1.0.
 - Agent faithfulness (Phase 3): _TBD_
 - p95 latency, uncached vs cached: _TBD_
 

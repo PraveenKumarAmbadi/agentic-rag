@@ -53,7 +53,12 @@ python -m evaluation.evaluate_rag --mode baseline --sets answerable --limit 10
 
 **Agent loop** (`agent/agent.py`): pre-fetch → bounded ReAct decide turns (JSON tool calls validated by `agent/tools.py`: `answer`, `hybrid_search`, `insufficient_evidence`) → **rescue** (second-opinion call can override a refusal and hint generation at a doc) → streamed generation through `RefusalGate` (buffers a leading refusal so it can still be rescued) → **critique** with up to `agent.max_retries` regenerations → hedge with `HEDGE_PREFIX` if still unsupported. Degrade policy: internal-turn failures never sink the request (decide→generate, rescue→refusal stands, critique→answer marked `skipped`); `agent.request_timeout_s` is a soft budget that stops optional steps.
 
-Design target (from `project_state.md`): baseline false-refusal **0.69** with unanswerable refusal already **1.0** — changes must lower the first without dropping the second. Scoring rules changed in the production pass (unified refusal detector, refusal "closest documents" no longer count as citations), so re-run both baseline and agent before comparing against older result files.
+Design target (`project_state.md` §8). The reference is the baseline v3 run, `results/baseline_v3_20261009_160603.json`:
+- answerable false-refusal **0.67**
+- unanswerable refusal **1.0**
+- adversarial refusal **0.79**, cited_near_miss **0.21**
+
+Changes must lower the false-refusal rate without dropping unanswerable refusal or noticeably worsening the adversarial numbers. Older result files (`baseline_phase1`) used the v1 sets and the old scoring, so they are not comparable.
 
 **Conventions:**
 - Refusal is defined once: `agent/citations.py` (`classify_refusal_prefix`, `is_refusal`, `refusal_reason`) — case/underscore/markdown-insensitive. The gate, agent, baseline, and eval all use it.
