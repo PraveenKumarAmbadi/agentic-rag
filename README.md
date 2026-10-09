@@ -180,7 +180,21 @@ ollama pull qwen2.5:7b-instruct
 Check it: `ollama list` should list the model, and
 `ollama run qwen2.5:7b-instruct "Say hi"` should answer.
 
-**3. Point the stack at it** — in `.env`:
+**3. Turn off Ollama's prompt cache.** Ollama (0.34+) caches every prompt in
+system RAM, up to 8 GiB by default. With this project's prompts, each about
+120 MiB and rarely reused, the cache keeps growing until the OS kills the model
+mid-run. To disable it, set the environment variable `LLAMA_ARG_CACHE_RAM=0`
+for the Ollama server, then restart Ollama:
+
+| OS | How |
+|---|---|
+| Linux | `sudo systemctl edit ollama`, add `Environment="LLAMA_ARG_CACHE_RAM=0"` under `[Service]`, then `sudo systemctl restart ollama` |
+| macOS | `launchctl setenv LLAMA_ARG_CACHE_RAM 0`, then quit and reopen the Ollama app |
+| Windows | Add a user environment variable `LLAMA_ARG_CACHE_RAM` = `0`, then quit Ollama from the tray and start it again |
+
+The bundled Docker Ollama already sets this.
+
+**4. Point the stack at it** — in `.env`:
 
 ```bash
 COMPOSE_PROFILES=
@@ -299,6 +313,7 @@ tests/        unit tests (no external services needed)
 | `indexer` exited with an error | `docker compose logs indexer`, fix the cause, then `docker compose up -d` — the build resumes safely. |
 | `{"type": "error", "code": "timeout"}` or very slow answers | CPU-only: use a smaller model or longer timeouts (see [CPU-only machines](#cpu-only-machines)). |
 | `llm_unavailable` / `/health` reports `"llm": "down"` | Bundled: `docker compose logs ollama ollama-pull`. Native: is Ollama running, and (Linux) listening on `0.0.0.0`? |
+| Answers fail partway through a long run with `ReadTimeout` then `ConnectTimeout`; the kernel log (`dmesg`) shows `Out of memory: Killed process … (llama-server)` | Ollama's prompt cache filled system RAM. Set `LLAMA_ARG_CACHE_RAM=0` for Ollama (see [Use a native Ollama](#use-a-native-ollama-optional), step 3). |
 | Elasticsearch exits with `max virtual memory areas vm.max_map_count is too low` (Linux) | `sudo sysctl -w vm.max_map_count=262144` |
 | `could not select device driver "nvidia"` | The NVIDIA Container Toolkit is missing — install it or remove `COMPOSE_FILE`/`TORCH_VARIANT` from `.env`. |
 | `docker compose` rejects `required: false` | Update Docker Compose to v2.24 or newer. |

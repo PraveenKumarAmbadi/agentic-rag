@@ -187,7 +187,7 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
 | Risk | Mitigation |
 |---|---|
-| **System RAM OOM during eval runs** | Default WSL RAM (50% = 7.6 GB) is not enough for Ollama (7B ≈ 4.3 GB host RAM) + the torch eval process (~3 GB) — Linux OOM-killed Ollama twice (2026-09-13). **Eval procedure:** temporarily create `C:\Users\<user>\.wslconfig` with `[wsl2]` / `memory=12GB` / `swap=4GB` / `autoMemoryReclaim=gradual`, run `wsl --shutdown` from PowerShell, restart, run the eval, then delete the file and restart again. Serving the API alone works at default RAM. |
+| **System RAM OOM during eval runs** | **Root cause found 2026-10-09:** Ollama ≥0.34 runs `llama-server`, which keeps a host-RAM *prompt cache* (default limit 8192 MiB, ~120 MiB per ~2k-token prompt). Eval prompts rarely share prefixes, so the cache only grows: it reached 44 prompts / 5.2 GiB and the kernel OOM-killed `llama-server` 130 questions into `baseline_v3`. The model itself needs little host RAM (weights on GPU, 292 MiB host buffer), so the earlier "7B ≈ 4.3 GB host RAM" explanation was the cache. **Fix:** `LLAMA_ARG_CACHE_RAM=0` in Ollama's environment (systemd override locally; set in `docker-compose.yml` for the bundled Ollama). The variable reaching the runner was checked (`prompt cache is disabled` in the log). Not yet verified: that a full eval then completes at default WSL RAM. **Fallback if it still OOMs:** temporarily create `C:\Users\<user>\.wslconfig` with `[wsl2]` / `memory=12GB` / `swap=4GB` / `autoMemoryReclaim=gradual`, run `wsl --shutdown` from PowerShell, restart, run the eval, then delete the file and restart again. Serving the API alone works at default RAM. |
 | 8 GB VRAM can't fit LLM + encoders | 3–4B model; CPU-offload reranker during LLM calls; measure actual VRAM in Phase 0 and record in §8 |
 | Local 7B model is weak at strict citation format | Few-shot prompt; retry-on-parse-fail; lower temperature; if still bad, that itself is a documented finding |
 | LLM-as-judge is biased by same model | Cross-check a sample with RAGAS + a different judge model; keep judge rubric in repo |
@@ -212,7 +212,7 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
 **Measured facts (fill as they're learned):**
 - VRAM, LLM only (7B Q4 loaded): 5447 MiB / 8192 MiB — ~2.7 GB headroom for SPLADE + BGE; if tight, CPU-offload reranker
-- System RAM: WSL raised to 12 GB temporarily for eval runs (default 7.6 GB OOM-killed Ollama — see §7 for the raise/lower procedure; reverted after baseline was captured)
+- System RAM: WSL raised to 12 GB temporarily for eval runs (default 7.6 GB OOM-killed Ollama — see §7 for the raise/lower procedure; reverted after baseline was captured). 2026-10-09: the OOMs came from Ollama's host-RAM prompt cache, not the model. Disable it with `LLAMA_ARG_CACHE_RAM=0` (§7).
 - Phase 1 RAG path (single query): retrieval 351 ms, first_token 7.05 s cold, total 9.3 s
 - **BASELINE (Phase 1 pipeline, frozen eval sets, 2026-09-14, results/baseline_phase1_*.json):**
   - Answerable (100): citation_precision **0.3133**, false_refusal_rate **0.69**, retrieval_hit_rate 0.87, invalid_citation_rate 0.0, p50 2.26 s, p95 3.38 s

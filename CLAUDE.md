@@ -37,7 +37,7 @@ python -m evaluation.evaluate_rag --mode agent --tag agent_phase3
 python -m evaluation.evaluate_rag --mode baseline --sets answerable --limit 10
 ```
 
-**Resource constraints (8 GB VRAM, ~7.6 GB default WSL RAM):** stop the API before running evals or `scripts/run_*` (both can't hold the LLM). Full evals have OOM-killed Ollama at default WSL RAM — see `project_state.md` §7 for the temporary `.wslconfig` raise. `serving.max_concurrent: 1` is deliberate: one GPU, one Ollama model slot.
+**Resource constraints (8 GB VRAM, ~7.6 GB default WSL RAM):** stop the API before running evals or `scripts/run_*` (both can't hold the LLM). Ollama ≥0.34 keeps a prompt cache in host RAM (8 GiB default) that grows over an eval until the kernel OOM-kills `llama-server`. Ollama must run with `LLAMA_ARG_CACHE_RAM=0` (systemd override locally; set in `docker-compose.yml`). See `project_state.md` §7, which also covers the `.wslconfig` RAM raise as a fallback. `serving.max_concurrent: 1` is deliberate: one GPU, one Ollama model slot.
 
 ## Configuration
 

@@ -58,6 +58,11 @@ services:
   ollama:
     image: ollama/ollama:0.34.0
     profiles: ["bundled-ollama"]
+    environment:
+      # Ollama's llama-server keeps a prompt cache in host RAM (default limit
+      # 8 GiB, ~120 MiB per cached prompt here). Our prompts barely share
+      # prefixes, so it only grows until the kernel OOM-kills the model.
+      LLAMA_ARG_CACHE_RAM: "0"
     volumes:
       - ollama:/root/.ollama
     healthcheck:
