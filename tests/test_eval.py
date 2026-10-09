@@ -59,6 +59,19 @@ class TestScoring(unittest.TestCase):
         self.assertEqual(row["citation_precision"], 0.5)
         self.assertEqual(row["gold_doc_ids_retrieved"], ["g1"])
 
+    def test_adversarial_trap_metrics(self):
+        rec = {"query_id": "a01", "question": "Q?", "gold_doc_ids": [],
+               "near_miss_doc_ids": ["g1"], "trap": "population", "paired_query_id": "q1"}
+        fooled = score_row(rec, done_event(citations={"1": "g1"}))
+        self.assertTrue(fooled["near_miss_retrieved"])
+        self.assertTrue(fooled["cited_near_miss"])
+        refused = score_row(rec, done_event(refusal=True, citations={"1": "g1"}))
+        self.assertFalse(refused["cited_near_miss"])  # refusal listings are not citations
+        s = summarize([fooled, refused], has_gold=False)
+        self.assertEqual(s["refusal_correctness"], 0.5)
+        self.assertEqual(s["near_miss_retrieved_rate"], 1.0)
+        self.assertEqual(s["cited_near_miss_rate"], 0.5)
+
     def test_refusal_listing_is_not_counted_as_citations(self):
         row = score_row(REC, done_event(refusal=True, citations={"1": "g1"}))
         self.assertEqual(row["cited_doc_ids"], [])

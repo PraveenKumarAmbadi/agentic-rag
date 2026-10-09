@@ -8,6 +8,11 @@ Metrics (per set):
                 (any gold doc in context), false_refusal_rate,
                 invalid_citation_rate, latency percentiles (nearest rank)
   unanswerable  refusal_correctness (did it use the escape hatch), latency
+  adversarial   unanswerable claims built to look answerable: each names a
+                near-miss document that is on-topic but does not address the
+                claim. Adds near_miss_retrieved_rate (did the trap fire) and
+                cited_near_miss_rate (answered by citing the near-miss doc —
+                the failure the set exists to catch)
   agent mode    + iterations/llm_calls means, rescue-override rate,
                 critique pass rate, hedge rate
   all           + n_errors (questions that raised; excluded from metrics),
@@ -84,6 +89,11 @@ def score_row(rec: dict, done: dict) -> dict:
             round(len(cited_set & gold) / len(cited_set), 4) if cited_set else 0.0
         ),
         "gold_doc_ids_retrieved": sorted(set(done["retrieved_doc_ids"]) & gold),
+        "near_miss_doc_ids": rec.get("near_miss_doc_ids", []),
+        "near_miss_retrieved": bool(set(rec.get("near_miss_doc_ids", [])) & set(done["retrieved_doc_ids"])),
+        "cited_near_miss": bool(set(rec.get("near_miss_doc_ids", [])) & cited_set),
+        "trap": rec.get("trap"),
+        "paired_query_id": rec.get("paired_query_id"),
         "retrieved_doc_ids": done["retrieved_doc_ids"],
         "answer_text": done["text"],
         "timings": done["timings"],
@@ -159,6 +169,10 @@ def summarize(rows: list[dict], has_gold: bool) -> dict:
         s["invalid_citation_rate"] = round(_mean(bool(r["invalid_citations"]) for r in ok), 4)
     else:
         s["refusal_correctness"] = round(_mean(r["refusal"] for r in ok), 4)
+        trapped = [r for r in ok if r.get("near_miss_doc_ids")]
+        if trapped:
+            s["near_miss_retrieved_rate"] = round(_mean(r["near_miss_retrieved"] for r in trapped), 4)
+            s["cited_near_miss_rate"] = round(_mean(r["cited_near_miss"] for r in trapped), 4)
     s["degraded_rate"] = round(_mean(bool(r.get("degraded")) for r in ok), 4)
     s["truncated_rate"] = round(_mean(bool(r.get("truncated")) for r in ok), 4)
     usages = [r["usage"] for r in ok if r.get("usage")]
@@ -230,7 +244,7 @@ async def main_async(args) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--sets", default="answerable,unanswerable")
+    parser.add_argument("--sets", default="answerable,unanswerable,adversarial")
     parser.add_argument("--limit", type=int, default=0, help="0 = full sets")
     parser.add_argument(
         "--mode",

@@ -207,8 +207,12 @@ change.)
 
 ## Running the evaluation
 
-The frozen eval sets live in `data/eval/` (100 answerable questions from
-SciFact with gold documents, 50 hand-written unanswerable questions).
+The frozen eval sets live in `data/eval/` (see its README):
+100 answerable SciFact claims with gold documents; 50 out-of-domain
+unanswerable questions (a floor test); and 43 **adversarial** claims, each a
+real finding with one critical detail changed (population, outcome, species,
+causality, …) so that an on-topic document is retrieved but does not answer
+it — the hard test of whether the agent knows when it doesn't know.
 
 ```bash
 docker compose stop api      # the API and the eval should not share the LLM
@@ -219,7 +223,8 @@ docker compose start api
 
 Results (summary + per-question records) are written to `./results/`.
 Metrics: false-refusal rate and citation precision on answerable questions,
-refusal correctness on unanswerable ones, latency percentiles, token usage,
+refusal correctness on unanswerable and adversarial ones (plus how often the
+agent answered by citing the near-miss document), latency percentiles, token usage,
 and agent behaviour (rescue overrides, critique pass rate, hedges).
 Numbers are only comparable on the same eval set, model, and code version.
 
