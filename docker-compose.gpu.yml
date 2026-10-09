@@ -1,0 +1,23 @@
+# NVIDIA GPU overlay. Enable by adding to .env:
+#   COMPOSE_FILE=docker-compose.yml:docker-compose.gpu.yml
+#   TORCH_VARIANT=cu130
+# Requires the NVIDIA driver and the NVIDIA Container Toolkit on the host
+# (Linux, or Windows with Docker Desktop + WSL2). Check with:
+#   docker run --rm --gpus all ubuntu nvidia-smi
+
+x-gpu: &gpu
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+
+services:
+  ollama:
+    <<: *gpu
+  indexer:
+    <<: *gpu
+  api:
+    <<: *gpu

@@ -49,6 +49,32 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(cfg["elasticsearch"]["port"], 9300)
         self.assertEqual(cfg["llm"]["model"], "other:7b")
 
+    def test_generic_env_overrides(self):
+        cfg = load_config(
+            CONFIG_PATH,
+            environ={
+                "AGENTIC_RAG__AGENT__REQUEST_TIMEOUT_S": "600",
+                "AGENTIC_RAG__SERVING__HARD_TIMEOUT_S": "900",
+                "agentic_rag__serving__host": "ignored: prefix is case-sensitive",
+                "AGENTIC_RAG__SERVING__HOST": "0.0.0.0",
+                "AGENTIC_RAG__DENSE__HNSW__M": "32",
+                "AGENTIC_RAG__LLM__NUM_CTX": "",  # empty = unset
+            },
+        )
+        self.assertEqual(cfg["agent"]["request_timeout_s"], 600.0)
+        self.assertEqual(cfg["serving"]["host"], "0.0.0.0")
+        self.assertEqual(cfg["dense"]["hnsw"]["M"], 32)
+        self.assertEqual(cfg["llm"]["num_ctx"], 4096)
+
+    def test_generic_env_override_errors(self):
+        for env in (
+            {"AGENTIC_RAG__AGENT__TOPK": "5"},      # unknown key
+            {"AGENTIC_RAG__AGENT": "5"},            # section, not a key
+            {"AGENTIC_RAG__AGENT__TOP_K": "many"},  # fails validation
+        ):
+            with self.subTest(env=env), self.assertRaises(ConfigError):
+                load_config(CONFIG_PATH, environ=env)
+
     def test_config_path_from_env_and_errors(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "c.yaml"

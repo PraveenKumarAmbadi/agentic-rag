@@ -1,0 +1,48 @@
+name: docker
+
+# Builds the (CPU) image and validates every compose mode, so "clone and
+# docker compose up" keeps working. Runs only when container inputs change.
+on:
+  push:
+    paths:
+      - "Dockerfile"
+      - ".dockerignore"
+      - "docker-compose*.yml"
+      - ".env.example"
+      - "requirements*.txt"
+      - ".github/workflows/docker.yml"
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - ".dockerignore"
+      - "docker-compose*.yml"
+      - ".env.example"
+      - "requirements*.txt"
+      - ".github/workflows/docker.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AGENTIC_RAG_API_KEYS: ci-validation-only-not-a-real-key-000000
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compose files
+        run: |
+          COMPOSE_PROFILES=bundled-ollama docker compose config --quiet
+          COMPOSE_PROFILES= docker compose config --quiet
+          TORCH_VARIANT=cu130 docker compose -f docker-compose.yml -f docker-compose.gpu.yml config --quiet
+
+      - name: Build CPU image
+        run: docker build --tag agentic-rag:cpu .
+
+      - name: Smoke-test the image
+        run: |
+          docker run --rm agentic-rag:cpu python -c "import torch, faiss, transformers, sentence_transformers, serving.main, agent.stack, scripts.build_indexes"
+          docker run --rm agentic-rag:cpu python -m unittest discover -s tests -t .
+          test "$(docker run --rm agentic-rag:cpu id -u)" != "0"

@@ -16,7 +16,7 @@ class TestLightImports(unittest.TestCase):
     def test_no_heavy_modules_at_import(self):
         code = (
             "import sys, serving.main, agent.agent, agent.stack, evaluation.evaluate_rag, "
-            "retrieval.fusion\n"
+            "retrieval.fusion, scripts.build_indexes\n"
             f"print(','.join(m for m in {HEAVY!r} if m in sys.modules))"
         )
         out = subprocess.run(

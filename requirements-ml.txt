@@ -1,0 +1,10 @@
+# ML stack for retrieval, indexing and reranking — WITHOUT torch.
+# torch is installed separately because its build depends on the target:
+#   local GPU dev: requirements.txt pins the CUDA 13.0 build
+#   Docker:        the Dockerfile picks cpu or cu130 via TORCH_VARIANT
+numpy==2.5.2
+faiss-cpu==1.11.0
+transformers==4.52.4
+huggingface_hub==0.36.2
+sentence-transformers==4.1.0
+accelerate==1.7.0

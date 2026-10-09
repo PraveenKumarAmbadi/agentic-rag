@@ -1,0 +1,143 @@
+# Agentic RAG — the whole stack on YOUR machine:
+#   elasticsearch  BM25 + SPLADE indexes
+#   ollama         local LLM server       (profile "bundled-ollama")
+#   ollama-pull    one-shot: downloads the model into the ollama volume
+#   indexer        one-shot: downloads SciFact and builds all indexes
+#   api            the FastAPI service on http://127.0.0.1:8001
+#
+# Quick start (details in README.md):
+#   cp .env.example .env      # then set AGENTIC_RAG_API_KEYS
+#   docker compose up -d
+# NVIDIA GPU: also set COMPOSE_FILE=docker-compose.yml:docker-compose.gpu.yml in .env.
+# Ollama installed natively instead: see "Use a native Ollama" in README.md.
+#
+# Requires Docker Compose v2.24+ (optional env_file, optional depends_on).
+
+name: agentic-rag
+
+x-app: &app
+  build:
+    context: .
+    args:
+      TORCH_VARIANT: ${TORCH_VARIANT:-cpu}
+  image: agentic-rag:${TORCH_VARIANT:-cpu}
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    ES_HOST: elasticsearch
+    ES_PORT: "9200"
+    LLM_BASE_URL: ${LLM_BASE_URL:-http://ollama:11434}
+    LLM_MODEL: ${LLM_MODEL:-qwen2.5:7b-instruct}
+  volumes:
+    - scifact:/app/data/scifact
+    - indexes:/app/indexes
+    - hf-cache:/home/app/.cache/huggingface
+  extra_hosts:
+    # lets a natively installed Ollama be reached at host.docker.internal on Linux too
+    - "host.docker.internal:host-gateway"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    mem_limit: 2g
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s' || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 18
+      start_period: 30s
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:0.34.0
+    profiles: ["bundled-ollama"]
+    volumes:
+      - ollama:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+  ollama-pull:
+    image: ollama/ollama:0.34.0
+    profiles: ["bundled-ollama"]
+    # Retries: a multi-GB download over a flaky network should not need a
+    # manual restart. Re-pulling an already present model is a quick no-op.
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        for attempt in 1 2 3 4 5; do
+          ollama pull "$$MODEL" && exit 0
+          echo "pull of $$MODEL failed (attempt $$attempt/5); retrying in 15s"
+          sleep 15
+        done
+        exit 1
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      MODEL: ${LLM_MODEL:-qwen2.5:7b-instruct}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: "no"
+
+  indexer:
+    <<: *app
+    command: ["python", "-m", "scripts.build_indexes"]
+    environment:
+      ES_HOST: elasticsearch
+      ES_PORT: "9200"
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://ollama:11434}
+      LLM_MODEL: ${LLM_MODEL:-qwen2.5:7b-instruct}
+      # CPU encoding otherwise uses every core for a long time (a laptop
+      # runs hot and unresponsive). Fewer threads = slower but cooler.
+      OMP_NUM_THREADS: ${INDEXER_THREADS:-4}
+      MKL_NUM_THREADS: ${INDEXER_THREADS:-4}
+      TOKENIZERS_PARALLELISM: "false"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    <<: *app
+    environment:
+      ES_HOST: elasticsearch
+      ES_PORT: "9200"
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://ollama:11434}
+      LLM_MODEL: ${LLM_MODEL:-qwen2.5:7b-instruct}
+      # Fail fast with a clear message instead of starting an open API.
+      AGENTIC_RAG_API_KEYS: ${AGENTIC_RAG_API_KEYS:?set AGENTIC_RAG_API_KEYS in .env (see .env.example)}
+    volumes:
+      - scifact:/app/data/scifact
+      - indexes:/app/indexes
+      - hf-cache:/home/app/.cache/huggingface
+      - ./results:/app/results
+    ports:
+      - "127.0.0.1:${API_PORT:-8001}:8001"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      indexer:
+        condition: service_completed_successfully
+      ollama-pull:
+        condition: service_completed_successfully
+        required: false   # absent when using a native Ollama
+    restart: unless-stopped
+
+volumes:
+  es-data:
+  ollama:
+  scifact:
+  indexes:
+  hf-cache:

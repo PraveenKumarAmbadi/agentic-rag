@@ -12,11 +12,13 @@ An agentic RAG research assistant over the SciFact (BEIR) corpus: answers with i
 
 ## Environment & commands
 
-- Python 3.12, WSL2. `requirements.txt` (full stack, includes `requirements-core.txt`) is an exact, pip-resolvable pin set — install it into a dedicated venv. `requirements-core.txt` alone is enough to run the unit tests. (The shared `~/.venvs/rag-hybrid-retrieval` currently has transformers 5.17 forced in by other projects; it runs, but is not reproducible.) No `python` on PATH: activate a venv first.
-- CI (`.github/workflows/`): `tests.yml` runs the unit tests on every push/PR using only `requirements-core.txt`; `dependencies.yml` dry-run-resolves `requirements.txt` (fails on conflicts or yanked pins) when requirements files change.
+- Python 3.12, WSL2. Project venv: `~/.venvs/agentic-rag` (built from `requirements.txt`, CUDA torch). No `python` on PATH: use that venv. Do not use the shared `~/.venvs/rag-hybrid-retrieval` — other projects forced transformers 5.17 into it.
+- Requirements are split: `requirements-core.txt` (API/LLM client/config/ES client — enough for unit tests), `requirements-ml.txt` (ML stack **without** torch), `requirements.txt` (core + ml + `torch==…+cu130` for local GPU dev). The Dockerfile installs torch itself via `TORCH_VARIANT` (cpu | cu130). Keep pins exact and pip-resolvable.
+- CI (`.github/workflows/`): `tests.yml` (unit tests, core deps only, every push/PR); `dependencies.yml` (dry-run resolve of `requirements.txt`, fails on conflicts/yanked pins); `docker.yml` (validates all compose modes, builds the CPU image, runs tests inside it). The last two run only when their inputs change. `e2e.yml` (manual, ~1 h): fresh-clone `docker compose up` on a GitHub runner (CPU, small model) + `scripts/smoke_api.py` — use it instead of running full CPU builds on the owner's laptop, which overheats.
+- Docker (`README.md` is the user-facing guide): `docker-compose.yml` runs elasticsearch, ollama + ollama-pull (profile `bundled-ollama`), a one-shot `indexer` (`scripts/build_indexes.py`), and the api (published on host 127.0.0.1 only). `docker-compose.gpu.yml` is the NVIDIA overlay. Settings come from `.env` (template `.env.example`). The owner's laptop must never act as anyone else's LLM server: every deployment runs its own Ollama (bundled or native).
 - Run everything from the repo root.
 - External services: Elasticsearch on `localhost:9200` (BM25 + SPLADE indexes; Docker container `rag-elasticsearch` from Project 1), Ollama on `localhost:11434` serving `qwen2.5:7b-instruct`.
-- `data/` and `indexes/` are gitignored. `python scripts/prepare_data.py` restores the SciFact corpus; ES/FAISS indexes come from Project 1 (no index-build script here).
+- `data/` (except the frozen `data/eval/`) and `indexes/` are gitignored. `python -m scripts.build_indexes [--recreate]` downloads SciFact if needed and builds BM25, SPLADE and FAISS indexes; it is idempotent (an index is rebuilt only if it doesn't hold exactly one entry per corpus doc).
 - `test.py` (repo root) is the owner's personal scratch file — never edit or delete it.
 
 ```bash
@@ -39,7 +41,7 @@ python -m evaluation.evaluate_rag --mode baseline --sets answerable --limit 10
 
 ## Configuration
 
-`configs/schema.py` (pydantic) is the single source of defaults and constraints; `configs/loader.py::load_config()` validates `config.yaml` against it, rejects unknown keys, and returns a plain dict — so read keys directly (`cfg["agent"]["top_k"]`), never `.get(key, default)`. New keys go in the schema **and** `config.yaml`. Env overrides: `ES_HOST`, `ES_PORT`, `LLM_BASE_URL`, `LLM_MODEL`, `AGENTIC_RAG_CONFIG`. Secrets (API keys) are env-only and never enter the config dict. Tests build configs with `validate_config({...})`.
+`configs/schema.py` (pydantic) is the single source of defaults and constraints; `configs/loader.py::load_config()` validates `config.yaml` against it, rejects unknown keys, and returns a plain dict — so read keys directly (`cfg["agent"]["top_k"]`), never `.get(key, default)`. New keys go in the schema **and** `config.yaml`. Env overrides: `ES_HOST`, `ES_PORT`, `LLM_BASE_URL`, `LLM_MODEL`, `AGENTIC_RAG_CONFIG`, plus any key as `AGENTIC_RAG__<SECTION>__<KEY>` (resolved against the schema; unknown keys are errors). Secrets (API keys) are env-only and never enter the config dict. Tests build configs with `validate_config({...})`.
 
 ## Architecture
 

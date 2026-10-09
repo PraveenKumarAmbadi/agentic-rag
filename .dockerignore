@@ -1,0 +1,19 @@
+# Keep the build context small and free of local state and secrets.
+.git
+.github
+.env
+.env.*
+!.env.example
+**/__pycache__
+**/*.py[cod]
+.venv
+venv
+data/scifact
+data/*.zip
+indexes
+models
+results
+*.log
+*.ipynb
+test.py
+agent/test.py

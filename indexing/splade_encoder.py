@@ -113,12 +113,16 @@ class SpladeEncoder:
 
         Returns:
             [batch, vocab_size] pooled vectors.
+
+        Computed in place: logits are [batch, seq, ~30k vocab] (2 GB at
+        batch 32 x 512 tokens), so out-of-place relu/log1p/mask would keep
+        four such tensors alive at once and exhaust CPU RAM. The caller
+        discards the logits, and encoding runs under no_grad.
         """
-        relu = torch.relu(logits)
-        compressed = torch.log1p(relu)
-        mask = attention_mask.unsqueeze(-1).float()
-        pooled = (compressed * mask).max(dim=1).values
-        return pooled
+        logits = torch.relu_(logits)
+        logits.log1p_()
+        logits.mul_(attention_mask.unsqueeze(-1).to(logits.dtype))
+        return logits.max(dim=1).values
 
     @staticmethod
     def _sparsify(

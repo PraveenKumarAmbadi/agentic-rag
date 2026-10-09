@@ -1,23 +1,16 @@
-# Exact pins, resolvable as a set (verified with `pip install --dry-run`).
-# Python 3.12, WSL2, RTX 5050 / CUDA 13.0. Install into a DEDICATED venv:
-# the shared ~/.venvs/rag-hybrid-retrieval has transformers 5.17 forced in by
-# other projects, which violates sentence-transformers 4.1's <5.0 requirement
-# and cannot be reproduced by pip. Upgrade deliberately and re-run the evals:
-# model/tokenizer library changes can move the numbers.
+# Full local environment (GPU). Exact pins, resolvable as a set (CI checks
+# this with `pip install --dry-run`). Python 3.12; NVIDIA GPU with CUDA 13.0.
+# Install into a DEDICATED venv: the shared ~/.venvs/rag-hybrid-retrieval has
+# transformers 5.17 forced in by other projects, which violates
+# sentence-transformers 4.1's <5.0 requirement and cannot be reproduced.
+# Upgrade deliberately and re-run the evals: model/tokenizer library changes
+# can move the numbers.
 #
-# torch must be the CUDA 13.0 build (Blackwell GPUs need it); the extra index
-# and the +cu130 local version make a plain `pip install -r requirements.txt`
-# resolve to that build instead of the default PyPI wheel.
+# The extra index plus the +cu130 local version make a plain
+# `pip install -r requirements.txt` pick the CUDA 13.0 torch build
+# (Blackwell GPUs need it). No NVIDIA GPU? Use Docker (CPU image) instead.
 --extra-index-url https://download.pytorch.org/whl/cu130
 
-# API, LLM client, config, ES client
 -r requirements-core.txt
-
-# Retrieval / models
+-r requirements-ml.txt
 torch==2.13.0+cu130
-numpy==2.5.2
-faiss-cpu==1.11.0
-transformers==4.52.4
-huggingface_hub==0.36.2
-sentence-transformers==4.1.0
-accelerate==1.7.0

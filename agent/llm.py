@@ -120,11 +120,20 @@ class LLMClient:
         )
 
     async def is_up(self, timeout_s: float = 2.0) -> bool:
+        """True when Ollama answers AND the configured model is downloaded.
+
+        A running server without the model would fail every request with
+        404, so it is not "up" for our purposes.
+        """
         try:
             resp = await self._client.get(f"{self.base_url}/api/tags", timeout=timeout_s)
-            return resp.status_code == 200
-        except httpx.HTTPError:
+            if resp.status_code != 200:
+                return False
+            names = {m.get("name") for m in resp.json().get("models", [])}
+        except (httpx.HTTPError, ValueError, AttributeError):
             return False
+        wanted = self.model if ":" in self.model else f"{self.model}:latest"
+        return wanted in names
 
     def _payload(self, messages: list[dict], spec: CallSpec) -> dict:
         p = {

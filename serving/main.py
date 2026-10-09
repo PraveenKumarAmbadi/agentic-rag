@@ -111,7 +111,10 @@ async def build_services() -> Services:
         llm_probe=CachedProbe(llm.is_up, serving["llm_health_ttl_s"]),
     )
     if not await llm.is_up():
-        logger.warning("LLM backend unreachable at startup; /answer returns 503 until it is up")
+        logger.warning(
+            "LLM backend unreachable or model %s not downloaded; /answer returns 503 until it is",
+            cfg["llm"]["model"],
+        )
     logger.info(
         "Agentic RAG API ready",
         extra={

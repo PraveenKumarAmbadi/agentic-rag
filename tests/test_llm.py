@@ -154,9 +154,15 @@ class TestLLMClient(unittest.IsolatedAsyncioTestCase):
             await self.collect(c)
         self.assertIn("num_ctx", logs.output[0])
 
-    async def test_is_up(self):
-        c = self.client([httpx.Response(200, json={"models": []})])
-        self.assertTrue(await c.is_up())
+    async def test_is_up_requires_the_model(self):
+        c = self.client([httpx.Response(200, json={"models": [{"name": "m:latest"}]})])
+        self.assertTrue(await c.is_up())  # "m" means "m:latest"
+
+        c = self.client([httpx.Response(200, json={"models": [{"name": "other:7b"}]})])
+        self.assertFalse(await c.is_up())  # server up, model not pulled
+
+        c = self.client([httpx.Response(200, content=b"not json")])
+        self.assertFalse(await c.is_up())
 
         def refuse(request):
             raise httpx.ConnectError("refused")
