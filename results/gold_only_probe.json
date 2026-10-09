@@ -1,0 +1,126 @@
+{
+  "rows": [
+    {
+      "query_id": "94",
+      "category": "before_800_only",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": false,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not mention albendazole or its use in treating lymphatic filariasis."
+    },
+    {
+      "query_id": "127",
+      "category": "weak_or_no_lexical_overlap",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the specific role of arginine 90 in p150Glued or its interaction with EB1. [1]"
+    },
+    {
+      "query_id": "198",
+      "category": "weak_or_no_lexical_overlap",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the presence or absence of CCL19 in dLNs. [1] discusses the properties of CCL19 but does not mention its presence or absence in dLNs."
+    },
+    {
+      "query_id": "440",
+      "category": "mixed_before_and_after",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The provided document does not mention Fz/PCP-dependent Pk or its localization to the anterior membrane of notochord cells during zebrafish neuralation. [1]"
+    },
+    {
+      "query_id": "478",
+      "category": "before_800_only",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the differentiation phenotype of Golli-deficient T-cells under conditions of increased cytosolic Ca2+. [1]"
+    },
+    {
+      "query_id": "527",
+      "category": "mixed_before_and_after",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the specific effect of homozygous deletion of the Sbds gene on oxidative stress in osterix-expressing mesenchymal stem and progenitor cells. [1]"
+    },
+    {
+      "query_id": "544",
+      "category": "weak_or_no_lexical_overlap",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": false,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide any information about IFIT1 or its role in restricting viral replication through sequestration of mis-capped viral RNAs."
+    },
+    {
+      "query_id": "551",
+      "category": "before_800_only",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": false,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about ITAM phosphorylation or its effect on signal transfer from the TCR echo-domain to the cytoplasmic tail."
+    },
+    {
+      "query_id": "628",
+      "category": "before_800_only",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents mention HTLV-I is endemic in Africa and among immigrants from Africa, but do not provide information on the frequency of infection in individuals of African origin compared to other populations. [1]"
+    },
+    {
+      "query_id": "637",
+      "category": "after_800_stronger",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": true,
+      "quoted_from_gold": true,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The document focuses on the mental health needs of homeless children and families after rehousing, but does not provide information on the effectiveness of input from mental and physical health care professionals in decreasing homelessness. [1]"
+    },
+    {
+      "query_id": "768",
+      "category": "weak_or_no_lexical_overlap",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": false,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents do not provide information about the metabolism of mercaptopurine by TPMT or any related enzymes."
+    },
+    {
+      "query_id": "859",
+      "category": "mixed_before_and_after",
+      "n_gold_docs": 1,
+      "refusal": false,
+      "cited_any": true,
+      "quoted_from_gold": false,
+      "answer_text": "CONTRADICTED [1]. The document states that RUNX1 is identified as a tumor-suppressor gene in T-ALL, which directly contradicts the claim that normal expression of RUNX1 has tumor-promoting effects."
+    },
+    {
+      "query_id": "1197",
+      "category": "weak_or_no_lexical_overlap",
+      "n_gold_docs": 1,
+      "refusal": true,
+      "cited_any": false,
+      "quoted_from_gold": false,
+      "answer_text": "INSUFFICIENT_EVIDENCE: The documents focus on the mental health and living conditions of homeless families, without addressing the effectiveness of safe places to study in reducing homelessness."
+    }
+  ],
+  "n": 13,
+  "fixed": 1,
+  "real_extraction": 0,
+  "hallucinated": 1,
+  "still_refuses": 12
+}
