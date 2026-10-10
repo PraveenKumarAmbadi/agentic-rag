@@ -240,6 +240,10 @@ offload reranker to CPU during generation tests, or use a 3–4B model
 
   - Reading: the agent does not beat the baseline on false refusals on dev (+2 claims, within noise). Its gain is precision: 6 rescue overrides, 5 citing gold, all with verified quotes. The old rescue overrode every refusal in the 3-item wiring check. The adversarial set tests whether that strictness holds on traps.
   - Largest remaining lever is not a prompt: per-doc context (800 chars vs a median abstract of 1330). The generation ablation cut false refusals 28→17 at 2400 chars, but 10 docs × 2400 chars exceeds `llm.num_ctx` 4096, so it is a context-budget decision (fewer docs or a larger num_ctx).
+- **BASELINE v4 (2026-10-10, new prompts, eval sets v3, results/baseline_v4_20261010_103153.json):** answerable false refusal 0.68, citation_precision 0.275, hit 0.87; unanswerable 1.0; adversarial refusal 0.767, cited_near_miss 0.209.
+  - Audit (reporting only, not used for tuning): the old prompt also produced *disguised refusals* (prose "the documents do not address…" that the prefix-based scorer counts as answers): v3 had 4 on answerable and 3 on adversarial, v4 has 0. Counting what the user sees: answerable effective refusal v3 0.71 → v4 0.68; precision of answered claims 0.95 → 0.86; adversarial traps really answered **6 → 10**.
+  - So for the baseline, the new prompt is slightly worse on traps (+4 items, within noise at n=43 but in the wrong direction). Cause, visible in the answers: the verdict-first format opens with "The claim is supported", then states the mismatched scope itself (a38 "supported in mice … mammary epithelia"; a04 "supported … in men"). Paired discrimination improved (answered real & refused trap 18/21 = 0.86 vs 15/20); the extra fooled traps are mostly pairs where the real claim was refused too.
+  - Decision: no prompt change from this (it would be tuning on the test set). The agent's critique has an explicit scope rule; agent_v4 shows whether it catches these. If not, build a dev trap set from dev claims and tune trap behaviour there.
 - Agent faithfulness (Phase 3): _TBD_
 - p95 latency, uncached vs cached: _TBD_
 
