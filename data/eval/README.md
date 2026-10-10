@@ -9,12 +9,25 @@ scoring code) — any change is recorded in the change log below.
 | `answerable.jsonl` | 100 | SciFact test claims with gold documents, sampled by `scripts/build_eval_sets.py` (seed 42) | citation precision, false-refusal rate, retrieval hit rate |
 | `unanswerable.jsonl` | 50 | hand-written questions on 18 topics absent from SciFact | refusal correctness (floor test) |
 | `adversarial.jsonl` | 43 | hand-written near-miss **claims**: each twists one detail of a real SciFact finding | refusal correctness under near-miss evidence, `near_miss_retrieved_rate`, `cited_near_miss_rate` |
+| `dev.jsonl` | 50 | SciFact test claims with gold documents **not** in `answerable.jsonl`, sampled by `scripts/build_eval_sets.py --split dev` (seed 42) | prompt and agent tuning only (`--sets dev`); never reported as a result |
 | `ablation_generation_false_refusals*.{jsonl,txt}` | 28 | subset of answerable cases from the false-refusal investigation | used by `scripts/run_generation_ablation.py` |
 
 Fields: `query_id` (stable id: SciFact ids for answerable, `u01`–`u50`,
 `a01`–`a43`), `question`, `gold_doc_ids` (empty for unanswerable and
 adversarial), `set`; unanswerable adds `topic`; adversarial adds
 `near_miss_doc_ids`, `trap`, `rationale`, `paired_query_id`.
+
+## Dev set: tune here, report on the others
+
+Prompts and agent settings are tuned on `dev.jsonl` only. The frozen sets
+measure how well those choices generalise, so they must not drive tuning: if
+a change is made because of a per-item result on answerable, unanswerable or
+adversarial, those numbers stop being an unbiased estimate. `dev.jsonl` is
+disjoint from `answerable.jsonl` and from every adversarial
+`paired_query_id` (`tests/test_eval_sets.py` enforces both). Rebuilding it
+with the same seed reproduces the file exactly. It has no adversarial
+counterpart, so refusal behaviour on near-miss evidence is first measured on
+the adversarial set itself.
 
 ## The adversarial set
 
@@ -73,6 +86,8 @@ paper on the 2003 European heatwave, which does not discuss the AMOC).
 
 ## Change log
 
+- **v3.1** (2026-10-10): added `dev.jsonl` (50 claims, tuning only). The
+  eval sets are unchanged, so v3 results remain comparable.
 - **v3** (2026-10-09) — added `adversarial.jsonl` (43 items, `a01`–`a43`).
   Answerable and unanswerable sets unchanged.
   The former u44 (desalination brine) was not added: it is partially

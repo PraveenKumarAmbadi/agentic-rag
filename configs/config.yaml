@@ -86,4 +86,5 @@ eval:
   answerable_path: data/eval/answerable.jsonl
   unanswerable_path: data/eval/unanswerable.jsonl
   adversarial_path: data/eval/adversarial.jsonl
+  dev_path: data/eval/dev.jsonl
   results_dir: results/

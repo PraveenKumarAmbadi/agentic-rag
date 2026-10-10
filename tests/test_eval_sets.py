@@ -18,6 +18,7 @@ class TestEvalSets(unittest.TestCase):
         cls.answerable = load("answerable.jsonl")
         cls.unanswerable = load("unanswerable.jsonl")
         cls.adversarial = load("adversarial.jsonl")
+        cls.dev = load("dev.jsonl")
 
     def test_ids_present_and_unique_across_sets(self):
         ids = [r["query_id"] for s in (self.answerable, self.unanswerable, self.adversarial) for r in s]
@@ -46,6 +47,19 @@ class TestEvalSets(unittest.TestCase):
                 self.assertTrue(r["near_miss_doc_ids"])            # but something looks like it does
                 self.assertTrue(r["trap"] and r["rationale"])
                 self.assertIn(r["paired_query_id"], answerable_ids)
+
+    def test_dev_set_is_disjoint_from_eval_sets(self):
+        # Prompts are tuned on dev; any overlap would leak tuning into the
+        # numbers the eval sets report.
+        dev_ids = {r["query_id"] for r in self.dev}
+        eval_ids = {r["query_id"] for s in (self.answerable, self.unanswerable, self.adversarial) for r in s}
+        self.assertEqual(len(dev_ids), len(self.dev))
+        self.assertFalse(dev_ids & eval_ids)
+        paired = {r["paired_query_id"] for r in self.adversarial}
+        self.assertFalse(dev_ids & paired)
+        for r in self.dev:
+            self.assertEqual(r["set"], "dev")
+            self.assertTrue(r["gold_doc_ids"])
 
 
 if __name__ == "__main__":

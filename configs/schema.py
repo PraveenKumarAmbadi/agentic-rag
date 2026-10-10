@@ -131,6 +131,7 @@ class EvalConfig(_Section):
     answerable_path: str = "data/eval/answerable.jsonl"
     unanswerable_path: str = "data/eval/unanswerable.jsonl"
     adversarial_path: str = "data/eval/adversarial.jsonl"
+    dev_path: str = "data/eval/dev.jsonl"  # prompt-tuning set, disjoint from answerable
     results_dir: str = "results/"
 
 
