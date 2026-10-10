@@ -21,31 +21,15 @@ class ToolCallError(ValueError):
     """A tool call was found in model output but failed validation."""
 
 
+# Descriptions say what a tool DOES. When to choose each one is decision
+# policy and lives in one place: DECIDE_SYSTEM_PROMPT (agent/prompts.py).
 TOOL_SPECS: list[dict] = [
-    {
-        "name": "hybrid_search",
-        "description": (
-            "Search the corpus with BM25+SPLADE+dense fusion. The first "
-            "search runs automatically with the user's question; on later "
-            "calls reformulate the query (different terminology, more "
-            "specific) when the documents retrieved so far are clearly "
-            "off-topic for the question."
-        ),
-        "params": {
-            "query": {
-                "type": "string",
-                "required": True,
-                "description": "The search query.",
-            },
-        },
-    },
     {
         "name": "answer",
         "description": (
-            "Answer the question from the currently retrieved documents. "
-            "Prefer this whenever ANY retrieved document plausibly bears on "
-            "the question, even partially or for one aspect. Optionally list "
-            "the numbers of the documents the answer rests on."
+            "Hand the retrieved documents to the writer, who reads them in "
+            "full and answers from them (or refuses if, read in full, they do "
+            "not address the question)."
         ),
         # qwen2.5 volunteers this on almost every answer decision; with no
         # declared param, every answer decision was rejected as invalid.
@@ -54,24 +38,36 @@ TOOL_SPECS: list[dict] = [
                 "type": "array",
                 "items": "integer",
                 "required": False,
-                "description": "Numbers of the documents the answer rests on.",
+                "description": "numbers of the documents that are about the question",
+            },
+        },
+    },
+    {
+        "name": "hybrid_search",
+        "description": (
+            "Search the corpus again with a new query. The user's input has "
+            "already been searched; results are merged with the documents "
+            "you already have."
+        ),
+        "params": {
+            "query": {
+                "type": "string",
+                "required": True,
+                "description": (
+                    "a reformulation: different terms, synonyms or a narrower "
+                    "focus than every earlier search"
+                ),
             },
         },
     },
     {
         "name": "insufficient_evidence",
-        "description": (
-            "Declare that the retrieved documents cannot answer the "
-            "question. Only choose this after reviewing documents whose "
-            "topics genuinely do not address the question: refusing when a "
-            "retrieved document addresses the question is a worse failure "
-            "than an imperfect answer."
-        ),
+        "description": "Stop and tell the user the corpus cannot answer.",
         "params": {
             "reason": {
                 "type": "string",
                 "required": True,
-                "description": "What specifically is missing.",
+                "description": "what specifically is missing",
             },
         },
     },
@@ -173,16 +169,17 @@ def _type_label(pspec: dict) -> str:
 
 
 def render_tool_docs() -> str:
-    """Render the tool vocabulary for the decide-turn system prompt."""
-    lines = [
-        "Available tools — reply with exactly ONE JSON object of the form "
-        '{"tool": "<name>", "args": {...}}:'
-    ]
+    """Render the tool vocabulary for the decide-turn system prompt.
+
+    Tools and their params only: the reply format and the decision policy
+    are stated once, in DECIDE_SYSTEM_PROMPT.
+    """
+    lines = []
     for spec in TOOL_SPECS:
-        params = ", ".join(
-            f'{name} ({_type_label(pspec)}, {"required" if pspec["required"] else "optional"})'
-            for name, pspec in spec["params"].items()
-        )
-        sig = f"{spec['name']}({params})" if params else spec["name"] + "()"
-        lines.append(f"- {sig}: {spec['description']}")
+        lines.append(f"- {spec['name']}: {spec['description']}")
+        for name, pspec in spec["params"].items():
+            need = "required" if pspec["required"] else "optional"
+            lines.append(
+                f"    args.{name} ({_type_label(pspec)}, {need}): {pspec['description']}"
+            )
     return "\n".join(lines)

@@ -1,50 +1,92 @@
 """Prompt templates for grounded answer generation and the agent loop.
 
-Design rules baked into the answer system prompt:
-- Answer ONLY from the numbered documents (no parametric knowledge).
-- Cite every claim inline as [n] referencing the document number.
-- An explicit escape hatch ("INSUFFICIENT_EVIDENCE: ...") so refusal is a
-  measurable, parseable event rather than a vibe.
+Inputs are SciFact-style: usually a declarative claim ("X reduces Y in Z"),
+sometimes a question. Every prompt names both forms, because a claim framed
+as a "question" leaves the model unsure what an answer looks like, and that
+uncertainty comes out as refusals.
 
-The agent-loop prompts follow the same philosophy:
-- DECIDE (controller): one JSON object choosing the next tool; biased toward
-  answering because the measured failure mode is over-refusal, not guessing.
-- RESCUE (second opinion): challenges a proposed refusal by asking which
-  retrieved document is most relevant — the direct counter to false refusals.
-- CRITIQUE (fact-checker): lists claims not supported by the documents.
+The one judgement every turn shares is whether a document ADDRESSES the input.
+It is defined the same way everywhere:
+- addresses: the document studies what the input is about, in the same
+  population, species, disease, intervention and outcome. Reporting the
+  opposite result still addresses it (the answer is "contradicted");
+  covering one part of it addresses that part.
+- does not address: same topic, but a different population, species,
+  disease, intervention, outcome or time frame, or an association where the
+  input asserts cause and effect. This is what near-miss evidence looks like,
+  and it must lead to a refusal, not to an answer about something else.
+
+Turns:
+- ANSWER (writer, baseline and agent): answer with [n] citations, or refuse
+  with the INSUFFICIENT_EVIDENCE marker as the whole reply, never both.
+- DECIDE (controller): one JSON tool call. It sees only document briefs, so
+  it routes (answer / search again / give up); the writer, who reads the
+  full text, makes the fine-grained call.
+- RESCUE (second opinion): re-checks a refusal against the full documents.
+  It quotes its evidence before naming a document, so an override has to
+  rest on a sentence, not on topical similarity.
+- CRITIQUE (fact-checker): lists unsupported claims, including claims that
+  stretch a finding beyond the scope the document gives it.
 
 The context block is built by `build_context()`; document numbering in every
-prompt is 1-based and maps to `doc_ids[i-1]`.
+prompt is 1-based and maps to `doc_ids[i-1]`. The system prompts double as
+routing keys for the test FakeLLM ("controller", "second opinion",
+"fact-checker"), so each phrase must appear in its own prompt only.
 """
 
 from agent.citations import REFUSAL_MARKER
 from agent.tools import render_tool_docs
 
-SYSTEM_PROMPT = """\
-You are a careful research assistant. Answer the question using ONLY the \
-numbered documents provided below — never from your own knowledge.
+# Shared wording of the "addresses" test (see module docstring).
+_SCOPE = "population, species, disease, intervention, outcome or time frame"
 
-Rules:
-1. Every factual claim must be followed by a citation to the document it \
-came from, in square brackets, e.g. the effect was significant [2].
-2. Cite the minimum set of documents needed; cite by document number only.
-3. If the documents do not contain enough information to answer, reply \
-with exactly:
-INSUFFICIENT_EVIDENCE: <short description of what is missing>
-4. Be concise: at most 150 words.
+SYSTEM_PROMPT = f"""\
+You are a careful scientific research assistant. The user gives you a claim \
+to check or a question to answer. Respond using ONLY the numbered documents \
+provided, never your own knowledge.
+
+Before writing, decide silently whether at least one document addresses the \
+input, meaning it studies what the input is about, in the same {_SCOPE}:
+- A document that reports the opposite result still addresses a claim (the \
+claim is contradicted).
+- A document that covers only part of the input addresses that part.
+- A document on the same topic but about a different {_SCOPE}, or that \
+reports an association where the input asserts cause and effect, does not \
+address it.
+
+A document that reports the opposite of a claim is never a reason to refuse: \
+the answer is that the claim is contradicted, citing that document.
+
+If no document addresses the input, your entire reply is this one line:
+{REFUSAL_MARKER}: <what specifically is missing>
+Write nothing before or after that line. Never explain in prose that the \
+documents do not address the input; use the line.
+
+Otherwise, answer:
+- For a claim, start by saying whether the documents support it, contradict \
+it, or support only part of it, then give the key evidence. For a question, \
+start with the answer.
+- Put a citation after every factual statement, e.g. "the effect was \
+significant [2]". Cite by document number, and only documents that state \
+what you cite them for.
+- Keep each finding's scope as the document gives it: if it comes from \
+mice, a specific patient group or an observational association, say so.
+- If only part of the input is covered, say which part is not.
+- Write plain prose, at most 150 words, with no headings or numbered lists.
 """
 
 CONTEXT_HEADER = "Documents:"
 
-# Default per-doc truncation: ~800 chars vs a median gold abstract of
-# ~1200. Truncation does NOT discriminate refusals from answers (gold docs
-# exceeded it in 53/56 refused vs 28/31 answered) — the baseline
-# over-refusal is model caution under the strict prompt, not missing
-# evidence. Config `agent.context_chars` overrides this for both pipelines.
+# Default per-doc truncation: ~800 chars vs a median abstract of ~1330.
+# The generation ablation (scripts/run_generation_ablation.py) found this
+# truncation is a real driver of false refusals: on 28 refused cases, 2400
+# chars cut refusals from 28 to 17 with the same prompt. Raising it is bounded
+# by llm.num_ctx (10 docs x 2400 chars does not fit in 4096 tokens). Config
+# `agent.context_chars` overrides this for both pipelines.
 DEFAULT_CONTEXT_CHARS = 800
 
-# How much of each document the decide/rescue turns see (full text is only
-# given to the generation and critique turns, which need it).
+# How much of each document the decide turn sees (full text goes to the
+# generation, rescue and critique turns, which judge the evidence).
 BRIEF_CHARS = 240
 
 
@@ -63,7 +105,7 @@ def build_context(docs: list, max_chars: int = DEFAULT_CONTEXT_CHARS) -> str:
     for i, doc in enumerate(docs, start=1):
         title = (doc.title or "").strip()
         text = " ".join((doc.text or "").split())[:max_chars]
-        lines.append(f"[{i}] ({doc.doc_id}) {title}\n{text}\n")
+        lines.append(f"[{i}] {title}\n{text}\n")
     return "\n".join(lines)
 
 
@@ -77,51 +119,57 @@ def build_doc_briefs(docs: list, chars: int = BRIEF_CHARS) -> str:
     return "\n".join(lines) if lines else "(no documents retrieved)"
 
 
+def _input_line(question: str) -> str:
+    return f"Claim or question: {question}"
+
+
 def build_messages(
     question: str, docs: list, context_chars: int = DEFAULT_CONTEXT_CHARS
 ) -> list[dict[str, str]]:
     """Assemble the chat messages for a grounded answer (baseline pipeline)."""
-    return [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": f"{build_context(docs, context_chars)}\nQuestion: {question}"},
-    ]
+    return build_answer_messages(question, docs, context_chars=context_chars)
 
 
 def build_answer_messages(
     question: str,
     docs: list,
     hint_doc: int | None = None,
+    hint_evidence: str | None = None,
     feedback: list[str] | None = None,
     context_chars: int = DEFAULT_CONTEXT_CHARS,
 ) -> list[dict[str, str]]:
     """Grounded-answer messages with optional rescue hint / critique feedback.
 
     Args:
-        hint_doc: 1-based doc number the rescue step identified as relevant;
-            generation switches to quote-then-answer mode for that doc.
+        hint_doc: 1-based doc number the rescue step identified as
+            addressing the input.
+        hint_evidence: the sentence the rescue step quoted from it, already
+            verified to be in the document; the writer answers from it.
         feedback: unsupported claims from a failed critique; the model is
             asked to rewrite the answer without them.
         context_chars: Per-doc truncation for the context block.
     """
-    parts = [build_context(docs, context_chars), f"Question: {question}"]
+    parts = [build_context(docs, context_chars), _input_line(question)]
     if hint_doc is not None:
         doc = docs[hint_doc - 1]
         title = (doc.title or "").strip() or doc.doc_id
+        # The rescue turn already applied the strict "addresses" test on the
+        # full text and its quote was verified in code. Offering the writer
+        # a refusal again here undid 3 of 4 correct rescues on the dev set.
+        quoted = f' in this sentence: "{hint_evidence}"' if hint_evidence else ""
         parts.append(
-            f"An independent reviewer examined the retrieved documents and "
-            f"identified document [{hint_doc}] ({title}) as relevant to this "
-            "question. First locate the sentence(s) in document "
-            f"[{hint_doc}] that bear on the question and quote them, then "
-            "answer the question using what they say. Refuse only if, after "
-            "quoting, those sentences truly cannot answer the question."
+            f"A reviewer checked the documents and found that document "
+            f"[{hint_doc}] ({title}) addresses the input{quoted}. Answer from "
+            f"document [{hint_doc}]: say whether it supports or contradicts "
+            f"the claim, or what it says about the question, and cite [{hint_doc}]."
         )
     if feedback:
         listed = "\n".join(f"- {c}" for c in feedback)
         parts.append(
-            "Your previous draft contained claims a fact-checker could not "
-            f"verify against the documents:\n{listed}\n"
-            "Write the answer again. Keep only claims the documents support, "
-            "and cite the supporting document for every claim."
+            "A previous draft made these claims, which the documents do not "
+            f"support:\n{listed}\n"
+            "Write the reply again without them, citing a document for every "
+            "statement. If nothing supported is left to say, refuse."
         )
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
@@ -134,22 +182,27 @@ def build_answer_messages(
 # ---------------------------------------------------------------------------
 
 DECIDE_SYSTEM_PROMPT = f"""\
-You are the controller of a retrieval-augmented research assistant. You \
-decide the next action for answering the user's question from a scientific \
-corpus.
+You are the controller of a scientific research assistant. You choose the \
+next step for handling the user's input (a claim to check or a question); \
+you do not write the reply. You see only the start of each retrieved \
+document.
 
+Tools:
 {render_tool_docs()}
 
-Decision policy — refusing when a retrieved document actually addresses the \
-question is a WORSE failure than an imperfect answer:
-- If any retrieved document plausibly bears on the question (even partially, \
-even for only one aspect), choose "answer".
-- Choose "hybrid_search" with a reformulated query only if the documents so \
-far are clearly off-topic for the question.
-- Choose "insufficient_evidence" only after a search whose results still do \
-not address the question at all.
+How to choose:
+- answer: at least one document is about the input's specific subject. List \
+those documents. You do not need to be certain; the writer reads them in \
+full and refuses if they fall short.
+- hybrid_search: no document is about the input's specific subject, and \
+different wording might find one. Never repeat an earlier query.
+- insufficient_evidence: only after at least one hybrid_search, when the \
+documents are still not about the input.
 
-Reply with exactly ONE JSON object and nothing else.
+Reply with one JSON object and no other text, for example:
+{{"tool": "answer", "args": {{"documents": [1, 3]}}}}
+{{"tool": "hybrid_search", "args": {{"query": "statin therapy dementia risk in older adults"}}}}
+{{"tool": "insufficient_evidence", "args": {{"reason": "no document studies children"}}}}
 """
 
 
@@ -162,64 +215,87 @@ def build_decide_messages(
 ) -> list[dict[str, str]]:
     """Messages for one decide turn of the ReAct loop."""
     parts = [
-        f"Question: {question}",
+        _input_line(question),
         f"\nRetrieved documents (best first):\n{build_doc_briefs(docs)}",
     ]
     if history:
         parts.append("\nActions so far: " + "; ".join(history))
-    parts.append(
-        f"\nIteration {iteration} of {max_iterations}. Choose the next action."
-    )
+    if iteration >= max_iterations:
+        parts.append(
+            f"\nStep {iteration} of {max_iterations}, the last one: a new "
+            "search would not be used. Choose answer or insufficient_evidence."
+        )
+    else:
+        parts.append(f"\nStep {iteration} of {max_iterations}. Choose the next step.")
     return [
         {"role": "system", "content": DECIDE_SYSTEM_PROMPT},
         {"role": "user", "content": "\n".join(parts)},
     ]
 
 
-RESCUE_SYSTEM_PROMPT = """\
-You are a skeptical second opinion. Another assistant wants to refuse to \
-answer the question, claiming insufficient evidence. Your job is to check \
-whether that refusal is justified by the retrieved documents.
+RESCUE_SYSTEM_PROMPT = f"""\
+You are a second opinion on a refusal. A writer read the documents and \
+refused to respond to the user's input (a claim to check or a question), \
+saying the evidence is insufficient. Check whether that refusal is wrong.
 
-Reply with exactly ONE JSON object:
-{"relevant_doc": <document number or null>, "justification": "<one sentence>"}
+Writers often refuse wrongly when a document does address the input but \
+uses different wording, reports the opposite result, or covers only part of \
+it. They are right to refuse when the documents are on the same topic but \
+concern a different {_SCOPE}, or report an association where the input \
+asserts cause and effect.
 
-Set relevant_doc to the number of the single document most relevant to the \
-question if ANY retrieved document bears on the question — even partially, \
-even for only one aspect. Set it to null only if every document is truly \
-unrelated to the question. Do not set it to null just because no document \
-answers the question completely.
+Find the single document that best addresses the input as stated. Reply \
+with one JSON object and no other text:
+{{"evidence": "<the sentence from that document that addresses the input, copied exactly>", "relevant_doc": <its number>}}
+
+If no document addresses the input as stated, reply:
+{{"evidence": "", "relevant_doc": null}}
 """
 
 
-def build_rescue_messages(question: str, docs: list, reason: str) -> list[dict]:
+def build_rescue_messages(
+    question: str, docs: list, reason: str, context_chars: int = DEFAULT_CONTEXT_CHARS
+) -> list[dict]:
+    # Full text, not briefs: telling "same population" from "different
+    # population" needs the methods and results, which a snippet cuts off.
     return [
         {"role": "system", "content": RESCUE_SYSTEM_PROMPT},
         {
             "role": "user",
             "content": (
-                f"Question: {question}\n\n"
-                f"Proposed refusal reason: {reason}\n\n"
-                f"Retrieved documents (best first):\n{build_doc_briefs(docs, 400)}"
+                f"{build_context(docs, context_chars)}\n"
+                f"{_input_line(question)}\n\n"
+                f"The writer's reason for refusing: {reason}"
             ),
         },
     ]
 
 
-CRITIQUE_SYSTEM_PROMPT = """\
-You are a strict fact-checker. You are given numbered documents and a draft \
-answer supposedly written using only those documents. Identify claims in the \
-draft that are NOT supported by the documents.
+CRITIQUE_SYSTEM_PROMPT = f"""\
+You are a strict fact-checker. You are given numbered documents, the user's \
+input (a claim to check or a question) and a draft reply written from those \
+documents. Find the statements in the draft that the documents do not \
+support.
 
-A claim is supported only if one of the documents states it or something \
-that directly implies it. A claim without a citation is not, by itself, \
-unsupported — only contradicted or invented facts are.
+A statement is supported when a document states it, or states something \
+that directly implies it. A statement is NOT supported when:
+- no document states it or anything that implies it, or a document \
+contradicts it;
+- it widens a finding beyond the scope the document gives it: a different \
+{_SCOPE} than the document studied, or cause and effect where the \
+document reports only an association.
 
-Reply with exactly ONE JSON object:
-{"supported": true|false, "unsupported_claims": ["<claim>", ...]}
+The draft may restate the user's claim in order to give a verdict on it \
+("the claim that X is contradicted"). The restated claim is not an assertion: \
+never list it. Check the verdict instead: "supported" needs a document that \
+states the claim, "contradicted" needs a document that states the opposite.
 
-"supported" is true when every factual claim in the draft is backed by the \
-documents. Otherwise it is false and each unsupported claim is quoted briefly.
+Judge facts only, not style or completeness. A missing citation alone does \
+not make a statement unsupported.
+
+Reply with one JSON object and no other text. List the unsupported \
+statements first (quote each briefly), then the verdict:
+{{"unsupported_claims": ["<statement>", ...], "supported": <true if the list is empty, otherwise false>}}
 """
 
 
@@ -231,8 +307,8 @@ def build_critique_messages(
         {
             "role": "user",
             "content": (
-                f"{build_context(docs, context_chars)}\n\nQuestion: {question}\n\n"
-                f"Draft answer:\n{answer}"
+                f"{build_context(docs, context_chars)}\n\n{_input_line(question)}\n\n"
+                f"Draft reply:\n{answer}"
             ),
         },
     ]
@@ -263,4 +339,3 @@ def build_refusal_text(reason: str, docs: list, limit: int = 3) -> str:
         f"{REFUSAL_MARKER}: {reason}. The closest documents retrieved "
         f"were: {found}. None supports an answer to the question."
     )
-

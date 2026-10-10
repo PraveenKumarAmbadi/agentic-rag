@@ -123,6 +123,31 @@ def _parse_doc_number(value) -> int | None:
     return None
 
 
+# Shortest quote accepted as evidence: below this, a "quote" is a phrase that
+# appears in any on-topic abstract and proves nothing.
+MIN_EVIDENCE_CHARS = 20
+
+
+def _normalize(text: str) -> str:
+    return re.sub(r"[\W_]+", " ", text).lower().strip()
+
+
+def _quote_in_doc(evidence: str, doc) -> bool:
+    """True when every fragment of the quoted evidence appears in the doc.
+
+    The model may elide with "..." / "…", so each fragment is matched on its
+    own; punctuation, case and whitespace are ignored.
+    """
+    haystack = _normalize(f"{doc.title or ''} {doc.text or ''}")
+    fragments = [_normalize(f) for f in re.split(r"\.{3}|…", evidence)]
+    fragments = [f for f in fragments if f]
+    return (
+        bool(fragments)
+        and sum(len(f) for f in fragments) >= MIN_EVIDENCE_CHARS
+        and all(f in haystack for f in fragments)
+    )
+
+
 def _new_agent_record() -> dict:
     return {
         "iterations": 0,
@@ -296,23 +321,37 @@ class AgentPipeline(RagPipeline):
         """Second opinion on a proposed refusal.
 
         Records and returns {"trigger", "reason", "overridden", "relevant_doc",
-        "justification"}: when a relevant doc is found the caller retries
-        generation with a hint at that doc instead of refusing.
+        "evidence", "evidence_verified"}: the refusal is overridden only when
+        the reviewer names a document AND quotes a sentence that is really in
+        it; the caller then retries generation with that quote as the hint.
         """
         raw = await self._internal_call(
-            "rescue", build_rescue_messages(question, docs, reason),
+            "rescue",
+            build_rescue_messages(
+                question, docs, reason, context_chars=self.cfg["agent"]["context_chars"]
+            ),
             self.specs.rescue, run, ag,
         )
         obj = (extract_json(raw) if raw is not None else None) or {}
         doc_no = _parse_doc_number(obj.get("relevant_doc"))
-        valid = doc_no is not None and 1 <= doc_no <= len(docs)
+        evidence = " ".join(str(obj.get("evidence") or "").split())
+        in_range = doc_no is not None and 1 <= doc_no <= len(docs)
+        # An override must rest on a sentence that is really in the named
+        # document; a paraphrase or invented quote leaves the refusal standing.
+        verified = in_range and _quote_in_doc(evidence, docs[doc_no - 1])
         rescue = {
             "trigger": trigger,
             "reason": reason,
-            "overridden": valid,
-            "relevant_doc": doc_no if valid else None,
-            "justification": str(obj.get("justification", ""))[:300],
+            "overridden": verified,
+            "relevant_doc": doc_no if verified else None,
+            "evidence": evidence[:500],
+            "evidence_verified": verified,
         }
+        if in_range and not verified:
+            self.logger.info(
+                "rescue named a document without a verifiable quote; refusal stands",
+                extra={"trace_id": run.ctx.trace_id},
+            )
         if raw is None:
             rescue["skipped"] = "error"
         ag["rescue"] = rescue
@@ -429,6 +468,7 @@ class AgentPipeline(RagPipeline):
 
         # -- ReAct loop: decide -> act -> observe ----------------------------
         hint_doc: int | None = None
+        hint_evidence: str | None = None
         for iteration in range(1, agent_cfg["max_iterations"] + 1):
             if run.out_of_time():
                 ag["deadline_hit"] = "decide"
@@ -473,7 +513,7 @@ class AgentPipeline(RagPipeline):
                 reason = action.args["reason"]
                 rescue = await self._rescue(question, docs, reason, "decide", run, ag)
                 if rescue["overridden"]:
-                    hint_doc = rescue["relevant_doc"]
+                    hint_doc, hint_evidence = rescue["relevant_doc"], rescue["evidence"]
                     yield {"type": "step", "step": "rescue_override", "doc": hint_doc}
                     break
                 for ev in self._refuse(run, ag, reason, docs):
@@ -495,7 +535,7 @@ class AgentPipeline(RagPipeline):
         while True:
             attempt += 1
             messages = build_answer_messages(
-                question, docs, hint_doc=hint_doc, feedback=feedback,
+                question, docs, hint_doc=hint_doc, hint_evidence=hint_evidence, feedback=feedback,
                 context_chars=agent_cfg["context_chars"],
             )
             draft = _Draft()
@@ -508,7 +548,7 @@ class AgentPipeline(RagPipeline):
                 if ag["rescue"] is None and not run.out_of_time():
                     rescue = await self._rescue(question, docs, reason, "generate", run, ag)
                     if rescue["overridden"]:
-                        hint_doc = rescue["relevant_doc"]
+                        hint_doc, hint_evidence = rescue["relevant_doc"], rescue["evidence"]
                         feedback = None
                         yield {"type": "step", "step": "rescue_override", "doc": hint_doc}
                         continue

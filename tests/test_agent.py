@@ -8,6 +8,7 @@ critique retries, the hedge fallback, and the degrade policy.
 """
 
 import asyncio
+import json
 import logging
 import time
 import unittest
@@ -15,8 +16,18 @@ import unittest
 from agent.agent import AgentPipeline, RefusalGate
 from agent.llm import Completion, OllamaError, StreamEnd, StreamInterrupted, Token
 from agent.pipeline import RagPipeline, Retrieval, RetrievalUnavailable
-from agent.prompts import HEDGE_PREFIX, build_answer_messages, build_refusal_text
-from agent.tools import Action, ToolCallError, extract_json, parse_action, render_tool_docs
+from agent.prompts import (
+    CRITIQUE_SYSTEM_PROMPT,
+    DECIDE_SYSTEM_PROMPT,
+    HEDGE_PREFIX,
+    RESCUE_SYSTEM_PROMPT,
+    SYSTEM_PROMPT,
+    build_answer_messages,
+    build_decide_messages,
+    build_refusal_text,
+    build_rescue_messages,
+)
+from agent.tools import TOOL_NAMES, Action, ToolCallError, extract_json, parse_action, render_tool_docs
 from configs.loader import validate_config
 from retrieval.types import FusedResult
 
@@ -38,7 +49,7 @@ def make_docs(n=3, prefix="doc"):
 DEFAULTS = {
     "decide": '{"tool": "answer", "args": {}}',
     "answer": "The result holds [1].",
-    "rescue": '{"relevant_doc": null, "justification": "none"}',
+    "rescue": '{"relevant_doc": null, "evidence": ""}',
     "critique": '{"supported": true, "unsupported_claims": []}',
 }
 
@@ -194,7 +205,35 @@ class TestTools(unittest.TestCase):
                     parse_action('{"tool": "answer", "args": %s}' % args)
 
     def test_tool_docs_render_array_params(self):
-        self.assertIn("answer(documents (array of integers, optional))", render_tool_docs())
+        self.assertIn("args.documents (array of integers, optional)", render_tool_docs())
+
+
+class TestPrompts(unittest.TestCase):
+    def test_decide_prompt_lists_every_tool_and_states_format_once(self):
+        system = build_decide_messages("q", make_docs())[0]["content"]
+        for name in TOOL_NAMES:
+            self.assertIn(f"- {name}: ", system)
+        self.assertEqual(system.count("JSON object"), 1)
+
+    def test_last_decide_step_rules_out_search(self):
+        last = build_decide_messages("q", make_docs(), iteration=4, max_iterations=4)
+        self.assertIn("the last one", last[1]["content"])
+        first = build_decide_messages("q", make_docs(), iteration=1, max_iterations=4)
+        self.assertNotIn("the last one", first[1]["content"])
+
+    def test_rescue_sees_full_documents(self):
+        docs = make_docs()
+        content = build_rescue_messages("q", docs, "missing")[1]["content"]
+        self.assertIn(" ".join(docs[0].text.split()), content)
+
+    def test_routing_phrases_are_unique_to_their_prompt(self):
+        prompts = {
+            "controller": DECIDE_SYSTEM_PROMPT, "second opinion": RESCUE_SYSTEM_PROMPT,
+            "fact-checker": CRITIQUE_SYSTEM_PROMPT, None: SYSTEM_PROMPT,
+        }
+        for phrase in ("controller", "second opinion", "fact-checker"):
+            owners = [k for k, text in prompts.items() if phrase in text]
+            self.assertEqual(owners, [phrase])
 
     def test_extract_json_nested_and_prose(self):
         obj = extract_json('sure! {"a": {"b": [1, 2]}} thanks')
@@ -292,7 +331,7 @@ class TestAgentLoop(unittest.TestCase):
     def test_refusal_accepted_when_rescue_agrees(self):
         llm = FakeLLM(
             decide=['{"tool": "insufficient_evidence", "args": {"reason": "off topic"}}'],
-            rescue=['{"relevant_doc": null, "justification": "unrelated"}'],
+            rescue=['{"relevant_doc": null, "evidence": "unrelated"}'],
         )
         events = run_pipe(make_pipe(llm))
         done = events[-1]
@@ -309,21 +348,51 @@ class TestAgentLoop(unittest.TestCase):
     def test_rescue_overrides_decide_refusal(self):
         llm = FakeLLM(
             decide=['{"tool": "insufficient_evidence", "args": {"reason": "nope"}}'],
-            rescue=['{"relevant_doc": 2, "justification": "doc 2 bears on it"}'],
+            rescue=['{"evidence": "Body of document 2. Body of document 2.", "relevant_doc": 2}'],
         )
         events = run_pipe(make_pipe(llm))
         done = events[-1]
         self.assertFalse(done["refusal"])
         self.assertTrue(done["agent"]["rescue"]["overridden"])
+        self.assertTrue(done["agent"]["rescue"]["evidence_verified"])
         self.assertEqual(done["agent"]["rescue"]["trigger"], "decide")
         answer_calls = [m for cat, m in llm.calls if cat == "answer"]
-        self.assertIn("as relevant to this question", answer_calls[0][1]["content"])
+        hint = answer_calls[0][1]["content"]
+        self.assertIn("document [2] (Title 2 about topic 2) addresses the input", hint)
+        self.assertIn('"Body of document 2. Body of document 2."', hint)  # the verified quote
         self.assertIn("rescue_override", [e.get("step") for e in events])
+
+    def test_rescue_without_verifiable_quote_does_not_override(self):
+        cases = {
+            "invented": "Document 2 shows the treatment works in humans.",
+            "wrong doc": "Body of document 3. Body of document 3.",
+            "too short": "Body of",
+            "missing": "",
+        }
+        for name, evidence in cases.items():
+            with self.subTest(name):
+                llm = FakeLLM(
+                    decide=['{"tool": "insufficient_evidence", "args": {"reason": "nope"}}'],
+                    rescue=[json.dumps({"evidence": evidence, "relevant_doc": 2})],
+                )
+                done = run_pipe(make_pipe(llm))[-1]
+                self.assertTrue(done["refusal"])
+                self.assertFalse(done["agent"]["rescue"]["overridden"])
+                self.assertFalse(done["agent"]["rescue"]["evidence_verified"])
+                self.assertNotIn("answer", [cat for cat, _ in llm.calls])
+
+    def test_rescue_quote_tolerates_ellipsis_case_and_punctuation(self):
+        llm = FakeLLM(
+            decide=['{"tool": "insufficient_evidence", "args": {"reason": "nope"}}'],
+            rescue=['{"evidence": "BODY OF DOCUMENT 1 ... title 1 about topic 1", "relevant_doc": 1}'],
+        )
+        done = run_pipe(make_pipe(llm))[-1]
+        self.assertTrue(done["agent"]["rescue"]["overridden"])
 
     def test_rescue_ignores_boolean_doc_number(self):
         llm = FakeLLM(
             decide=['{"tool": "insufficient_evidence", "args": {"reason": "nope"}}'],
-            rescue=['{"relevant_doc": true, "justification": "yes"}'],
+            rescue=['{"relevant_doc": true, "evidence": "yes"}'],
         )
         done = run_pipe(make_pipe(llm))[-1]
         self.assertTrue(done["refusal"])
@@ -332,7 +401,7 @@ class TestAgentLoop(unittest.TestCase):
     def test_generation_refusal_intercepted_and_rescued(self):
         llm = FakeLLM(
             answer=["INSUFFICIENT_EVIDENCE: nothing relevant", "The answer is yes [1]."],
-            rescue=['{"relevant_doc": 1, "justification": "doc 1 works"}'],
+            rescue=['{"evidence": "Body of document 1. Body of document 1.", "relevant_doc": 1}'],
         )
         events = run_pipe(make_pipe(llm))
         deltas = streamed_text(events)
@@ -345,7 +414,7 @@ class TestAgentLoop(unittest.TestCase):
     def test_generation_refusal_variant_without_colon_is_intercepted(self):
         llm = FakeLLM(
             answer=["**INSUFFICIENT EVIDENCE** - no study covers this"],
-            rescue=['{"relevant_doc": null, "justification": "unrelated"}'],
+            rescue=['{"relevant_doc": null, "evidence": "unrelated"}'],
         )
         events = run_pipe(make_pipe(llm))
         done = events[-1]
@@ -356,7 +425,7 @@ class TestAgentLoop(unittest.TestCase):
     def test_generation_refusal_accepted_after_failed_rescue(self):
         llm = FakeLLM(
             answer=["INSUFFICIENT_EVIDENCE: cannot answer"],
-            rescue=['{"relevant_doc": null, "justification": "truly unrelated"}'],
+            rescue=['{"relevant_doc": null, "evidence": "truly unrelated"}'],
         )
         events = run_pipe(make_pipe(llm))
         done = events[-1]

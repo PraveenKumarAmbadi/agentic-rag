@@ -1,0 +1,50 @@
+{"query_id": "100", "question": "All hematopoietic stem cells segregate their chromosomes randomly.", "gold_doc_ids": ["4381486"], "set": "dev"}
+{"query_id": "1024", "question": "Recurrent mutations occur frequently within CTCF anchor sites adjacent to oncogenes.", "gold_doc_ids": ["5373138"], "set": "dev"}
+{"query_id": "1041", "question": "Replacement of histone H2A with H2A.Z slows gene activation in yeasts by stabilizing +1 nucleosomes.", "gold_doc_ids": ["16626264", "25254425"], "set": "dev"}
+{"query_id": "1049", "question": "Ribosomopathies have a low degree of cell and tissue specific pathology.", "gold_doc_ids": ["12486491"], "set": "dev"}
+{"query_id": "1132", "question": "TCR/CD3 microdomains are a required to induce the immunologic synapse to activate T cells.", "gold_doc_ids": ["33499189", "9283422"], "set": "dev"}
+{"query_id": "1185", "question": "The US health care system can save up to $750 million if 7% of patients waiting for kidney transplants participate in the optimized national kidney paired donation program.", "gold_doc_ids": ["16737210"], "set": "dev"}
+{"query_id": "1187", "question": "The YAP1 and TEAD complex tanslocates into the nucleus where it interacts with transcription factors and DNA-binding proteins that modulate target gene transcription.", "gold_doc_ids": ["52873726"], "set": "dev"}
+{"query_id": "1191", "question": "The amount of publicly available DNA data doubles every 10 years.", "gold_doc_ids": ["30655442"], "set": "dev"}
+{"query_id": "1196", "question": "The availability of safe places to study is effective at decreasing homelessness.", "gold_doc_ids": ["25649714"], "set": "dev"}
+{"query_id": "1207", "question": "The composition of myosin-II isoform switches from the polarizable B isoform to the more homogenous A isoform during hematopoietic differentiation.", "gold_doc_ids": ["18909530"], "set": "dev"}
+{"query_id": "1271", "question": "The severity of cardiac involvement in amyloidosis can be described by the degree of transmurality of late gadolinium enhancement in MRI.", "gold_doc_ids": ["13768432"], "set": "dev"}
+{"query_id": "128", "question": "Arterioles have a larger lumen diameter than venules.", "gold_doc_ids": ["8290953"], "set": "dev"}
+{"query_id": "1280", "question": "The ureABIEFGH gene cluster encodes urease maturation proteins : UreD/UreH, UreE, UreF, and UreG.", "gold_doc_ids": ["4387784"], "set": "dev"}
+{"query_id": "1337", "question": "Ubiquitin ligase UBC13 generates a K63-linked polyubiquitin moiety at PCNA K164.", "gold_doc_ids": ["20231138"], "set": "dev"}
+{"query_id": "1363", "question": "Venules have a thinner or absent smooth layer compared to arterioles.", "gold_doc_ids": ["8290953"], "set": "dev"}
+{"query_id": "1368", "question": "Vitamin D deficiency effects the term of delivery.", "gold_doc_ids": ["2425364"], "set": "dev"}
+{"query_id": "1379", "question": "Women with a higher birth weight are more likely to develop breast cancer later in life.", "gold_doc_ids": ["16322674", "17450673", "23557241", "27123743"], "set": "dev"}
+{"query_id": "1389", "question": "mTORC2 regulates intracellular cysteine levels through xCT inhibition.", "gold_doc_ids": ["23895668"], "set": "dev"}
+{"query_id": "146", "question": "Autologous transplantation of mesenchymal stem cells has lower rates of rejection than induction therapy with anti-interleukin-2 receptor antibodies.", "gold_doc_ids": ["10582939"], "set": "dev"}
+{"query_id": "180", "question": "Blocking the interaction between TDP-43 and respiratory complex I proteins ND3 and ND6 leads to increased TDP-43-induced neuronal loss.", "gold_doc_ids": ["16966326"], "set": "dev"}
+{"query_id": "216", "question": "CX3CR1 on the Th2 cells impairs T cell survival", "gold_doc_ids": ["21366394"], "set": "dev"}
+{"query_id": "218", "question": "CX3CR1 on the Th2 cells promotes airway inflammation.", "gold_doc_ids": ["21366394"], "set": "dev"}
+{"query_id": "3", "question": "1,000 genomes project enables mapping of genetic sequence variation consisting of rare variants with larger penetrance effects than common variants.", "gold_doc_ids": ["14717500"], "set": "dev"}
+{"query_id": "300", "question": "Cytosolic proteins bind to iron-responsive elements on mRNAs coding for DMT1. Cytosolic proteins bind to iron-responsive elements on mRNAs coding for proteins involved in iron uptake.", "gold_doc_ids": ["3553087"], "set": "dev"}
+{"query_id": "303", "question": "DMRT1 is a sex-determining gene that is epigenetically regulated by the MHM region.", "gold_doc_ids": ["4388470"], "set": "dev"}
+{"query_id": "338", "question": "Dexamethasone decreases risk of postoperative bleeding.", "gold_doc_ids": ["23349986"], "set": "dev"}
+{"query_id": "385", "question": "Epigenetic modulating agents (EMAs) modulate antitumor immune response in a cancer model system.", "gold_doc_ids": ["9767444", "9955779"], "set": "dev"}
+{"query_id": "443", "question": "GATA-3 is important for hematopoietic stem cell (HSC) function.", "gold_doc_ids": ["10165258"], "set": "dev"}
+{"query_id": "452", "question": "Gene expression does not vary appreciably across genetically identical cells.", "gold_doc_ids": ["12804937", "464511"], "set": "dev"}
+{"query_id": "514", "question": "High dietary calcium intakes are unnecessary for prevention of secondary hyperparathyroidism in subjects with 25(OH)D levels above 75 nmol/liter.", "gold_doc_ids": ["16256507"], "set": "dev"}
+{"query_id": "528", "question": "Human T-lymphotropic virus type-I-associated myelopathy / tropical spastic paraparesis (HAM/TSP) patients produce Immunoglobulin G (IgG) antibodies which cross-react with an immunodominant epitope in Tax.", "gold_doc_ids": ["5476778"], "set": "dev"}
+{"query_id": "57", "question": "APOE4 expression in iPSC-derived neurons increases AlphaBeta production and tau phosphorylation, delaying GABA neuron degeneration.", "gold_doc_ids": ["4709641"], "set": "dev"}
+{"query_id": "598", "question": "Incidence rates of cervical cancer have increased due to nationwide screening programs based primarily on cytology to detect uterine cervical cancer.", "gold_doc_ids": ["25742130"], "set": "dev"}
+{"query_id": "636", "question": "Inositol lipid 3-phosphatase PTEN converts Ptdlns(3,4)P 2 into phosphatidylinositol 4-phosphate.", "gold_doc_ids": ["24294572"], "set": "dev"}
+{"query_id": "660", "question": "Ivermectin is used to treat onchocerciasis.", "gold_doc_ids": ["1215116"], "set": "dev"}
+{"query_id": "700", "question": "Localization of PIN1 in the Arabidopsis embryo does not require VPS9a", "gold_doc_ids": ["4350400"], "set": "dev"}
+{"query_id": "702", "question": "Localization of PIN1 in the roots of Arabidopsis does not require VPS9a", "gold_doc_ids": ["4350400"], "set": "dev"}
+{"query_id": "723", "question": "Ly49Q directs the organization of neutrophil migration to inflammation sites by regulating membrane raft functions.", "gold_doc_ids": ["5531479"], "set": "dev"}
+{"query_id": "770", "question": "Metastatic colorectal cancer treated with a single agent fluoropyrimidines resulted in reduced efficacy and lower quality of life when compared with oxaliplatin-based chemotherapy in elderly patients.", "gold_doc_ids": ["15476777"], "set": "dev"}
+{"query_id": "783", "question": "Mice without IFN-\u03b3 or its receptor are resistant to EAM induced with \u03b1-MyHC/CFA.", "gold_doc_ids": ["40632104"], "set": "dev"}
+{"query_id": "785", "question": "Microarray results from culture-amplified mixtures of serotypes correlate poorly with microarray results from uncultured mixtures.", "gold_doc_ids": ["12471115"], "set": "dev"}
+{"query_id": "814", "question": "Mutations in G-Beta protein GNB2 are present in many cancers, resulting in loss of interaction with G-alpha subunits and concomitant activation of AKT pathway.", "gold_doc_ids": ["33387953"], "set": "dev"}
+{"query_id": "845", "question": "Neutrophil extracellular traps (NETs) are released by ANCA-stimulated neutrophils.", "gold_doc_ids": ["17741440"], "set": "dev"}
+{"query_id": "847", "question": "New drugs for tuberculosis often do not penetrate the necrotic portion of a tuberculosis lesion in high concentrations.", "gold_doc_ids": ["16787954"], "set": "dev"}
+{"query_id": "879", "question": "Occupancy of ribosomes by IncRNAs do not make functional peptides.", "gold_doc_ids": ["8426046"], "set": "dev"}
+{"query_id": "907", "question": "PGE 2 promotes intestinal tumor growth by altering the expression of tumor suppressing and DNA repair genes.", "gold_doc_ids": ["6923961"], "set": "dev"}
+{"query_id": "911", "question": "PKG-la plays an essential role in expression of pain hypersensitivity in PGK-la knockout mice.", "gold_doc_ids": ["11254556"], "set": "dev"}
+{"query_id": "913", "question": "PPAR-RXRs are inhibited by PPAR ligands.", "gold_doc_ids": ["3203590"], "set": "dev"}
+{"query_id": "914", "question": "PPAR-RXRs can be activated by PPAR ligands.", "gold_doc_ids": ["3203590"], "set": "dev"}
+{"query_id": "985", "question": "Pseudogene PTENP1 regulates the expression of PTEN by functioning as an miRNA decoy.", "gold_doc_ids": ["6828370"], "set": "dev"}

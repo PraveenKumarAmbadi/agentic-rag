@@ -225,6 +225,21 @@ offload reranker to CPU during generation tests, or use a 3–4B model
   - Adversarial (43): refusal_correctness **0.791**, near_miss_retrieved_rate 1.0, cited_near_miss_rate **0.209** (9 fooled). By trap: species 3/8, disease 2/3, outcome 2/9, organ 1/1, population 1/10, all others 0. a29 is borderline: it answers first, then appends INSUFFICIENT_EVIDENCE. The refusal detector is prefix-based, so it counts as fooled. Fooled items were re-checked against the corpus and the labels hold; e.g. a38 says "prostate" but the doc is mammary-only. Several are unfaithful claims, not misreadings.
   - Paired (real claim vs its trap twin): answered real & refused trap 15, answered both 5, refused both 19, refused real & answered trap 4. Most of the 0.79 comes from the baseline refusing almost everything. When the baseline answers the real claim, it refuses the twin in 15/20 cases (0.75), which is its real discrimination.
   - Agent bar: lower 0.67 without letting adversarial refusal fall clearly below 0.79 or cited_near_miss rise clearly above 0.21 (±~15 pts is noise at n=43). Unanswerable must stay 1.0.
+- **Prompt rewrite (2026-10-10), tuned on 50 dev claims only (`data/eval/dev.jsonl`, disjoint from answerable; the eval sets were not looked at):**
+  - Answer prompt: claims are handled as claims (supported / contradicted / partly), one shared "addresses" test, refusal must be the whole reply, findings keep the document's scope, plain prose with no numbered lists. Disguised refusals (prose "the documents do not address…", scored as answers) went from 3 to 0. An intermediate version (p2) looked better (0.46) only because 2 of its "answers" were disguised refusals.
+  - Rescue: reads full documents, quotes before naming a doc, and the quote is verified in code. The writer's hint now carries the quote and no refusal escape; the old wording undid 3 of 4 correct rescues.
+  - Critique: told not to list the restated claim and to check the verdict instead. Before this, it flagged correct "contradicted" answers, and the rewrite turned them into refusals.
+  - Decide: tools rendered once with args, format stated once with examples, last step rules out search; 0 parse errors.
+  - Dev results (n=50, ±~7 pts noise):
+
+    | run | false refusal | effective (incl. disguised) | precision, all | precision, answered |
+    |---|---|---|---|---|
+    | baseline, old prompts (p0) | 0.58 | 0.64 | 0.30 | 0.71 |
+    | baseline, new prompts (p3) | 0.56 | 0.56 | 0.30 | 0.69 |
+    | agent, new prompts (p5) | 0.60 | 0.60 | 0.31 | **0.78** |
+
+  - Reading: the agent does not beat the baseline on false refusals on dev (+2 claims, within noise). Its gain is precision: 6 rescue overrides, 5 citing gold, all with verified quotes. The old rescue overrode every refusal in the 3-item wiring check. The adversarial set tests whether that strictness holds on traps.
+  - Largest remaining lever is not a prompt: per-doc context (800 chars vs a median abstract of 1330). The generation ablation cut false refusals 28→17 at 2400 chars, but 10 docs × 2400 chars exceeds `llm.num_ctx` 4096, so it is a context-budget decision (fewer docs or a larger num_ctx).
 - Agent faithfulness (Phase 3): _TBD_
 - p95 latency, uncached vs cached: _TBD_
 
