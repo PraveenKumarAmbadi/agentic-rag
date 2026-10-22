@@ -136,8 +136,8 @@ class SpladeEncoder:
             top_k: Number of highest entries to retain.
 
         Returns:
-            List of {token_id: weight} dicts. Only strictly positive
-            weights are included; zeros are dropped.
+            List of {token_id: weight} dicts. Only weights that are still
+            strictly positive after rounding are included.
         """
         topk_vals, topk_idx = torch.topk(vectors, k=top_k, dim=1)
 
@@ -145,8 +145,12 @@ class SpladeEncoder:
         for vals, idxs in zip(topk_vals, topk_idx):
             doc: dict[int, float] = {}
             for idx, val in zip(idxs.tolist(), vals.tolist()):
-                if val > 0.0:
-                    doc[idx] = round(val, 6)
+                # Filter AFTER rounding: a weight in (0, 5e-7) passes `> 0`
+                # but rounds to 0.0, which Elasticsearch rejects for
+                # sparse_vector features (seen on a GPU-built index).
+                weight = round(val, 6)
+                if weight > 0.0:
+                    doc[idx] = weight
             sparse.append(doc)
 
         return sparse
