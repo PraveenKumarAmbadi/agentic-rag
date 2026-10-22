@@ -136,6 +136,11 @@ log "Installing Python dependencies (torch $TORCH_VERSION+$TORCH_VARIANT, then c
 "$PY" -m pip install -q "torch==${TORCH_VERSION}+${TORCH_VARIANT}" \
     --index-url "https://download.pytorch.org/whl/${TORCH_VARIANT}"
 "$PY" -m pip install -q -r requirements-core.txt -r requirements-ml.txt
+# Images with torch preinstalled (e.g. vast.ai PyTorch) also ship torchvision /
+# torchaudio built for THEIR torch. This project uses neither, but transformers
+# imports torchvision whenever it is installed, and a mismatched one crashes
+# that import ("operator torchvision::nms does not exist").
+"$PY" -m pip uninstall -y -q torchvision torchaudio 2>/dev/null || true
 "$PY" - <<'EOF'
 import torch
 assert torch.cuda.is_available(), "torch cannot see the GPU"
