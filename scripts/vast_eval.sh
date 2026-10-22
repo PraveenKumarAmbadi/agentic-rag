@@ -6,8 +6,9 @@
 # host-RAM prompt cache disabled, the pinned Python deps, the indexes built on
 # the GPU. Then runs both modes on the SAME machine so they are comparable.
 #
-# Assumptions: run as root, from a clone of this repo, with the template's
-# Python venv already active (the script installs into whatever `python` is).
+# Assumptions: run as root, from a clone of this repo. Python is the active
+# venv's `python`, else /venv/main/bin/python (vast.ai images activate that
+# venv only in interactive shells, so `ssh host cmd` and nohup don't see it).
 #
 # Every step is idempotent: re-running after a dropped SSH session skips what
 # is done, including evals whose results/<tag>_*.json already exists.
@@ -19,21 +20,30 @@
 #   tail -f vast_eval.log
 #
 # Settings (environment variables):
-#   RUN_ID        tag suffix; results are <mode>_<RUN_ID>   (default v4_vast)
-#   MODES         modes to evaluate, in order        (default "baseline agent")
+#   MODELS        Ollama models to evaluate, in order (default qwen2.5:7b-instruct)
+#   MODES         modes per model, in order          (default "baseline agent")
+#   RUN_ID        tag part; results are <mode>_<RUN_ID>_<model>[_ctx...] (default v4_vast)
 #   EVAL_SETS     --sets for the eval runner (default: the runner's default)
-#   EXPECTED_MODEL_ID  Ollama model id the laptop runs  (default 845dbda0ea48)
-#   ALLOW_MODEL_MISMATCH=1  continue even if the pulled model id differs
+#   NUM_CTX       override llm.num_ctx (Ollama context window, tokens)
+#   CONTEXT_CHARS override agent.context_chars (per-document chars in prompts)
+#   MIN_FREE_GB   free disk required before starting           (default 60)
+#   ALLOW_MODEL_MISMATCH=1  continue even if the 7B's id differs from the laptop's
+#   ALLOW_CPU_OFFLOAD=1     continue even if a model does not fit fully in VRAM
 
 set -euo pipefail
 
 ES_VERSION="8.15.0"
 OLLAMA_VERSION="0.34.0"
-MODEL="qwen2.5:7b-instruct"
-EXPECTED_MODEL_ID="${EXPECTED_MODEL_ID:-845dbda0ea48}"
+# The laptop's model: runs of it must use the same weights to be comparable.
+LAPTOP_MODEL="qwen2.5:7b-instruct"
+LAPTOP_MODEL_ID="845dbda0ea48"
+MODELS="${MODELS:-$LAPTOP_MODEL}"
 RUN_ID="${RUN_ID:-v4_vast}"
 MODES="${MODES:-baseline agent}"
 EVAL_SETS="${EVAL_SETS:-}"
+NUM_CTX="${NUM_CTX:-}"
+CONTEXT_CHARS="${CONTEXT_CHARS:-}"
+MIN_FREE_GB="${MIN_FREE_GB:-60}"
 ES_HOME="/opt/elasticsearch-${ES_VERSION}"
 LOG_DIR="${HOME}/vast_logs"
 
@@ -76,15 +86,32 @@ else
 fi
 echo "GPU: $(nvidia-smi --query-gpu=name,memory.total --format=csv,noheader) | driver CUDA ${cuda_version:-unknown}"
 
-command -v python >/dev/null || die "no 'python' on PATH: activate the template's venv"
-py_version="$(python -c 'import sys; print("%d.%d" % sys.version_info[:2])')"
-python -c 'import sys; sys.exit(sys.version_info < (3, 11))' \
+# CUDA 13 (the pinned torch build) dropped GPUs below compute capability 7.5
+# (Pascal, e.g. Tesla P40, and older): torch would not run on them.
+compute_cap="$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | head -1 | tr -d ' ')"
+awk -v c="$compute_cap" 'BEGIN { exit !(c >= 7.5) }' \
+    || die "GPU compute capability $compute_cap is below 7.5; the pinned CUDA 13 torch cannot use it (rent an RTX 20-series or newer)"
+
+free_gb="$(df -BG --output=avail "$REPO_ROOT" | tail -1 | tr -dc '0-9')"
+(( free_gb >= MIN_FREE_GB )) \
+    || die "only ${free_gb} GB free disk; need ${MIN_FREE_GB} GB (torch, models, indexes). The disk size is fixed at rent time: rent with more"
+echo "Disk: ${free_gb} GB free"
+
+if command -v python >/dev/null; then
+    PY="$(command -v python)"
+elif [[ -x /venv/main/bin/python ]]; then
+    PY=/venv/main/bin/python
+else
+    die "no python found: activate a venv or use a vast.ai image with /venv/main"
+fi
+py_version="$("$PY" -c 'import sys; print("%d.%d" % sys.version_info[:2])')"
+"$PY" -c 'import sys; sys.exit(sys.version_info < (3, 11))' \
     || die "python $py_version is too old; this project needs >= 3.11 (asyncio.timeout)"
 [[ "$py_version" == "3.12" ]] \
     || echo "WARNING: python $py_version; the pinned dependencies were resolved and tested on 3.12"
-python -c 'import sys; sys.exit(sys.prefix == sys.base_prefix)' \
-    || echo "WARNING: python is not a venv ($(command -v python)); installing into it anyway"
-echo "Python: $(command -v python) ($py_version)"
+"$PY" -c 'import sys; sys.exit(sys.prefix == sys.base_prefix)' \
+    || echo "WARNING: $PY is not a venv; installing into it anyway"
+echo "Python: $PY ($py_version)"
 
 # ----------------------------------------------------------- system packages
 missing=()
@@ -96,15 +123,15 @@ fi
 
 # --------------------------------------------------------- Python dependencies
 log "Installing Python dependencies (requirements.txt)"
-python -m pip install -q --upgrade pip
-python -m pip install -q -r requirements.txt
-python - <<'EOF'
+"$PY" -m pip install -q --upgrade pip
+"$PY" -m pip install -q -r requirements.txt
+"$PY" - <<'EOF'
 import torch
 assert torch.cuda.is_available(), "torch cannot see the GPU"
 print(f"torch {torch.__version__} on {torch.cuda.get_device_name(0)}")
 EOF
 log "Unit tests"
-python -m unittest discover -s tests -t . 2>&1 | tail -3
+"$PY" -m unittest discover -s tests -t . 2>&1 | tail -3
 
 # ----------------------------------------------------------- Elasticsearch
 if es_healthy >/dev/null 2>&1; then
@@ -155,31 +182,63 @@ else
     wait_for "Ollama" 60 ollama_up
 fi
 
-log "Pulling $MODEL"
-ollama pull "$MODEL"
-model_id="$(ollama list | awk -v m="$MODEL" '$1 == m {print $2}')"
-echo "Model $MODEL id: $model_id (laptop: $EXPECTED_MODEL_ID)"
-if [[ "$model_id" != "$EXPECTED_MODEL_ID" ]]; then
-    msg="model id $model_id differs from the laptop's $EXPECTED_MODEL_ID: the tag now points at different weights, so results are not comparable with laptop runs"
-    [[ "${ALLOW_MODEL_MISMATCH:-0}" == "1" ]] && echo "WARNING: $msg" || die "$msg (set ALLOW_MODEL_MISMATCH=1 to continue anyway)"
-fi
+for model in $MODELS; do
+    log "Pulling $model"
+    ollama pull "$model"
+    model_id="$(ollama list | awk -v m="$model" '$1 == m {print $2}')"
+    echo "Model $model id: $model_id"
+    if [[ "$model" == "$LAPTOP_MODEL" && "$model_id" != "$LAPTOP_MODEL_ID" ]]; then
+        msg="$model id $model_id differs from the laptop's $LAPTOP_MODEL_ID: the tag now points at different weights, so results are not comparable with laptop runs"
+        [[ "${ALLOW_MODEL_MISMATCH:-0}" == "1" ]] && echo "WARNING: $msg" || die "$msg (set ALLOW_MODEL_MISMATCH=1 to continue anyway)"
+    fi
+done
 
 # ----------------------------------------------------------------- indexes
 log "Building indexes (idempotent; downloads SciFact if needed)"
-python -m scripts.build_indexes
+"$PY" -m scripts.build_indexes
 
 # ------------------------------------------------------------------- evals
-for mode in $MODES; do
-    tag="${mode}_${RUN_ID}"
-    if compgen -G "results/${tag}_*.json" >/dev/null; then
-        log "Skipping $mode: $(ls results/${tag}_*.json | tail -1) already exists"
-        continue
+# Config overrides for every eval run (configs/loader.py env overrides).
+ctx_suffix=""
+if [[ -n "$NUM_CTX" ]]; then
+    export AGENTIC_RAG__LLM__NUM_CTX="$NUM_CTX"; ctx_suffix+="_ctx${NUM_CTX}"
+fi
+if [[ -n "$CONTEXT_CHARS" ]]; then
+    export AGENTIC_RAG__AGENT__CONTEXT_CHARS="$CONTEXT_CHARS"; ctx_suffix+="_chars${CONTEXT_CHARS}"
+fi
+
+for model in $MODELS; do
+    export LLM_MODEL="$model"
+    slug="$(tr ':/' '--' <<< "$model")"
+
+    # Load the model the way the eval will (same num_ctx) and check it fits
+    # in VRAM: a partly CPU-offloaded model runs several times slower and
+    # makes latency numbers meaningless.
+    num_ctx="$("$PY" -c 'from configs.loader import load_config; print(load_config()["llm"]["num_ctx"])')"
+    log "Loading $model (num_ctx=$num_ctx) to check it fits in VRAM"
+    curl -fs http://127.0.0.1:11434/api/generate \
+        -d "{\"model\": \"$model\", \"prompt\": \"\", \"options\": {\"num_ctx\": $num_ctx}}" >/dev/null
+    placement="$(ollama ps | awk -v m="$model" '$1 == m {for (i = 1; i <= NF; i++) if ($i ~ /%/) {print $i, $(i+1); exit}}')"
+    echo "$model placement: ${placement:-unknown}"
+    if [[ "$placement" != "100% GPU" ]]; then
+        msg="$model is not fully on the GPU ($placement) at num_ctx=$num_ctx"
+        [[ "${ALLOW_CPU_OFFLOAD:-0}" == "1" ]] && echo "WARNING: $msg" || die "$msg; use a smaller model, a smaller NUM_CTX or a bigger GPU (or ALLOW_CPU_OFFLOAD=1)"
     fi
-    log "Evaluating mode=$mode tag=$tag (log: $LOG_DIR/$tag.log)"
-    args=(--mode "$mode" --tag "$tag")
-    [[ -n "$EVAL_SETS" ]] && args+=(--sets "$EVAL_SETS")
-    # JSON logs go to the log file only; the summary table goes to both.
-    python -m evaluation.evaluate_rag "${args[@]}" 2>>"$LOG_DIR/$tag.log" | tee -a "$LOG_DIR/$tag.log"
+
+    for mode in $MODES; do
+        tag="${mode}_${RUN_ID}_${slug}${ctx_suffix}"
+        if compgen -G "results/${tag}_*.json" >/dev/null; then
+            log "Skipping $tag: $(ls results/"${tag}"_*.json | tail -1) already exists"
+            continue
+        fi
+        log "Evaluating model=$model mode=$mode tag=$tag (log: $LOG_DIR/$tag.log)"
+        args=(--mode "$mode" --tag "$tag")
+        [[ -n "$EVAL_SETS" ]] && args+=(--sets "$EVAL_SETS")
+        # JSON logs go to the log file only; the summary table goes to both.
+        "$PY" -m evaluation.evaluate_rag "${args[@]}" 2>>"$LOG_DIR/$tag.log" | tee -a "$LOG_DIR/$tag.log"
+    done
+    # Free the VRAM before the next model loads next to the encoders.
+    ollama stop "$model" || true
 done
 
 # ------------------------------------------------------------------- done
