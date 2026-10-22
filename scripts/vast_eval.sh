@@ -77,20 +77,28 @@ command -v nvidia-smi >/dev/null || die "nvidia-smi not found: is this a GPU ins
 
 # Older drivers print "CUDA Version: 13.0", newer ones "CUDA UMD Version: 13.4".
 cuda_version="$(nvidia-smi | sed -nE 's/.*CUDA (UMD )?Version: ([0-9]+\.[0-9]+).*/\2/p' | head -1)"
-if [[ -z "$cuda_version" ]]; then
-    echo "WARNING: could not read the driver's CUDA version; relying on the torch GPU check below"
-else
-    # requirements.txt pins torch==...+cu130, which needs a CUDA 13 driver.
-    (( ${cuda_version%%.*} >= 13 )) \
-        || die "driver supports CUDA $cuda_version; this needs >= 13.0 (filter on 'Max CUDA' when renting)"
-fi
-echo "GPU: $(nvidia-smi --query-gpu=name,memory.total --format=csv,noheader) | driver CUDA ${cuda_version:-unknown}"
+[[ -n "$cuda_version" ]] || die "could not read the driver's CUDA version from nvidia-smi"
+echo "GPU: $(nvidia-smi --query-gpu=name,memory.total --format=csv,noheader) | driver CUDA $cuda_version"
 
-# CUDA 13 (the pinned torch build) dropped GPUs below compute capability 7.5
-# (Pascal, e.g. Tesla P40, and older): torch would not run on them.
+# torch only runs the query/document encoders (Ollama ships its own CUDA
+# runtime), so the torch build follows the driver, as the Dockerfile's
+# TORCH_VARIANT does: the cu130 build pinned in requirements.txt on a CUDA 13
+# driver, the same torch version built for cu126 on a CUDA 12 driver.
+TORCH_VERSION="$(sed -nE 's/^torch==([0-9.]+)\+cu[0-9]+.*/\1/p' requirements.txt)"
+[[ -n "$TORCH_VERSION" ]] || die "could not read the torch pin from requirements.txt"
+case "${cuda_version%%.*}" in
+    1[3-9]) TORCH_VARIANT=cu130 ;;
+    12)     TORCH_VARIANT=cu126 ;;
+    *)      die "driver supports CUDA $cuda_version; this needs >= 12 (filter on 'Max CUDA' when renting)" ;;
+esac
+echo "torch: $TORCH_VERSION+$TORCH_VARIANT"
+
+# CUDA 13 dropped GPUs below compute capability 7.5 (Pascal, e.g. Tesla P40).
 compute_cap="$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | head -1 | tr -d ' ')"
-awk -v c="$compute_cap" 'BEGIN { exit !(c >= 7.5) }' \
-    || die "GPU compute capability $compute_cap is below 7.5; the pinned CUDA 13 torch cannot use it (rent an RTX 20-series or newer)"
+if [[ "$TORCH_VARIANT" == cu130 ]]; then
+    awk -v c="$compute_cap" 'BEGIN { exit !(c >= 7.5) }' \
+        || die "GPU compute capability $compute_cap is below 7.5, which CUDA 13 torch cannot use (rent an RTX 20-series or newer)"
+fi
 
 free_gb="$(df -BG --output=avail "$REPO_ROOT" | tail -1 | tr -dc '0-9')"
 (( free_gb >= MIN_FREE_GB )) \
@@ -122,9 +130,12 @@ if (( ${#missing[@]} )); then
 fi
 
 # --------------------------------------------------------- Python dependencies
-log "Installing Python dependencies (requirements.txt)"
+log "Installing Python dependencies (torch $TORCH_VERSION+$TORCH_VARIANT, then core + ml)"
 "$PY" -m pip install -q --upgrade pip
-"$PY" -m pip install -q -r requirements.txt
+# torch first, from its CUDA index, so nothing below pulls a PyPI build.
+"$PY" -m pip install -q "torch==${TORCH_VERSION}+${TORCH_VARIANT}" \
+    --index-url "https://download.pytorch.org/whl/${TORCH_VARIANT}"
+"$PY" -m pip install -q -r requirements-core.txt -r requirements-ml.txt
 "$PY" - <<'EOF'
 import torch
 assert torch.cuda.is_available(), "torch cannot see the GPU"
