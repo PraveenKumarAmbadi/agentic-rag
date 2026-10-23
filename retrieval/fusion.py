@@ -65,7 +65,10 @@ def fuse_rrf(
     scores: dict[str, dict] = {}
 
     for ranked_list in ranked_lists:
-        for rank, result in enumerate(ranked_list, start=1):
+        # Sort descending by score so rank 1 = most relevant, regardless of
+        # whether the caller already sorted. Cost is negligible on small lists.
+        sorted_list = sorted(ranked_list, key=lambda r: r.score, reverse=True)
+        for rank, result in enumerate(sorted_list, start=1):
             doc_id = result.doc_id
             rrf_score = 1.0 / (k + rank)
 

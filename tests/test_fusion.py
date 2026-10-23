@@ -22,6 +22,20 @@ def run(**kwargs):
     )
 
 
+class TestFuseRRF(unittest.TestCase):
+    """fuse_rrf used to trust the input order; it must rank by score."""
+
+    def test_ranks_by_score_even_when_the_input_is_unsorted(self):
+        ranked_lists = [[
+            SearchResult(doc_id="low", score=1, text="a", title="aa"),
+            SearchResult(doc_id="high", score=100, text="a", title="aa"),
+            SearchResult(doc_id="medium", score=50, text="a", title="aa"),
+        ]]
+        fused_results = fusion.fuse_rrf(ranked_lists=ranked_lists)
+        sorted_doc_ids = [result.doc_id for result in fused_results]
+        self.assertEqual(sorted_doc_ids, ["high", "medium", "low"])
+
+
 class TestSearchHybrid(unittest.TestCase):
     def setUp(self):
         for name, ids in (("search_bm25", ("a", "b")), ("search_splade", ("b", "c")), ("search_dense", ("b",))):
